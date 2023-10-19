@@ -9,6 +9,9 @@ import { getAuthSession } from '@/lib/auth';
 import { User2 } from 'lucide-react';
 import Link from 'next/link';
 import { DropdownMenuItemLogout } from './LogoutButton';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/pro-duotone-svg-icons";
+
 
 export const UserProfile = async () => {
   const session = await getAuthSession();
@@ -16,7 +19,8 @@ export const UserProfile = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="sm" variant="outline">
+        <Button size="lg" variant="outline">
+        <FontAwesomeIcon icon={faUser} className="mr-2 h-4 w-4" />
           {session?.user.name ?? ''}
         </Button>
       </DropdownMenuTrigger>
@@ -24,7 +28,7 @@ export const UserProfile = async () => {
         <DropdownMenuItem asChild>
           <Link href="/profile">
             <User2 className="mr-2 h-4 w-4" />
-            Profile
+            Mes commandes
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItemLogout />

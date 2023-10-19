@@ -6,14 +6,13 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
 	],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+    fontFamily: {
+      sans: ["Mukta", "system-ui"],
+      serif: ["Bitter", "Georgia"],
+      display: ["Kalam", "Comic Sans MS"],
     },
     extend: {
       colors: {
@@ -73,4 +72,7 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  daisyui: {
+    // themes: ["light", "dark", "cupcake"],
+  },
 }

@@ -7,10 +7,6 @@ import { prisma } from "./prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
-bcrypt.hash('password', 10, function(err:any, hash:any) {
-    console.log(hash);
-  });
-
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   // Configure one or more authentication providers
