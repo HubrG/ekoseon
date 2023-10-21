@@ -7,14 +7,15 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Session } from "next-auth";
-import { Bitter, Caveat, Exo } from "next/font/google";
+import { Bitter, Caveat, Noto_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
-const sans = Exo({
+const sans = Noto_Sans({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+  weight: ["500"]
 });
 const serif = Bitter({
   subsets: ["latin"],

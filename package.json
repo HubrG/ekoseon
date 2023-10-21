@@ -45,7 +45,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.287.0",
-    "next": "13.5.6-canary.6",
+    "next": "13.5.6",
     "next-auth": "^4.23.2",
     "next-page-transitions": "1.0.0-beta.2",
     "next-themes": "^0.2.1",
