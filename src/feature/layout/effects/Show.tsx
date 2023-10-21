@@ -3,11 +3,11 @@ import { useEffect, useState, ReactNode } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-interface MotionAnimateProps {
+interface MotionShowProps {
   children: ReactNode;
   threshold?: number;
   triggerOnce?: boolean;
-  animation?: keyof typeof variants;
+  animation?: "BottomToTop" | "TopToBottom" | "slideIn" | "zoomIn" | "rotateIn" | "bounceIn" | "swingIn" | "slideInFromRight" | "slideInFromLeft" | "slideInFromTop" | "slideInFromBottom" | "rotateInFrom90" | "rotateInFromNeg90" | "scaleUp" | "scaleDown" | "flipX" | "flipY";
 }
 
 const variants: { [key: string]: Variants } = {
@@ -54,7 +54,7 @@ const variants: { [key: string]: Variants } = {
     slideInFromBottom: {
       visible: { opacity: 1, y: 0 },
       hidden: { opacity: 0, y: 100 },
-    },
+  },
     rotateInFrom90: {
       visible: { opacity: 1, rotate: 0 },
       hidden: { opacity: 0, rotate: 90 },
@@ -81,7 +81,7 @@ const variants: { [key: string]: Variants } = {
     },
   };
 
-const MotionAnimate: React.FC<MotionAnimateProps> = ({
+const MotionShow: React.FC<MotionShowProps> = ({
   children,
   threshold = 0,
   triggerOnce = false,
@@ -123,4 +123,4 @@ const MotionAnimate: React.FC<MotionAnimateProps> = ({
   );
 }
 
-export default MotionAnimate;
+export default MotionShow;

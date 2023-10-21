@@ -1,4 +1,4 @@
-'use client'; // Error components must be Client Components
+'use client'; 
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
@@ -12,7 +12,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
+   
     console.error(error);
   }, [error]);
 

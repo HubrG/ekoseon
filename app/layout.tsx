@@ -1,19 +1,31 @@
-import { ThemeProvider } from "@/src/theme/ThemeProvider";
-import "./globals.css";
-import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { clsx } from "clsx";
-import { Header } from "@/src/feature/layout/Header";
-import { Footer } from "@/src/feature/layout/Footer";
 import Provider from "@/context/Provider";
+import { Footer } from "@/src/feature/layout/Footer";
+import { Header } from "@/src/feature/layout/Header";
+import PageTransition from "@/src/feature/layout/effects/PageTransition";
+import { ThemeProvider } from "@/src/theme/ThemeProvider";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { clsx } from "clsx";
+import type { Metadata } from "next";
 import { Session } from "next-auth";
+import { Bitter, Caveat, Exo } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = Exo({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+const serif = Bitter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-serif",
+});
+const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   title: "Ekoseon",
-  description: "Ekoséon",
+  description: "Ekoseon",
 };
 
 export default function RootLayout({
@@ -24,16 +36,39 @@ export default function RootLayout({
   session: Session;
 }) {
   return (
-    <html lang="fr">
-      <Provider session={session}>
-        <body className={clsx(inter.className, "bg-background")}>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <Header />
-            <div className="py-0 p-0">{children}</div>
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </Provider>
-    </html>
+    <>
+      <html
+        lang="fr"
+        suppressHydrationWarning={true}
+        className={`${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+        <Provider session={session}>
+          <body
+            className={clsx("bg-background")}
+            suppressHydrationWarning={true}>
+            <NextTopLoader
+              color="#86198f"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={2}
+              crawl={true}
+              showSpinner={true}
+              easing="ease"
+              speed={200}
+              shadow={false}
+            />
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="light"
+                enableSystem>
+                <Header />
+                  <PageTransition>
+                <div className="">{children}</div>
+            </PageTransition>
+                <Footer />
+              </ThemeProvider>
+          </body>
+        </Provider>
+      </html>
+    </>
   );
 }

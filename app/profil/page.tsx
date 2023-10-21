@@ -1,3 +1,5 @@
+import PageTransition from "@/src/feature/layout/effects/PageTransition";
+
 import {  Accordion,
     AccordionContent,
     AccordionItem,
@@ -6,9 +8,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import React from 'react'
 
-export default function Profile() {
+export default async function Profile() {
   return (
-      <div>
+    <PageTransition>
+      <div className="main-content">
           <Button>Click me</Button>
           <Input />
           <Accordion type="single" collapsible className="w-full">
@@ -34,5 +37,6 @@ export default function Profile() {
       </AccordionItem>
     </Accordion>
       </div>
+      </PageTransition>
   )
 }

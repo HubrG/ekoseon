@@ -2,17 +2,18 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     fontFamily: {
-      sans: ["Mukta", "system-ui"],
-      serif: ["Bitter", "Georgia"],
-      display: ["Kalam", "Comic Sans MS"],
+      sans: ["var(--font-sans)", "system-ui"],
+      serif: ["var(--font-serif)", "Georgia"],
+      display: ["var(--font-display)", "Comic Sans MS"],
+      emoji: ["Noto Color Emoji", "system-ui"],
     },
     extend: {
       colors: {
@@ -28,6 +29,20 @@ module.exports = {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        eko: {
+          50: "#fdf4ff",
+          100: "#fae8ff",
+          200: "#f5d0fe",
+          300: "#f0abfc",
+          400: "#e879f9",
+          500: "#d946ef",
+          600: "#c026d3",
+          700: "#a21caf",
+          800: "#86198f",
+          900: "#701a75",
+          950: "#4a044e",
+          DEFAULT:"#c026d3"
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -75,4 +90,4 @@ module.exports = {
   daisyui: {
     // themes: ["light", "dark", "cupcake"],
   },
-}
+};

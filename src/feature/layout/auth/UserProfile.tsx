@@ -26,7 +26,7 @@ export const UserProfile = async () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <Link href="/profile">
+          <Link href="/profil">
             <User2 className="mr-2 h-4 w-4" />
             Mes commandes
           </Link>
