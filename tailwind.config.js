@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const appColor = "fuchsia";
+const appColor = "slate";
 // tahiti   #22d3ee,
 // rose     #fb7185,
 // orange   #fb923c,

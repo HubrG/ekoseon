@@ -4,7 +4,7 @@ import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faGift } from "@fortawesome/pro-solid-svg-icons";
+import { faGift } from "@fortawesome/pro-solid-svg-icons";
 import Link from "next/link";
 import MainMenu from "@/src/feature/layout/header/MainMenu";
 import BurgerMenu from "@/src/feature/layout/header/BurgerMenu";
@@ -42,7 +42,7 @@ export const Header = async () => {
               </Link>
               <div className="md:block hidden">
                 {session?.user ? <UserProfile /> : <LoginButton />}
-              </div>
+                </div>
               {/* <ThemeToggle /> */}
             </div>{" "}
             <BurgerMenu links={links} />

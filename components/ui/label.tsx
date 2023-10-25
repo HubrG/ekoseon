@@ -10,7 +10,7 @@ type Variants = 'base' | 'default' | 'variant2';
 const getLabelVariantClass = (variant: Variants) => {
   switch (variant) {
     case 'base':
-      return "text-sm font-medium leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70";
+      return "shadcnLabel-base";
     case 'default':
       return "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70";
     case 'variant2':

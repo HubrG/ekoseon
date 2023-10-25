@@ -1,7 +1,6 @@
 import Provider from "@/context/Provider";
 import { Footer } from "@/src/feature/layout/Footer";
 import { Header } from "@/src/feature/layout/Header";
-import PageTransition from "@/src/feature/layout/effects/PageTransition";
 import { ThemeProvider } from "@/src/theme/ThemeProvider";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { clsx } from "clsx";
@@ -10,6 +9,7 @@ import { Session } from "next-auth";
 import { Bitter, Caveat, Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+import Head from "next/head";
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -30,12 +30,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
   session,
 }: {
   children: React.ReactNode;
   session: Session;
-  modal?: React.ReactNode;
 }) {
   return (
     <>
@@ -60,17 +58,11 @@ export default function RootLayout({
               speed={200}
               shadow={false}
             />
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="light"
-                enableSystem>
-                <Header />
-                  <PageTransition>
-                <div className="">{children}</div>
-            </PageTransition>
-                <Footer />
-                {modal}
-              </ThemeProvider>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+              <Header />
+              <div>{children}</div>
+              <Footer />
+            </ThemeProvider>
           </body>
         </Provider>
       </html>

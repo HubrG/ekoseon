@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react"; // Assurez-vous d'importer React pour les types
+import CustomerInfoForm from "@/src/feature/layout/ecommerce/validation/CustomerInfoForm";
+import React, { useEffect, useState, Suspense } from "react"; // Assurez-vous d'importer React pour les types
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { CartProduct } from "@/lib/types/CartProduct";
 import { Elements } from "@stripe/react-stripe-js";
@@ -16,11 +17,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { User } from '@prisma/client';
-import Cookies from 'js-cookie';
-import CustomerInfoForm from "@/src/feature/ecommerce/validation/CustomerInfoForm";
+import { User } from "@prisma/client";
+import Cookies from "js-cookie";
+import Skeleton from "@/src/feature/layout/skeleton/Content";
 
 //
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
@@ -29,39 +28,38 @@ if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 //
 type CheckoutFormProps = {
-  user: User | undefined;
-}
+  user?: User | undefined;
+};
 type CartData = {
   items?: CartProduct[];
 };
+
 //
 //
-
-
-// 
-// 
-export function CheckoutForm({ user, ...props }: CheckoutFormProps) {
-  
+export function CheckoutForm({ ...props }: CheckoutFormProps) {
   return (
-    <Elements stripe={stripePromise}>
-      <InnerCheckoutForm />
-    </Elements>
+    <>
+      <Elements stripe={stripePromise}>
+        <InnerCheckoutForm />
+      </Elements>
+    </>
   );
 }
-// 
-// 
+//
+//
 export function InnerCheckoutForm() {
   const [isPending, startTransition] = useTransition();
-  const [cartData, setCartData] = useState<CartData>()
+  const [cartData, setCartData] = useState<CartData>();
   const [areFieldsValid, setAreFieldsValid] = useState(false);
+  
 
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
 
   useEffect(() => {
-  setCartData(JSON.parse(Cookies.get("cart") || "{}"))
-  },[])
+    setCartData(JSON.parse(Cookies.get("cart") || "{}"));
+  }, []);
 
   const cartItems = cartData?.items || [];
   const calculatedTotal = cartItems?.reduce(
@@ -157,40 +155,48 @@ export function InnerCheckoutForm() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-             <CustomerInfoForm setValidity={setAreFieldsValid} />
-              <div className="grid w-full max-w-sm items-center gap-3">
-                <Label
-                  variant="default"
-                  className="font-bold mb-2"
-                  htmlFor="paymentInfo">
-                  Informations de paiement
-                </Label>
+            <CustomerInfoForm setValidity={setAreFieldsValid} />
+            <div className="grid w-full  items-center gap-3">
+              <div className=" relative my-4">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-app-500" />
+                </div>
+                <div className="relative flex justify-center  text-xs ">
+                  <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
+                    Informations de paiement
+                  </span>
+                </div>
+              </div>
+
+              <Suspense fallback={<Skeleton />}>
                 <CardElement id="paymentInfo" />
+              </Suspense>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <div className="grid grid-cols-2 w-full gap-x-5 mt-5 items-center">
-              {areFieldsValid ? "ok" :"pas ok"}
-              <Button
-                type="submit"
-                className={`${
-                  isPending ? "disabled opacity-50 cursor-default" : null
-                }`}
-                disabled={!areFieldsValid && !stripe}>
-                {isPending ? <Loader className="mr-2 h-4 w-4" /> : null} Régler{" "}
-                {calculatedTotal}€
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleSubscription}>
-                Ou par mensualités
-              </Button>
-            </div>
+            <Suspense fallback={<Skeleton />}>
+              <div className="grid grid-cols-2 w-full gap-x-5 mt-5 items-center">
+                <Button
+                  type="submit"
+                  className={`${
+                    isPending ? "disabled opacity-50 cursor-default" : null
+                  }`}
+                  disabled={!areFieldsValid || !stripe}>
+                  {isPending ? <Loader className="mr-2 h-4 w-4" /> : null}{" "}
+                  Régler {calculatedTotal}€
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleSubscription}
+                  disabled={!areFieldsValid || !stripe}>
+                  Ou par mensualités
+                </Button>
+              </div>
+            </Suspense>
           </CardFooter>
         </Card>
       </form>
     </>
   );
 }
-

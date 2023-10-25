@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import { Product as PrismaProduct } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
 import { CartProduct } from "@/lib/types/CartProduct";
-import  Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
 import {
   Card,
   CardContent,
@@ -13,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Loader } from "@/components/ui/loader";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -20,6 +20,7 @@ import DecimalJS from "decimal.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBookSparkles,
+  faArrowRightToArc,
   faMicrophoneStand,
   faMinusCircle,
   faPlusCircle,
@@ -29,6 +30,7 @@ import { useRouter } from "next/navigation";
 type ProductProps = {
   product: FetchedProduct;
   products: FetchedProduct[];
+  key:string
 };
 
 type FetchedProduct = Omit<PrismaProduct, "price"> & {
@@ -39,8 +41,9 @@ interface Cart {
   items: CartProduct[];
 }
 
-export const Product: React.FC<ProductProps> = ({ product, products }) => {
+export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   // Initialisation des états
   const [qte, setQte] = useState<number>(1);
@@ -160,6 +163,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
   }
 
   const addToCart = () => {
+    startTransition(() => console.log());
     let cartItems: CartProduct[] = []; // Créez un tableau pour stocker tous les produits
 
     const mainCartItem: CartProduct = {
@@ -170,7 +174,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
         parseFloat(microCost.toString()) -
         parseFloat(bioCost.toString()),
       quantity: qte,
-      img: product.imageUrl?? undefined,
+      img: product.imageUrl ?? undefined,
       description: product.description,
       products: [],
     };
@@ -182,7 +186,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
         name: productWithMicro.title,
         price: parseFloat(microCost.toString()),
         quantity: 1,
-        img: productWithMicro.imageUrl?? undefined,
+        img: productWithMicro.imageUrl ?? undefined,
         description: productWithMicro.description,
         products: [],
       };
@@ -195,7 +199,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
         name: productWithBio.title,
         price: parseFloat(bioCost.toString()),
         quantity: 1,
-        img: productWithBio.imageUrl?? undefined,
+        img: productWithBio.imageUrl ?? undefined,
         description: productWithBio.description,
         products: [],
       };
@@ -205,7 +209,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
     // Remplacer l'objet "items" du localStorage par le nouvel objet
     let cart: Cart = { items: cartItems };
 
-    Cookies.set('cart', JSON.stringify(cart));
+    Cookies.set("cart", JSON.stringify(cart));
     router.push("/achat/validation");
   };
 
@@ -219,6 +223,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
         <CardDescription>{product.description}</CardDescription>
         <div className="grid grid-cols-2 gap-x-5  pt-3">
           <Button
+            aria-label="Réduire d'une unité de quantité"
             variant="outline"
             className={`${
               qte === 1 ? "opacity-50 cursor-default" : null
@@ -227,6 +232,7 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
             <FontAwesomeIcon icon={faMinusCircle} />
           </Button>
           <Button
+            aria-label="Ajouter d'une unité de quantité"
             variant="outline"
             onClick={() => handleQte(qte + 0.5)}
             className=" bg-app-50/50">
@@ -244,12 +250,13 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
                 : "border border-transparent"
             }`}>
             <Switch
-              id="microphone"
+              id={`${key}-microphone`}
+              aria-label="Ajouter un micro"
               onClick={handleMicro}
               className="absolute bottom-5"
             />
             <Label
-              htmlFor="microphone"
+              htmlFor={`${key}-microphone`}
               className="text-center select-none cursor-pointer flex flex-col gap-y-5">
               <FontAwesomeIcon
                 icon={faMicrophoneStand}
@@ -283,12 +290,13 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
                 : "border border-transparent"
             }`}>
             <Switch
-              id="biography"
+              id={`${key}-biography`}
+              aria-label="Ajouter une biographie"
               onClick={handleBio}
               className="absolute bottom-5"
             />
             <Label
-              htmlFor="biography"
+              htmlFor={`${key}-biography`}
               className="text-center  select-none cursor-pointer  flex flex-col gap-y-5 ">
               <FontAwesomeIcon
                 icon={faBookSparkles}
@@ -336,8 +344,21 @@ export const Product: React.FC<ProductProps> = ({ product, products }) => {
         <div className="product-price">{finalPrice}€</div>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button className="w-full" onClick={addToCart}>
+        <Button
+          aria-label="Procéder au paiement"
+          className={`${
+            isPending ? "disabled opacity-50 cursor-default" : null
+          } w-full`}
+          onClick={addToCart}>
           C&apos;est parti !
+          {isPending ? (
+            <Loader className="ml-2 h-4 w-4" />
+          ) : (
+            <FontAwesomeIcon
+              className="ml-2 h-4 w-4"
+              icon={faArrowRightToArc}
+            />
+          )}
         </Button>
       </CardFooter>
     </Card>

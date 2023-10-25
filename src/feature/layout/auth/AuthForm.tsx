@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faSpinner,faArrowRightToArc  } from "@fortawesome/pro-duotone-svg-icons";
-import {  Card,
+import { 
   CardContent,
   CardFooter,
   CardHeader } from "@/components/ui/card";
@@ -41,10 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <section>
-    <div className="content  max-w-lg">
-  <h1 className="title-page"><FontAwesomeIcon icon={faArrowRightToArc} /> Connexion sur Ekoseon</h1>
-<Card>
+   <>
   <CardHeader className="no-card-header"></CardHeader>
       <CardContent className="grid gap-4">
 
@@ -95,9 +92,7 @@ const LoginPage = () => {
         Connexion avec Google
       </Button>
       </CardFooter>
-    </Card>
-    </div>
-    </section>
+</>
   );
 };
 

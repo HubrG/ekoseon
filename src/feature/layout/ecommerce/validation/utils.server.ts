@@ -1,6 +1,7 @@
 "use server";
 import { getUser } from "@/src/query/user.query";
 import bcrypt from 'bcrypt';
+import { getUserLog } from "@/src/query/user.query";
 
 export const isEmailExists = async (email: string) => {
     const user = await getUser(email);
@@ -18,3 +19,9 @@ export const hashPassword = async (password: string) => {
     const hp = await bcrypt.hash(password, 10)
     return hp;
 };
+
+export const isUserLog = async () => {
+    return await getUserLog()
+
+}
+

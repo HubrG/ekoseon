@@ -308,7 +308,7 @@ div product-alt:first-child {
 
 
 .PhoneInputInput {
-  @apply   flex h-9 w-full rounded-md border border-app-200 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-bold placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50 !important;
+  @apply   shadcnInput !important;
 }
 .PhoneInputCountryIcon--border {
   @apply bg-transparent border-0  !important;
@@ -317,4 +317,17 @@ div product-alt:first-child {
 .PhoneInputCountryIcon img {
   @apply rounded !important;
   
+}
+.selectionLocalisation {
+  @apply bg-app-100 px-5 py-0.5 hover:bg-app-200 cursor-pointer hover:text-black
+}
+/* SHADCN */
+.shadcnInput {
+  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-medium placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.shadcnLabel-base {
+  @apply text-sm font-bold leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2
+}
+.shadcnCheckbox {
+  @apply  h-4 w-4 shrink-0 rounded-sm border border-app shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-app data-[state=checked]:text-primary-foreground
 }

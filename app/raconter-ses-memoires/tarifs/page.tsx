@@ -1,20 +1,19 @@
-import { Products } from "@/src/feature/ecommerce/Products";
+import { Products } from "@/src/feature/layout/ecommerce/Products";
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
-import { getProduct, getProducts } from "@/src/query/product.query";
+import Loading from './loading';
 
-export default async function pricing() {
-  const rawProducts = await getProducts();
+
+export default function pricing() {
+
   // On converti le "price" (Decimal) en String
-  const products = rawProducts.map(product => ({
-    ...product,
-    price: product.price.toString()
-  }));
+  
 
   return (
     <PageTransition>
       <section className=" relative z-0  ">
         <div className="content max-w-xl">
-          <Products products={products} />
+          <h1>test</h1>
+            <Products  />
         </div>
       </section>
     </PageTransition>

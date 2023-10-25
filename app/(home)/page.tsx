@@ -1,16 +1,15 @@
-// import { getAuthSession } from "@/lib/auth";
 import MotionParallax from "@/src/feature/layout/effects/Parallax";
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Image from "next/image";
 import GetStartButton from "@/src/feature/layout/home/GetStartButton";
-import PageTransition from "@/src/feature/layout/effects/PageTransition";
+
 export default async function Home() {
   return (
     <>
         <section className=" relative z-0  ">
           <MotionParallax speed={0.3} type={1}>
             <div className="flex items-center box-border h-screen bg-cover relative bg-center z-0">
-              <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen">
+            <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen">
                 <Image
                   priority={true}
                   src="/img/test.jpeg"

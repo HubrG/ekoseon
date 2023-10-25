@@ -11,3 +11,7 @@ declare module 'bcrypt';
 declare module 'js-cookie';
 declare module 'validator';
 declare module 'bcrypt';
+
+declare module 'react-places-autocomplete'
+
+declare module "uuid"
