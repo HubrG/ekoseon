@@ -51,53 +51,84 @@
 }
 
 @layer base {
+  ::selection {
+    @apply bg-app-500 dark:bg-app-900 text-app-50;
+   }
   * {
-    @apply border-border  font-sans p-0 m-0;
+    @apply border-border font-sans p-0 m-0 
   }
   body {
-    @apply bg-background;
+    @apply bg-app-50 dark:bg-slate-900 bg-opacity-50 !important;
   }
- 
+  p {
+    @apply text-app-900 dark:text-app-50
+  }
+  main {
+    @apply bg-app-50 dark:bg-slate-800 bg-opacity-50;
+  }
+  nav {
+    @apply bg-app-50 dark:bg-slate-900 fixed w-full    z-20 top-0 left-0 shadow dark:shadow-slate-950 shadow-app-200 border-app-600 border-opacity-70   dark:border-slate-800;
+  }
+  nav div:first-child {
+    @apply max-w-screen-xl flex flex-wrap items-center backdrop-blur-lg justify-between mx-auto p-4 py-[0.5rem];
+  }
 }
 @layer components {
   .content {
-    @apply max-w-5xl px-5  mx-auto;
+    @apply max-w-5xl px-5 pt-20 mx-auto mt-10 min-h-[70vh] text-lg ;
   }
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-sans  mt-0 mb-4 leading-7;
-}
+  .content-centered {
+    @apply   mx-auto min-h-screen  flex items-center justify-center;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans  mt-0 mb-1 leading-7 flex flex-col gap-y-2;
+  }
+  h1 svg,
+  h2 svg,
+  h3 svg,
+  h4 svg,
+  h5 svg,
+  h6 svg {
+    @apply dark:text-app-200 text-app-600 text-3xl !important;
+  }
+  h1 {
+    @apply text-app-800 dark:text-app-400;
+  }
+  h1.title-page {
+    @apply text-center  mb-14;
+  }
 
-h1 {
-  @apply text-4xl font-bold;
-}
+  h1 {
+    @apply md:text-4xl text-3xl font-bold;
+  }
 
-h2 {
-  @apply text-3xl font-bold;
-}
+  h2 {
+    @apply md:text-2xl text-xl font-bold  text-app-900 dark:text-app-300;
+  }
 
-h3 {
-  @apply text-2xl font-bold;
-}
+  h3 {
+    @apply md:text-xl text-lg font-bold  text-app-700;
+  }
 
-h4 {
-  @apply text-xl font-bold;
-}
+  h4 {
+    @apply md:text-lg text-base font-bold  text-app-950;
+  }
 
-h5 {
-  @apply text-lg font-bold;
-}
+  h5 {
+    @apply md:text-base text-sm font-bold  text-app-950;
+  }
 
-h6 {
-  @apply text-base font-bold;
-}
-p {
-  @apply text-base leading-6 mb-4;
+  h6 {
+    @apply md:text-sm text-xs font-bold  text-app-950;
+  }
+  p {
+    @apply md:text-base text-sm leading-6 mb-4;
+  }
 }
 .background-hero {
   animation: animateBackground 10s infinite;
@@ -148,11 +179,11 @@ p {
 }
 
 a {
-  @apply hover:underline text-eko;
+  @apply hover:underline text-app dark:text-app-300;
   position: relative;
 }
 a.nunderline {
-  @apply hover:no-underline !important;
+  @apply hover:no-underline dark:hover:text-app-300 hover:text-app-700 text-app-950 dark:text-app-50 !important;
 }
 a.special-uderline::after,
 a.special-uderline-active::after {
@@ -177,7 +208,7 @@ a.special-uderline-active::after {
 }
 
 a.special-uderline-active {
-  @apply text-eko !important;
+  @apply text-app-700 dark:text-app-300 !important;
 }
 
 .button-pressed {
@@ -186,17 +217,17 @@ a.special-uderline-active {
 }
 
 .first-section {
-  @apply w-full relative  bg-secondary min-h-screen p-5 pt-20 z-10 bg-gradient-to-b from-slate-200 via-slate-100 to-slate-100 rounded-t-2xl;
-}
-.section {
-  @apply bg-slate-100 shadow-2xl  border-opacity-50 shadow-slate-100 !important;
+  @apply w-full relative  shadow-t-xl min-h-screen pt-10 z-10 bg-app-50 rounded-t-2xl;
 }
 .dark .first-section {
-  @apply w-full relative bg-secondary min-h-screen p-5 pt-20 z-10 bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
+  @apply bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
+}
+section {
+  @apply border-opacity-50 bg-app-50  bg-opacity-50  text-app-950 dark:text-app-50;
 }
 
-.dark .section {
-  @apply bg-slate-800 shadow-2xl border-opacity-50 shadow-slate-900 !important;
+.dark section {
+  @apply bg-slate-800 border-opacity-50 !important;
 }
 
 /* styles.css */
@@ -213,4 +244,77 @@ a.special-uderline-active {
 .page-transition-exit-active {
   opacity: 0;
   transition: opacity 300ms;
+}
+/* Main Menu */
+ul.main-menu {
+  @apply flex flex-col p-4 md:p-0 mt-4 font-medium border border-slate-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-slate-800 md:dark:bg-slate-900 dark:border-slate-700 text-lg;
+}
+div.main-menu {
+  @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1;
+}
+ul.main-menu li a {
+  @apply nunderline block py-2 pl-3 text-[1.105rem] pr-4 rounded hover:bg-slate-100 md:hover:bg-transparent md:hover:text-app md:p-0 md:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700;
+}
+
+/* Burger Menu */
+div.burger-menu {
+  @apply -z-10 absolute top-[4.5rem] left-0 w-full bg-app-200 dark:bg-slate-800 border-b-2 border-t-2 border-app-300;
+}
+div.burger-menu ul {
+  @apply text-base w-full text-center;
+}
+div.burger-menu ul li a {
+  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  hover:bg-app-100 md:hover:bg-transparent md:hover:text-app md:p-0 md:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700;
+}
+/* LOGO */
+.logo {
+  @apply flex items-center nunderline  gap-x-3;
+}
+.logo span {
+  @apply self-center text-3xl font-semibold whitespace-nowrap dark:text-white;
+}
+.logo span span:first-child {
+  @apply text-app dark:text-app-300;
+}
+.logo span span {
+  @apply text-app-950  dark:text-app-50;
+}
+
+
+/* CARD */
+
+.no-card-header {
+  @apply pt-1;
+}
+
+/* Product */
+
+.product-alt {
+  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 rounded-xl;
+}
+.product-alt {
+  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 rounded-xl pb-16;
+}
+div product-alt:first-child {
+  @apply border-2 border-r-2
+}
+.product-price {
+  @apply  w-full items-center space-x-2 gap-y-5  -mt-5 p-3 text-3xl bg-app-100 font-bold text-app rounded-xl;
+}
+
+.bar {
+  @apply border-app-500 bg-app-400 !important;
+}
+
+
+.PhoneInputInput {
+  @apply   flex h-9 w-full rounded-md border border-app-200 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-bold placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50 !important;
+}
+.PhoneInputCountryIcon--border {
+  @apply bg-transparent border-0  !important;
+  box-shadow: none !important;
+}
+.PhoneInputCountryIcon img {
+  @apply rounded !important;
+  
 }

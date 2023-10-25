@@ -1,12 +1,29 @@
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
-import Link from "next/link";
+import { getUser } from "@/src/query/user.query";
+import {  Card,
+  CardContent,
+  CardDescription,
+  CardHeader } from "@/components/ui/card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faScaleBalanced } from "@fortawesome/pro-duotone-svg-icons";
 
 export default async function legal() {
-	return (
+
+  return (
     <PageTransition>
-      <section className="content">
-        <h1>Mentions Légales</h1>
-			<p>Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l’économie numérique, il est précisé aux utilisateurs du site legalplace.fr l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi. </p>
+      <section>
+        <div  className="content max-w-3xl">
+          <h1 className="title-page"><FontAwesomeIcon icon={faScaleBalanced} /> Mentions Légales</h1>
+      <Card>
+      <CardHeader className="space-y-1">
+        <CardDescription>
+        Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l’économie numérique, il est précisé aux utilisateurs du site ekoseon.fr l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className=" gap-4">
+
+     
+		
         <h2>
           Identification de l’éditeur et du responsable de la publication :
         </h2>
@@ -17,13 +34,15 @@ export default async function legal() {
           <br />
           Téléphone : +33 6 12 75 82 61
           <br />
-          E-mail : <Link href="mailto:contact@ekoseon.fr">contact@ekoseon.fr</Link>
+          E-mail : <a href="mailto:contact@ekoseon.fr">contact@ekoseon.fr</a>
           <br />
           Numéro de SIRET : 50751843900033
         </p>
 
-        <h2>Hébergement :</h2>
+        <h2>Hébergement et site internet :</h2>
         <p>
+          Créateur du site internet : <a href="mailto:contact@ekoseon.fr">Hubert Giorgi</a>
+        <br />
           Nom de l’hébergeur : <a href="https://vercel.com" target="_blank" >Vercel</a>
         </p>
 
@@ -45,17 +64,20 @@ export default async function legal() {
 
         <h2>Cookies :</h2>
         <p>
-          Le site utilise des cookies afin d&aposaméliorer l&aposexpérience
+          Le site utilise des cookies afin d&apos;améliorer l&apos;expérience
           utilisateur et de réaliser des statistiques de visite.
         </p>
 
         <h2>Limitation de responsabilité :</h2>
         <p>
           Ekoseon ne saurait être tenu responsable des dommages directs ou
-          indirects résultant de l&aposaccès ou de l&aposutilisation du site, y
-          compris l&aposinaccessibilité, les pertes de données, et/ou la
+          indirects résultant de l&apos;accès ou de l&apos;utilisation du site, y
+          compris l&apos;inaccessibilité, les pertes de données, et/ou la
           présence de virus sur le site.
         </p>
+        </CardContent>
+        </Card>
+        </div>
       </section>
     </PageTransition>
   );

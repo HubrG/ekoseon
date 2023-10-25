@@ -11,7 +11,7 @@ import React from 'react'
 export default async function Profile() {
   return (
     <PageTransition>
-      <div className="main-content">
+      <div className="content">
           <Button>Click me</Button>
           <Input />
           <Accordion type="single" collapsible className="w-full">

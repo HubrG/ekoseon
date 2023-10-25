@@ -13,20 +13,19 @@ datasource db {
 
 // Next AUTH
 
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -41,7 +40,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -50,15 +48,90 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Application
+// Application de base
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
   hashedPassword String?
-  accounts      Account[]
-  sessions      Session[]
+  accounts       Account[]
+  sessions       Session[]
+  order          Order[]
 }
+
+model Product {
+  id          String    @id @default(cuid())  // Modifié à String avec CUID
+  title       String
+  description String
+  price       Decimal
+  imageUrl    String?
+  stock       Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  categoryId  String      // Modifié à String
+  display Boolean?
+}
+
+model Category {
+  id       String    @id @default(cuid())  // Modifié à String avec CUID
+  name     String    @unique
+  products Product[]
+}
+
+model Order {
+  id     String    @id @default(cuid())  // Modifié à String avec CUID
+  date   DateTime   @default(now())
+  userId String
+  user   User       @relation(fields: [userId], references: [id])
+  items  OrderItem[]
+}
+
+model OrderItem {
+  id        String    @id @default(cuid())  // Modifié à String avec CUID
+  productId String    // Modifié à String
+  product   Product   @relation(fields: [productId], references: [id])
+  quantity  Float?
+  price     Decimal
+  orderId   String    // Modifié à String
+  order     Order     @relation(fields: [orderId], references: [id])
+}
+
+// USER:
+// Représente un utilisateur ou un client sur la plateforme.
+// Stocke des informations personnelles comme le nom, l'e-mail, et une image éventuellement.
+// Le champ hashedPassword est probablement pour l'authentification si vous décidez de permettre aux utilisateurs de s'inscrire par e-mail et mot de passe.
+// Les relations avec les modèles Account et Session sont probablement pour l'authentification et la gestion des sessions.
+
+// ACCOUNT:
+// Est lié à la table User et semble être utilisé pour la connexion et l'authentification avec des fournisseurs externes (comme Google, Facebook, etc.).
+// Stocke des tokens et d'autres informations de connexion fournies par ces services d'authentification.
+
+// SESSION:
+// Représente une session utilisateur pour un utilisateur connecté.
+// sessionToken est utilisé pour identifier la session, et expires indique quand cette session expire.
+// Est directement lié à un utilisateur, permettant de retracer une session à un utilisateur spécifique.
+
+// VERIFICATIONTOKEN:
+// Pourrait être utilisé pour vérifier certains éléments, comme une adresse e-mail lors de l'inscription, ou pour la récupération d'un mot de passe.
+
+// PRODUCT:
+// Représente un produit qui est vendu sur la plateforme.
+// Contient des détails sur le produit tels que le titre, la description, le prix, etc.
+// A une relation avec Category, permettant de classer le produit dans une catégorie spécifique.
+
+// CATEGORY:
+// Représente une catégorie de produits.
+// Aide à organiser les produits en différents groupes ou collections, ce qui facilite la navigation pour les clients.
+
+// ORDER:
+// Représente une commande passée par un utilisateur.
+// Contient la date de la commande et est liée à l'utilisateur qui a passé la commande.
+// A une relation avec OrderItem, qui stocke les détails des produits spécifiques commandés.
+
+// ORDERITEM:
+// Représente un élément spécifique dans une commande.
+// Par exemple, si une commande contient trois différents produits, il y aurait trois entrées distinctes dans OrderItem.
+// Stocke des détails tels que la quantité commandée, le prix au moment de l'achat (très important car les prix peuvent varier), et est lié au produit spécifique qui a été commandé.

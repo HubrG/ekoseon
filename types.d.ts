@@ -7,3 +7,7 @@ declare module "node" {
 }
 
 declare module 'bcrypt';
+
+declare module 'js-cookie';
+declare module 'validator';
+declare module 'bcrypt';

@@ -1,7 +1,7 @@
 import GithubProvider from "next-auth/providers/github";
-import FacebookProvider from "next-auth/providers/facebook";
 import { env } from "./env";
-import { AuthOptions, User, getServerSession } from "next-auth";
+import { AuthOptions, Session, getServerSession } from "next-auth";
+import { JWT } from "next-auth/jwt"; // Importez le type JWT
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -24,9 +24,9 @@ export const authOptions: AuthOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         email: {
-          label: "Email",
+          label: "Adresse email",
           type: "text",
-          placeholder: "user@example.com",
+          placeholder: "hubrgiorgi@gmail.com",
         },
         password: { label: "Password", type: "password" },
       },
@@ -44,31 +44,57 @@ export const authOptions: AuthOptions = {
         const user = (await prisma.user.findUnique({
           where: { email: credentials.email },
         })) as any;
-
+        // console.log(user);  // Ajoutez cette ligne
 
         if (
           user &&
           (await bcrypt.compare(credentials.password, user.hashedPassword))
         ) {
-            console.log(user)
-          return user; // Assurez-vous que l'objet utilisateur correspond au type attendu par NextAuth.
+          return user;
         } else {
           return null;
         }
       },
     }),
-    ],
-    session: {
-      strategy:"jwt"
+  ],
+  session: {
+    strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET, // Ajoutez cette ligne
   callbacks: {
-    // async session({ session, user }) {
-    //   if (!session?.user) return session;
-    //   session.user.id = user.id;
-    //   return session;
-    //   },
-     
+    // 	async jwt({ token, user }) {
+    // 		console.log(user);  // Ajoutez cette ligne
+
+    // 		// Si un utilisateur est présent, cela signifie qu'un nouveau JWT est en cours de création,
+    // 		// par exemple lors de la connexion. Nous ajoutons l'ID de l'utilisateur au token.
+    // 		if (user) {
+    // 			token.id = user.id;
+    // 		}
+    // 		return token;
+    // 	},
+    async jwt({ token, user }) {
+      if (user) {
+        token.userId = user.id; // Assumant que user.id existe
+      }
+      return token;
+    },
+    async session({ session, token }: { session: Session; token: JWT }) {
+      if (token.userId) {
+        // Créez un nouvel objet user avec l'id de l'utilisateur
+        const user = { ...session.user, id: token.userId };
+
+        // Créez un nouvel objet session avec le nouvel objet user
+        const newSession = { ...session, user };
+
+        return newSession;
+      }
+
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/connexion",
+    error: "/connexion/error",
   },
 };
 
@@ -76,3 +102,7 @@ export const getAuthSession = async () => {
   const session = await getServerSession(authOptions);
   return session;
 };
+
+export const getCoucou  = async () => {
+  return "ok";
+}

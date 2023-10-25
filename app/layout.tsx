@@ -7,15 +7,14 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Session } from "next-auth";
-import { Bitter, Caveat, Noto_Sans } from "next/font/google";
+import { Bitter, Caveat, Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
-const sans = Noto_Sans({
+const sans = Nunito({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
-  weight: ["500"]
 });
 const serif = Bitter({
   subsets: ["latin"],
@@ -31,10 +30,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
   session,
 }: {
   children: React.ReactNode;
   session: Session;
+  modal?: React.ReactNode;
 }) {
   return (
     <>
@@ -47,7 +48,9 @@ export default function RootLayout({
             className={clsx("bg-background")}
             suppressHydrationWarning={true}>
             <NextTopLoader
-              color="#86198f"
+              template='<div class="bar" role="bar"><div class="peg"></div></div> 
+              <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+              color="#3d3d3d"
               initialPosition={0.08}
               crawlSpeed={200}
               height={2}
@@ -66,6 +69,7 @@ export default function RootLayout({
                 <div className="">{children}</div>
             </PageTransition>
                 <Footer />
+                {modal}
               </ThemeProvider>
           </body>
         </Provider>
