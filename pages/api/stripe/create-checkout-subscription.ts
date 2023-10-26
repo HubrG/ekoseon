@@ -11,7 +11,7 @@ const createCheckoutSession = async (
   res: NextApiResponse
 ) => {
   if (req.method === "POST") {
-    const { items } = req.body;
+    const { items, months } = req.body;
 
     
 
@@ -21,9 +21,9 @@ const createCheckoutSession = async (
           product_data: {
             name: item.name,
             images: [item.img],
-            description:`${Math.round((item.price) / 3)}€ durant 3 mois — ${item.description} — Quantité : ${item.quantity}`,
+            description:`${Math.round((item.price) / months)}€ durant 3 mois — ${item.description} — Quantité : ${item.quantity}`,
           },
-          unit_amount: Math.round((item.price * 100) / 3),
+          unit_amount: Math.round((item.price * 100) / months),
           recurring: {
             interval: 'month',
             interval_count: 1,

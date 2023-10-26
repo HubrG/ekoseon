@@ -35,8 +35,7 @@ export default async function Home() {
                             sur des supports{" "}
                             <span className="animated-gradient-audio-paper">
                               audio
-                            </span>
-                            <span className="text-xl mx-2 text-white">&</span>
+                            </span><span className="text-xl  text-white">&</span>
                             <span className="animated-gradient-audio-paper">
                               papier
                             </span>
@@ -54,7 +53,7 @@ export default async function Home() {
           </MotionParallax>
         </section>
         <div className="">
-          <section className="first-section" id="ekoseon">
+          <section className="first-section" id="appFirstPage">
             <div className="content">
               <h2>Biographie orale</h2>
               <ul>

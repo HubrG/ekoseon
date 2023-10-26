@@ -41,7 +41,7 @@ export default async function legal() {
 
         <h2>Hébergement et site internet :</h2>
         <p>
-          Créateur du site internet : <a href="mailto:contact@ekoseon.fr">Hubert Giorgi</a>
+          Développeur du site internet : <a href="mailto:contact@ekoseon.fr">Hubert Giorgi</a>
         <br />
           Nom de l’hébergeur : <a href="https://vercel.com" target="_blank" >Vercel</a>
         </p>

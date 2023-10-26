@@ -3,6 +3,8 @@ import { Footer } from "@/src/feature/layout/Footer";
 import { Header } from "@/src/feature/layout/Header";
 import { ThemeProvider } from "@/src/theme/ThemeProvider";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Session } from "next-auth";
@@ -58,6 +60,9 @@ export default function RootLayout({
               speed={200}
               shadow={false}
             />
+          <ToastContainer
+          
+        />
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Header />
               <div>{children}</div>

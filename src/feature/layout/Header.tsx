@@ -4,10 +4,11 @@ import { LoginButton } from "./auth/LoginButton";
 import { UserProfile } from "./auth/UserProfile";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGift } from "@fortawesome/pro-solid-svg-icons";
+import { faGift, faSpinner } from "@fortawesome/pro-solid-svg-icons";
 import Link from "next/link";
 import MainMenu from "@/src/feature/layout/header/MainMenu";
 import BurgerMenu from "@/src/feature/layout/header/BurgerMenu";
+import { Suspense } from "react";
 
 export const Header = async () => {
   const session = await getAuthSession();
@@ -41,7 +42,9 @@ export const Header = async () => {
                 </Button>
               </Link>
               <div className="md:block hidden">
+                <Suspense fallback={<FontAwesomeIcon icon={faSpinner} />}>
                 {session?.user ? <UserProfile /> : <LoginButton />}
+                </Suspense>
                 </div>
               {/* <ThemeToggle /> */}
             </div>{" "}

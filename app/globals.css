@@ -179,7 +179,7 @@
 }
 
 a {
-  @apply hover:underline text-app dark:text-app-300;
+  @apply hover:underline text-app font-bold dark:text-app-300 !important;
   position: relative;
 }
 a.nunderline {
@@ -331,3 +331,66 @@ div product-alt:first-child {
 .shadcnCheckbox {
   @apply  h-4 w-4 shrink-0 rounded-sm border border-app shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-app data-[state=checked]:text-primary-foreground
 }
+.shadcnButton-default {
+@apply bg-app dark:bg-app-300 dark:text-app-800 dark:hover:bg-app-300/90 text-app-100 shadow hover:bg-app/90
+}
+.shadcnButton-destructive {
+  @apply bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90
+}
+.shadcnButton-outline {
+  @apply border border-app-300 dark:border-app-800 dark:text-app-500 dark:hover:bg-app-800 dark:hover:text-app-300 text-app-800 bg-transparent shadow-sm hover:bg-app-50 hover:text-app-900
+}
+.shadcnButton-secondary {
+  @apply bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80;
+}
+.shadcnButton-ghost {
+  @apply hover:bg-app-100 hover:text-app dark:hover:bg-app-900 text-app-900 dark:text-app-300;
+}
+.shadcnButton-links {
+  @apply text-primary underline-offset-4 hover:underline;
+}
+
+
+.Toastify__toast-container {
+  @apply rounded-xl z-[99999] !important
+}
+.Toastify__toast {
+  @apply rounded-xl !important
+
+}
+.Toastify__toast--rtl {
+  @apply rounded-xl !important
+
+}
+.Toastify__toast-body {
+  @apply rounded-xl !important
+
+}
+.Toastify__toast-theme--dark {
+  @apply bg-app;
+}
+/* .Toastify__toast-theme--light {
+} */
+.Toastify__toast-theme--colored.Toastify__toast--default {
+  @apply bg-app-950 text-app-50 !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  @apply bg-blue-500 !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  @apply bg-app !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  @apply bg-yellow-600 !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  @apply bg-red-600 !important;
+}
+.tooltip {
+  @apply text-sm bg-app-800 max-w-fit !important;
+  }
+
+  .border-red-500-important {
+    border-color: #f56565 !important;
+  }
+

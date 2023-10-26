@@ -1,6 +1,6 @@
 "use client";
 import CustomerInfoForm from "@/src/feature/layout/ecommerce/validation/CustomerInfoForm";
-import React, { useEffect, useState, Suspense } from "react"; // Assurez-vous d'importer React pour les types
+import React, { useEffect, useRef, useState, Suspense } from "react"; // Assurez-vous d'importer React pour les types
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { CartProduct } from "@/lib/types/CartProduct";
 import { Elements } from "@stripe/react-stripe-js";
@@ -17,10 +17,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { User } from "@prisma/client";
 import Cookies from "js-cookie";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
-
+import { Toastify } from "@/src/feature/layout/toastify/Toastify";
+import { Tooltip } from "react-tooltip";
 //
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
   throw new Error("STRIPE_PUBLIC_KEY is missing in environment variables.");
@@ -33,7 +41,9 @@ type CheckoutFormProps = {
 type CartData = {
   items?: CartProduct[];
 };
-
+type CalculateInstallmentsParams = {
+  total:number
+}
 //
 //
 export function CheckoutForm({ ...props }: CheckoutFormProps) {
@@ -48,14 +58,31 @@ export function CheckoutForm({ ...props }: CheckoutFormProps) {
 //
 //
 export function InnerCheckoutForm() {
-  const [isPending, startTransition] = useTransition();
-  const [cartData, setCartData] = useState<CartData>();
-  const [areFieldsValid, setAreFieldsValid] = useState(false);
-  
-
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
+  //
+  const [isPending, startTransition] = useTransition();
+  const isTransitionActive = useRef(true); // Par défaut, la transition est active
+
+  const [cartData, setCartData] = useState<CartData>();
+  const [areFieldsValid, setAreFieldsValid] = useState(false);
+
+  // Variable d'option
+  const activeMonthly = true;
+  const minMonthly = 300;
+  const maxMonthlyPayment = 4;
+  const trancheAmount = 150; // Montant de la tranche pour le paiement en plusieurs fois
+  const calculateInstallments = ({total}: CalculateInstallmentsParams) => {
+    if (total < minMonthly) {
+      return 0; // ou null, selon ce que vous préférez pour indiquer qu'aucun paiement échelonné n'est possible
+    }
+    // Calcule le nombre de mensualités en se basant sur la tranche
+    let numberOfInstallments = Math.floor(total / trancheAmount);
+    // S'assure que le nombre de mensualités est au moins 2
+    return Math.min(maxMonthlyPayment, Math.max(2, numberOfInstallments));
+  };
+  //
 
   useEffect(() => {
     setCartData(JSON.parse(Cookies.get("cart") || "{}"));
@@ -69,40 +96,79 @@ export function InnerCheckoutForm() {
     0
   );
 
-  const handleSubscription = async () => {
-    if (!stripe || !elements) return;
+  const cancelPending = () => {
+    isTransitionActive.current = false; // Marquez la transition comme inactive
+  };
+
+  const isCookieSet = () => {
+    const storedCustomerInfo: string | undefined = Cookies.get("customerInfo");
+    if (!storedCustomerInfo) {
+      cancelPending();
+      Toastify({
+        type: "error",
+        value:
+          "Une erreur est survenue, veuillez à nouveau renseigner les information",
+      });
+      return;
+    }
+  };
+
+  const handleSubscription = async ({ months }: { months: number }) => {
+    if (!stripe || !elements) {
+      cancelPending();
+      Toastify({ type: "error", value: "Une erreur est survenue" });
+      return;
+    }
 
     const cardElement = elements.getElement(CardElement);
 
     if (!cardElement) {
-      console.error("Erreur: CardElement n'a pas été trouvé!");
+      Toastify({ type: "error", value: "Une erreur est survenue" });
+      cancelPending();
       return;
     }
 
-    const response = await fetch("/api/stripe/create-checkout-subscription", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: cartItems,
-      }),
+    isTransitionActive.current = true;
+
+    isCookieSet();
+
+    startTransition(async () => {
+      const response = await fetch("/api/stripe/create-checkout-subscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: cartItems,
+          months: months,
+        }),
+      });
+
+      const { sessionId } = await response.json();
+
+      stripe?.redirectToCheckout({ sessionId });
+      cancelPending();
     });
-
-    const { sessionId } = await response.json();
-
-    stripe?.redirectToCheckout({ sessionId });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    isTransitionActive.current = true;
+
+    isCookieSet();
+
     startTransition(async () => {
-      if (!stripe || !elements) return;
+      if (!stripe || !elements) {
+        Toastify({ type: "error", value: "Une erreur est survenue" });
+        return;
+      }
 
       const cardElement = elements.getElement(CardElement);
 
       if (!cardElement) {
-        console.error("Erreur: CardElement n'a pas été trouvé!");
+        Toastify({ type: "error", value: "Une erreur est survenue" });
+        cancelPending();
         return;
       }
 
@@ -113,17 +179,18 @@ export function InnerCheckoutForm() {
 
       if (error) {
         console.error(error);
+        cancelPending();
         return;
       }
 
-      // Appelez votre backend pour créer un PaymentIntent
+      // Créer un PaymentIntent
       const response = await fetch("/api/stripe/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          items: cartItems, // Vos articles du panier ici
+          items: cartItems,
         }),
       });
 
@@ -136,10 +203,17 @@ export function InnerCheckoutForm() {
       );
 
       if (confirmPayment.error) {
-        console.error(confirmPayment.error);
+        Toastify({
+          type: "error",
+          value: "Erreur de paiement. Veuillez nous contacter !",
+        });
+        cancelPending();
         return;
       }
-      // Ici, le paiement a été confirmé !
+      Toastify({
+        type: "success",
+        value: "Votre paiement a bien été traité. Merci pour votre achat !",
+      });
       router.push("/");
     });
   };
@@ -175,23 +249,96 @@ export function InnerCheckoutForm() {
           </CardContent>
           <CardFooter className="flex justify-between">
             <Suspense fallback={<Skeleton />}>
-              <div className="grid grid-cols-2 w-full gap-x-5 mt-5 items-center">
-                <Button
-                  type="submit"
-                  className={`${
-                    isPending ? "disabled opacity-50 cursor-default" : null
-                  }`}
-                  disabled={!areFieldsValid || !stripe}>
-                  {isPending ? <Loader className="mr-2 h-4 w-4" /> : null}{" "}
-                  Régler {calculatedTotal}€
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleSubscription}
-                  disabled={!areFieldsValid || !stripe}>
-                  Ou par mensualités
-                </Button>
+              <div
+                className={`grid ${
+                  activeMonthly ? "grid-cols-2" : "grid-cols-1"
+                } w-full gap-x-5 mt-5 items-center`}>
+                <div
+                  className="w-full"
+                  data-tooltip-id="tooltipPay"
+                  data-tooltip-content={`Certains champs obligatoires ne sont pas renseignés, ou des erreurs ont été détectées !`}>
+                  <Button
+                    type="submit"
+                    className={`${
+                      isPending && isTransitionActive.current
+                        ? "disabled opacity-50 cursor-default"
+                        : null
+                    }`}
+                    disabled={!areFieldsValid || !stripe}>
+                    {isPending && isTransitionActive.current ? (
+                      <Loader className="mr-2 h-4 w-4" />
+                    ) : null}{" "}
+                    Régler {calculatedTotal}€
+                  </Button>
+                  {!areFieldsValid && (
+                    <>
+                      <Tooltip id="tooltipPay" className="tooltip" />
+                    </>
+                  )}
+                </div>
+
+                {activeMonthly && (
+                  <>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <div
+                          className="w-full"
+                          data-tooltip-id="tooltipMonthly"
+                          data-tooltip-content={`Le paiement en plusieurs fois n'est activé qu'à partir de ${minMonthly}€`}>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            disabled={
+                              !areFieldsValid ||
+                              !stripe ||
+                              calculatedTotal < minMonthly
+                            }>
+                            Ou par mensualités
+                          </Button>
+                          {calculatedTotal < minMonthly && (
+                            <>
+                              <Tooltip
+                                id="tooltipMonthly"
+                                className="tooltip"
+                              />
+                            </>
+                          )}
+                        </div>
+                      </DropdownMenuTrigger>
+                      {areFieldsValid && calculatedTotal >= minMonthly && (
+                       <DropdownMenuContent className="flex flex-col">
+                       {Array.from({
+                         length: calculateInstallments({ total: calculatedTotal }),
+                       }).map((_, index) => (
+                            <DropdownMenuItem asChild key={index}>
+                              <>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  className="w-auto"
+                                  onClick={() =>
+                                    handleSubscription({ months: index + 2 })
+                                  }
+                                  disabled={
+                                    !areFieldsValid ||
+                                    !stripe ||
+                                    calculatedTotal < minMonthly
+                                  }>
+                                  {isPending && isTransitionActive.current ? (
+                                    <Loader className="mr-2 h-4 w-4" />
+                                  ) : null}{" "}
+                                  {index + 2} mensualités (
+                                  {(calculatedTotal / (index + 2)).toFixed(2)}
+                                  €/mois)
+                                </Button>
+                              </>
+                            </DropdownMenuItem>
+                          ))}
+                        </DropdownMenuContent>
+                      )}
+                    </DropdownMenu>
+                  </>
+                )}
               </div>
             </Suspense>
           </CardFooter>

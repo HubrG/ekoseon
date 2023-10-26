@@ -13,7 +13,6 @@ export const LoginButton = () => {
   return (
     <Button
       size="lg"
-    
       variant="ghost"
       onClick={() => {
         startTransition(() => router.push("/connexion"));

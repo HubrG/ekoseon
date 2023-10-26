@@ -10,20 +10,20 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-app dark:bg-app-300 dark:text-app-800 dark:hover:bg-app-300/90 text-app-100 shadow hover:bg-app/90",
+          "shadcnButton-default",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+          "shadcnButton-destructive",
         outline:
-          "border border-app-300 dark:border-app-800 dark:text-app-500 dark:hover:bg-app-800 dark:hover:text-app-300 text-app-800 bg-transparent shadow-sm hover:bg-app-50 hover:text-app-950",
+          "shadcnButton-outline",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-app-100 hover:text-app dark:hover:bg-app-900 text-app-900 dark:text-app-300",
-        link: "text-primary underline-offset-4 hover:underline",
+          "shadcnButton-secondary",
+        ghost: "shadcnButton-ghost",
+        link: "shadcnButton-link",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8 text-base",
+        default: "h-9 px-4 py-2  w-full",
+        sm: "h-8 rounded-md px-3 text-xs  w-full",
+        lg: "h-10 rounded-md px-8 text-base  w-full",
         icon: "h-9 w-9",
       },
     },

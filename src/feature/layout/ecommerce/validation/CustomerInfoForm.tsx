@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import {
   isEmailExists,
   hashPassword,
@@ -12,7 +12,11 @@ import "react-phone-number-input/style.css";
 import LocationSearchInput from "@/src/feature/layout/ecommerce/validation/LocationSearchInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import Script from "next/script";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
+import Skeleton from "@/src/feature/layout/skeleton/Content";
+import { Tooltip } from "react-tooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/pro-solid-svg-icons";
 
 interface CustomerInfoForm {
   setValidity: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,20 +36,18 @@ interface CustomerInfo {
   isShippingChecked: boolean;
 }
 
-
 const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
-
+  // ANCHOR Cookie
   const storedCustomerInfo: string | undefined = Cookies.get("customerInfo");
-
   let customerInfo: CustomerInfo | null = null;
-  
   if (storedCustomerInfo) {
     customerInfo = JSON.parse(storedCustomerInfo);
   }
-  
-
+  // ANCHOR Load state
+  const [isCustomerInfoLoaded, setIsCustomerInfoLoaded] = useState(false);
   const [isGoogleScriptLoaded, setIsGoogleScriptLoaded] = useState(false);
-  //
+
+  // ANCHOR Form state
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -54,10 +56,12 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [passwordCrypt, setPasswordCrypt] = useState<string>("");
-  // Checks
+
+  // ANCHOR Checks state
   const [isShippingChecked, setIsShippingChecked] = useState<boolean>(true); // Adresse de livraison
   const [shippingInputHidden, setShippingInputHidden] = useState("hidden");
-  // Location
+
+  // ANCHOR Location state
   const [address, setAddress] = useState("");
   const [addressComp, setAddressComp] = useState("");
   const [addressBilling, setAddressBilling] = useState("");
@@ -66,18 +70,21 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
     null
   );
   const [locationData, setLocationData] = useState<string | null>(null);
-  // 
 
+  // ANCHOR Errors state
+  const [phoneError, setPhoneError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
-  
-  
-  const loadCustomerCookie = () => {
-    const storedCustomerInfo = Cookies.get("customerInfo");
-    if (storedCustomerInfo) {
+  // ANCHOR Effects hook
+  useEffect(() => {
+    const loadCustomerCookie = () => {
+      const storedCustomerInfo = Cookies.get("customerInfo");
+      if (storedCustomerInfo) {
         const customerInfo = JSON.parse(storedCustomerInfo);
-        console.log(customerInfo)
-        setFirstName(customerInfo.firstname);  // Notez que c'est customerInfo et non storedCustomerInfo
-        setLastName(customerInfo.name);  // Et c'est name au lieu de lastname
+        console.log(customerInfo);
+        setFirstName(customerInfo.firstname); // Notez que c'est customerInfo et non storedCustomerInfo
+        setLastName(customerInfo.name); // Et c'est name au lieu de lastname
         setEmail(customerInfo.email);
         setPhone(customerInfo.phone);
         setAddress(customerInfo.address);
@@ -85,75 +92,165 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
         setAddressBilling(customerInfo.addressBilling);
         setAddressBillingComp(customerInfo.addressBillingComp);
         setIsShippingChecked(customerInfo.isShippingChecked);
+        setEmailExist(customerInfo.emailExist);
         if (!customerInfo.isShippingChecked) {
-            setShippingInputHidden("block");
+          setShippingInputHidden("block");
         }
-    }
-}
-
-
-  useEffect(() => {
+      }
+    };
     loadCustomerCookie();
+    setIsCustomerInfoLoaded(true);
   }, []);
 
+  useEffect(() => {
+    if (isCustomerInfoLoaded) {
+      const customerInfo = {
+        firstname: firstName,
+        name: lastName,
+        email: email,
+        hashedPassword: passwordCrypt,
+        emailExist: emailExist,
+        phone: phone,
+        address: address,
+        addressComp: addressComp,
+        addressBilling: addressBilling,
+        addressBillingComp: addressBillingComp,
+        isShippingChecked: isShippingChecked,
+      };
+      Cookies.set("customerInfo", JSON.stringify(customerInfo), { expires: 1 });
+    }
+  }, [
+    isCustomerInfoLoaded,
+    firstName,
+    lastName,
+    email,
+    passwordCrypt,
+    emailExist,
+    phone,
+    address,
+    addressComp,
+    addressBilling,
+    addressBillingComp,
+    isShippingChecked,
+  ]);
 
-  
-  const saveCustomerCookie = () => {
-    const customerInfo = {
-      firstname: firstName,
-      name: lastName,
-      email: email,
-      hashedPassword: passwordCrypt,
-      emailExist: emailExist,
-      phone:phone,
-      address:address,
-      addressComp: addressComp,
-      addressBilling: addressBilling,
-      addressBillingComp: addressBillingComp,
-      isShippingChecked: isShippingChecked,
+  useEffect(() => {
+    const isValid = () => {
+      if (emailExist) {
+        return (
+          firstName.trim() !== "" &&
+          lastName.trim() !== "" &&
+          validator.isEmail(email.trim()) &&
+          email.trim() !== "" &&
+          password.trim() === "" &&
+          validator.isMobilePhone(phone) &&
+          address?.trim() !== "" &&
+          (isShippingChecked === true
+            ? true
+            : addressBilling?.trim() !== ""
+            ? true
+            : false)
+        );
+      } else {
+        return (
+          firstName.trim() !== "" &&
+          lastName.trim() !== "" &&
+          validator.isEmail(email.trim()) &&
+          email.trim() !== "" &&
+          password.trim() !== "" &&
+          (password.trim() === "" || password === passwordConfirm) &&
+          validator.isMobilePhone(phone) &&
+          address?.trim() !== "" &&
+          (isShippingChecked === true
+            ? true
+            : addressBilling?.trim() !== ""
+            ? true
+            : false)
+        );
+      }
     };
-    Cookies.set('customerInfo', JSON.stringify(customerInfo), { expires: 1 });
-  }
+    setValidity(isValid());
+    //
+  }, [
+    setValidity,
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConfirm,
+    emailExist,
+    phone,
+    address,
+    isShippingChecked,
+    addressBilling,
+    passwordCrypt,
+    addressBillingComp,
+    addressComp,
+  ]);
 
+  useEffect(() => {
+    if (typeof google !== "undefined") {
+      setIsGoogleScriptLoaded(true);
+    }
+  }, []);
 
+  // Consts/functions
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
-    saveCustomerCookie()
   };
 
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
-    saveCustomerCookie()
   };
 
   const handleAddressCompChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddressComp(e.target.value);
-    saveCustomerCookie()
   };
 
   const handleAddressBillingCompChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setAddressBillingComp(e.target.value);
-    saveCustomerCookie()
   };
 
   const handlePhoneChange = (value: string) => {
-    setPhone(value || "");
-    saveCustomerCookie()
+    value = value || ""; // Utilisez une chaîne vide si la valeur est undefined ou nulle
+    setPhone(value);
+    if (validator.isMobilePhone(value)) {
+      setPhoneError("");
+    }
+  };
+
+  const handlePhoneBlur = () => {
+    const value = phone;
+    if (!validator.isMobilePhone(value) && value != "") {
+      setPhoneError("Le numéro de téléphone est au mauvais format");
+    } else {
+      setPhoneError("");
+    }
   };
 
   const handleEmailChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
     const emailExists = await isEmailExists(e.target.value);
     setEmailExist(emailExists);
-    setEmail(e.target.value);
     if (emailExists) {
       setPassword("");
       setPasswordConfirm("");
     }
-    saveCustomerCookie()
-    // Utilisez le résultat pour mettre à jour l'état ou les props si nécessaire.
+    if (validator.isEmail(e.target.value)) {
+      setEmailError("");
+    }
+  };
+
+  const handleEmailBlur = () => {
+    const value = email;
+    if (!validator.isEmail(value) && value != "") {
+      setEmailError("Votre adresse email est au mauvais format");
+    } else {
+      setEmailError("");
+    }
   };
 
   const handlePasswordChange = async (
@@ -163,13 +260,26 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
     setPassword(inputValue);
     const hashedValue = await hashPassword(inputValue);
     setPasswordCrypt(hashedValue);
-    saveCustomerCookie()
+    if (e.target.value == passwordConfirm) {
+      setPasswordError("");
+    }
   };
+
+  const handlePasswordBlur = () => {
+    if (passwordConfirm != password && password != "") {
+      setPasswordError("Les mots de passe ne correspondent pas");
+    } else {
+      setPasswordError("");
+    }
+  };
+
   const handlePasswordConfirmChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setPasswordConfirm(e.target.value);
-    saveCustomerCookie()
+    if (e.target.value == password) {
+      setPasswordError("");
+    }
   };
 
   const handleCheckboxShippingChange = (
@@ -186,64 +296,9 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
       setAddressBilling("");
       setAddressBillingComp("");
     }
-    saveCustomerCookie()
   };
 
-  useEffect(() => {
-    const isValid = () => {
-      if (emailExist) {
-        return (
-          firstName.trim() !== "" &&
-          lastName.trim() !== "" &&
-          validator.isEmail(email.trim()) &&
-          email.trim() !== "" &&
-          password.trim() === "" &&
-          validator.isMobilePhone(phone) &&
-          address?.trim() !== "" &&
-          (isShippingChecked === true ? true : addressBilling?.trim() !== "" ? true : false)
-        );
-      } else {
-        return (
-          firstName.trim() !== "" &&
-          lastName.trim() !== "" &&
-          validator.isEmail(email.trim()) &&
-          email.trim() !== "" &&
-          password.trim() !== "" &&
-          (password.trim() === "" || password === passwordConfirm) &&
-          validator.isMobilePhone(phone) && 
-          address?.trim() !== "" &&
-          (isShippingChecked === true ? true : addressBilling?.trim() !== "" ? true : false)
-        );
-      }
-    };
-    setValidity(isValid());
-    // 
-  }, [
-    setValidity,
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordConfirm,
-    emailExist,
-    phone,
-    address,
-    isShippingChecked,
-    addressBilling,
-    passwordCrypt,
-    addressBillingComp,
-    addressComp
-  ]);
-
-
-  
-  
-
-  useEffect(() => {
-    if (typeof google !== "undefined") {
-      setIsGoogleScriptLoaded(true);
-    }
-  }, []);
+  // ANCHOR RETURN
 
   return (
     <>
@@ -256,33 +311,97 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
       <div className="grid grid-cols-1 grid-flow-row w-full gap-y-4 mb-5 -mt-4">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-x-2 gap-y-4">
           <div className="grid w-full  items-center gap-1.5">
-            <Label htmlFor="firstname">Votre prénom</Label>
-            <Input id="firstname" value={firstName} onChange={handleFirstNameChange} />
+            <Label htmlFor="firstname">Votre prénom *</Label>
+            <Input
+              id="firstname"
+              value={firstName}
+              onChange={handleFirstNameChange}
+            />
           </div>
           <div className="grid w-full  items-center gap-1.5">
-            <Label htmlFor="lastname">Votre nom</Label>
-            <Input id="lastname" value={lastName} onChange={handleLastNameChange} />
+            <Label htmlFor="lastname">Votre nom *</Label>
+            <Input
+              id="lastname"
+              value={lastName}
+              onChange={handleLastNameChange}
+            />
           </div>
         </div>
         <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="phone">Votre numéro de téléphone</Label>
+          <Label htmlFor="phone">
+            {phoneError !== "" && (
+              <>
+                <span
+                  className="w-full"
+                  data-tooltip-id="ttPhone"
+                  data-tooltip-content={phoneError}>
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    className="text-red-500 mr-2"
+                  />
+                  <Tooltip id="ttPhone" className="tooltip" />
+                </span>
+              </>
+            )}
+            Votre numéro de téléphone *{" "}
+          </Label>
+
           <PhoneInput
             id="phone"
             value={phone}
             onChange={handlePhoneChange}
+            onBlur={handlePhoneBlur}
             defaultCountry="FR"
           />
         </div>
         <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="email">Votre adresse email</Label>
-          <Input id="email" type="email" value={email} onChange={handleEmailChange} />
+          <Label htmlFor="email">
+            {emailError !== "" && (
+              <>
+                <span
+                  className="w-full"
+                  data-tooltip-id="ttEmail"
+                  data-tooltip-content={emailError}>
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    className="text-red-500 mr-2"
+                  />
+                  <Tooltip id="ttEmail" className="tooltip" />
+                </span>
+              </>
+            )}
+            Votre adresse email *
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            onBlur={handleEmailBlur}
+            value={email}
+            onChange={handleEmailChange}
+          />
         </div>
 
         {!emailExist ? (
           <>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-x-2">
               <div className="grid w-full  items-center gap-1.5">
-                <Label htmlFor="password">Créer un mot de passe</Label>
+                <Label htmlFor="password">
+                  {passwordError !== "" && (
+                    <>
+                      <span
+                        className="w-full"
+                        data-tooltip-id="ttPassword"
+                        data-tooltip-content={passwordError}>
+                        <FontAwesomeIcon
+                          icon={faInfoCircle}
+                          className="text-red-500 mr-2"
+                        />
+                        <Tooltip id="ttPassword" className="tooltip" />
+                      </span>
+                    </>
+                  )}
+                  Créer un mot de passe *
+                </Label>
                 <Input
                   type="password"
                   id="password"
@@ -291,12 +410,13 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
               </div>
               <div className="grid w-full  items-center gap-1.5">
                 <Label htmlFor="passwordConfirm">
-                  Confirmez le mot de passe
+                  Confirmez le mot de passe *
                 </Label>
                 <Input
                   type="password"
                   id="passwordConfirm"
                   onChange={handlePasswordConfirmChange}
+                  onBlur={handlePasswordBlur}
                 />
               </div>
             </div>
@@ -319,24 +439,29 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
             </span>
           </div>
         </div>
-
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="addLivraison">Adresse de livraison</Label>
-          {isGoogleScriptLoaded ? (
-            <>
-              <LocationSearchInput
-                address={address}
-                setAddress={setAddress}
-                setLocationData={setLocationData}
-              />
-            </>
-          ) : (
-            ""
-          )}
-        </div>
+        <Suspense fallback={<Skeleton />}>
+          <div className="grid w-full  items-center gap-1.5">
+            <Label htmlFor="addLivraison">Adresse de livraison *</Label>
+            {isGoogleScriptLoaded ? (
+              <>
+                <LocationSearchInput
+                  address={address}
+                  setAddress={setAddress}
+                  setLocationData={setLocationData}
+                />
+              </>
+            ) : (
+              ""
+            )}
+          </div>
+        </Suspense>
         <div className="grid w-full  items-center gap-1.5">
           <Label htmlFor="addComp">Complément d&apos;adresse</Label>
-          <Input id="addComp" value={addressComp} onChange={handleAddressCompChange} />
+          <Input
+            id="addComp"
+            value={addressComp}
+            onChange={handleAddressCompChange}
+          />
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
@@ -371,7 +496,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
         </div>
 
         <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="addBilling">Adresse de livraison</Label>
+          <Label htmlFor="addBilling">Adresse de livraison *</Label>
           {isGoogleScriptLoaded ? (
             <>
               <LocationSearchInput
