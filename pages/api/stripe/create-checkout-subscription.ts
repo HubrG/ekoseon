@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { CartProduct } from "@/lib/types/CartProduct";
 import { createOrder } from "@/src/feature/layout/ecommerce/utils.server";
+import { hashPassword } from '../../../src/feature/layout/ecommerce/utils.server';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
 });
@@ -13,8 +14,7 @@ const createCheckoutSession = async (
   if (req.method === "POST") {
     const { items, months, customerInfo } = req.body;
     const customer = JSON.parse(customerInfo);
-
-console.log(customer.email)
+  
     const line_items = items.map((item: CartProduct) => ({
       price_data: {
         currency: "eur",
@@ -52,10 +52,11 @@ console.log(customer.email)
           addressComp: customer?.addressComp,
           addressBilling: customer?.addressBilling,
           addressBillingComp: customer?.addresseBillingComp,
-          monthly:months
+          monthly: months,
+          hashedPassword: customer?.hashedPassword,
         },
       });
-      console.log(sessionIntent)
+
       res.status(200).json({ sessionId: sessionIntent.id});
     } catch (error) {
       if (error instanceof Error) {

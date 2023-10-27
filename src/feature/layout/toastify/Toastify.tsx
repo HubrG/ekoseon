@@ -10,7 +10,6 @@ type Toast = {
 }
 
 export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-center", theme = "colored", autoClose = 3000 } : Toast) => {
-console.log(type)
 	if (type === "error") {
 		return toast.error(value, {
 			position: position,

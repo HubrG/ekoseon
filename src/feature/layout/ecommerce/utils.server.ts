@@ -45,10 +45,11 @@ export const createOrder = async (
   cartData: CartProduct,
   paymentIntentData?: PaymentIntentData,
   isSub?: string,
-  monthly?:number
+  monthly?: number,
+  amountTotSub?:number
 ) => {
-  //  On vérifie l'existence de l'utilisateur
 
+  //  On vérifie l'existence de l'utilisateur
   const user = await prisma.user.findUnique({
     where: {
       email: customerData.email,
@@ -85,7 +86,7 @@ export const createOrder = async (
         addressBillingComp: customerData?.addressBillingComp,
         amount: paymentIntentData
           ? paymentIntentData.paymentIntent.amount / 100
-          : 0,
+          : amountTotSub,
         monthly: monthly ? monthly : null,
         isSub: isSub? isSub : null
       },
