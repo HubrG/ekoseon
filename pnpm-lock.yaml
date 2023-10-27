@@ -125,6 +125,9 @@ dependencies:
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
+  cookie:
+    specifier: ^0.5.0
+    version: 0.5.0
   decimal.js:
     specifier: ^10.4.3
     version: 10.4.3
@@ -199,6 +202,9 @@ devDependencies:
   '@types/bcryptjs':
     specifier: ^2.4.5
     version: 2.4.5
+  '@types/cookie':
+    specifier: ^0.5.3
+    version: 0.5.3
   '@types/js-cookie':
     specifier: ^3.0.5
     version: 3.0.5
@@ -1754,6 +1760,10 @@ packages:
 
   /@types/bcryptjs@2.4.5:
     resolution: {integrity: sha512-tOF6TivOIvq+TWQm78335CMdyVJhpBG3NUdWQDAp95ax4E2rSKbws/ELHLk5EBoucwx/tHt3/hhLOHwWJgVrSw==}
+    dev: true
+
+  /@types/cookie@0.5.3:
+    resolution: {integrity: sha512-SLg07AS9z1Ab2LU+QxzU8RCmzsja80ywjf/t5oqw+4NSH20gIGlhLOrBDm1L3PBWzPa4+wkgFQVZAjE6Ioj2ug==}
     dev: true
 
   /@types/google.maps@3.54.4:

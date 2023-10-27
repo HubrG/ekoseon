@@ -3,6 +3,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { CartProduct } from "@/lib/types/CartProduct";
+import { CustomerCookie } from "@/lib/types/CustomerCookie";
+import { parse } from "path";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -13,7 +15,8 @@ const createPaymentIntent = async (
   res: NextApiResponse
 ) => {
   if (req.method === "POST") {
-    const { items } = req.body;
+    const { items, customerInfo } = req.body;
+    const customer = JSON.parse(customerInfo);
 
     // Convertissez les articles en une chaîne représentant les noms des articles achetés
     const itemsDescription = items
@@ -30,13 +33,24 @@ const createPaymentIntent = async (
     const totalAmount = items.reduce((total: number, item: CartProduct) => {
       return total + parseFloat(item.price); 
     }, 0);
-      
+    
     try {
       const paymentIntent = await stripe.paymentIntents.create({
         amount: totalAmount * 100,
         currency: "eur",
         payment_method_types: ["card"],
-        description: itemsDescription, // Ajoutez la chaîne des articles au champ metadata
+        description: itemsDescription, 
+        metadata: {
+          firstName:customer?.firstname,
+          lastName:customer?.name,
+          email:customer?.email,
+          phone:customer?.phone,
+          address:customer?.address,
+          addressComp:customer?.addressComp,
+          addressBilling:customer?.addressBilling,
+          addressBillingComp:customer?.addresseBillingComp,
+        },
+        receipt_email: customer?.email
       });
 
       res.status(200).json({ clientSecret: paymentIntent.client_secret });

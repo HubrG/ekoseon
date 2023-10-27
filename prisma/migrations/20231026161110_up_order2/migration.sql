@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "amount" DECIMAL(65,30) NOT NULL DEFAULT 0,
+ADD COLUMN     "isMonthly" INTEGER,
+ALTER COLUMN "phone" SET DEFAULT '';

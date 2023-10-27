@@ -57,13 +57,14 @@ model User {
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
+  date           DateTime?    @default(now())
   accounts       Account[]
   sessions       Session[]
   order          Order[]
 }
 
 model Product {
-  id          String    @id @default(cuid())  // Modifié à String avec CUID
+  id          String      @id @default(cuid())
   title       String
   description String
   price       Decimal
@@ -71,32 +72,53 @@ model Product {
   stock       Int
   category    Category    @relation(fields: [categoryId], references: [id])
   orderItems  OrderItem[]
-  categoryId  String      // Modifié à String
-  display Boolean?
+  categoryId  String // Modifié à String
+  display     Boolean?
 }
 
 model Category {
-  id       String    @id @default(cuid())  // Modifié à String avec CUID
+  id       String    @id @default(cuid())
   name     String    @unique
   products Product[]
 }
 
 model Order {
-  id     String    @id @default(cuid())  // Modifié à String avec CUID
-  date   DateTime   @default(now())
-  userId String
-  user   User       @relation(fields: [userId], references: [id])
-  items  OrderItem[]
+  id                 String      @id @default(cuid())
+  date               DateTime    @default(now())
+  firstName          String      @default("")
+  lastName           String      @default("")
+  userId             String
+  address            String
+  addressComp        String?
+  addressBilling     String?
+  addressBillingComp String?
+  phone              String      @default("")
+  amount             Decimal     @default(0)
+  isSub              String?     @default("")
+  monthly            Int?        @default(0)
+  user               User        @relation(fields: [userId], references: [id])
+  items              OrderItem[]
+  payments           Payment[]
+}
+
+model Payment {
+  id             String  @id @default(cuid())
+  orderId        String
+  paymentIntent  String
+  status         String
+  amount         Decimal
+  order          Order   @relation(fields: [orderId], references: [id])
+  date           DateTime?    @default(now())
 }
 
 model OrderItem {
-  id        String    @id @default(cuid())  // Modifié à String avec CUID
-  productId String    // Modifié à String
-  product   Product   @relation(fields: [productId], references: [id])
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
   quantity  Float?
-  price     Decimal
-  orderId   String    // Modifié à String
-  order     Order     @relation(fields: [orderId], references: [id])
+  amount    Decimal @default(0)
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
 }
 
 // USER:

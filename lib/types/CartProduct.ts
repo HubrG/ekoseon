@@ -3,7 +3,18 @@ export interface CartProduct {
   name: string;
   price: number | string | any;
   quantity: number;
-  products?: CartProduct[];
   img?: string;
-  description?:string;
+  description?: string;
+  products?: CartProduct[]; // Si vous n'en avez pas besoin, vous pouvez l'omettre
+  items?: CartItem[];
+}
+
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number | string | any;
+  quantity: number;
+  img?: string;
+  description?: string;
+  products?: CartProduct[]; // Si vous n'en avez pas besoin, vous pouvez l'omettre
 }

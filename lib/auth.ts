@@ -37,7 +37,6 @@ export const authOptions: AuthOptions = {
         console.log("Credentials provided:", credentials);
 
         if (!credentials) {
-          console.log("ok");
           return null;
         }
 

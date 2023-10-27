@@ -6,14 +6,15 @@ type Toast = {
 	value?: string;
 	type?: string;
 	theme?: Theme;
+	autoClose?: number | false;
 }
 
-export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-center", theme = "colored" } : Toast) => {
+export const Toastify = ({ type = "default", value = "Il se passe quelque chose...", position = "bottom-center", theme = "colored", autoClose = 3000 } : Toast) => {
 console.log(type)
 	if (type === "error") {
 		return toast.error(value, {
 			position: position,
-			autoClose: 3000,
+			autoClose: autoClose,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,
@@ -24,7 +25,7 @@ console.log(type)
 	} else if (type === "success") {
 		return toast.success(value, {
 			position: position,
-			autoClose: 3000,
+			autoClose: autoClose,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,
@@ -35,7 +36,7 @@ console.log(type)
 	} else if (type === "warning") {
 		return toast.warning(value, {
 			position: position,
-			autoClose: 3000,
+			autoClose: autoClose,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,
@@ -46,7 +47,7 @@ console.log(type)
 	} else if (type === "info") {
 		return toast.info(value, {
 			position: position,
-			autoClose: 3000,
+			autoClose: autoClose,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,
@@ -58,7 +59,7 @@ console.log(type)
 	else if (type === "default") {
 		return toast(value, {
 			position: position,
-			autoClose: 3000,
+			autoClose: autoClose,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,

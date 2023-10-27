@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import {
   isEmailExists,
   hashPassword,
-} from "@/src/feature/layout/ecommerce/validation/utils.server";
+} from "@/src/feature/layout/ecommerce/utils.server";
 import validator from "validator";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -82,7 +82,6 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
       const storedCustomerInfo = Cookies.get("customerInfo");
       if (storedCustomerInfo) {
         const customerInfo = JSON.parse(storedCustomerInfo);
-        console.log(customerInfo);
         setFirstName(customerInfo.firstname); // Notez que c'est customerInfo et non storedCustomerInfo
         setLastName(customerInfo.name); // Et c'est name au lieu de lastname
         setEmail(customerInfo.email);
@@ -286,7 +285,6 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     const isChecked = e.currentTarget.getAttribute("aria-checked") === "true";
-    console.log(isChecked); // logs true or false
     setIsShippingChecked(!isChecked);
     if (isShippingChecked) {
       setShippingInputHidden("block");

@@ -7,7 +7,6 @@ import {
   Card
 } from "@/components/ui/card";
 import { faArrowRightToArc } from "@fortawesome/pro-duotone-svg-icons";
-import Loading from "./loading";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
 
 const Auth = async () => {

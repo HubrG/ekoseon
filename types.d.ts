@@ -15,3 +15,4 @@ declare module 'bcrypt';
 declare module 'react-places-autocomplete'
 
 declare module "uuid"
+declare module 'cookie';

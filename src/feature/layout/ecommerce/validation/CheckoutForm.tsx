@@ -29,6 +29,9 @@ import Cookies from "js-cookie";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
 import { Toastify } from "@/src/feature/layout/toastify/Toastify";
 import { Tooltip } from "react-tooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLockKeyhole } from "@fortawesome/pro-solid-svg-icons";
+import { createOrder } from "@/src/feature/layout/ecommerce/utils.server"
 //
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
   throw new Error("STRIPE_PUBLIC_KEY is missing in environment variables.");
@@ -42,8 +45,8 @@ type CartData = {
   items?: CartProduct[];
 };
 type CalculateInstallmentsParams = {
-  total:number
-}
+  total: number;
+};
 //
 //
 export function CheckoutForm({ ...props }: CheckoutFormProps) {
@@ -73,7 +76,7 @@ export function InnerCheckoutForm() {
   const minMonthly = 300;
   const maxMonthlyPayment = 4;
   const trancheAmount = 150; // Montant de la tranche pour le paiement en plusieurs fois
-  const calculateInstallments = ({total}: CalculateInstallmentsParams) => {
+  const calculateInstallments = ({ total }: CalculateInstallmentsParams) => {
     if (total < minMonthly) {
       return 0; // ou null, selon ce que vous préférez pour indiquer qu'aucun paiement échelonné n'est possible
     }
@@ -132,6 +135,11 @@ export function InnerCheckoutForm() {
 
     isCookieSet();
 
+    const customerInfo = Cookies.get("customerInfo");
+    if (!customerInfo) {
+      throw new Error("Le cookie 'customerInfo' n'est pas défini.");
+    }
+
     startTransition(async () => {
       const response = await fetch("/api/stripe/create-checkout-subscription", {
         method: "POST",
@@ -141,14 +149,15 @@ export function InnerCheckoutForm() {
         body: JSON.stringify({
           items: cartItems,
           months: months,
+          customerInfo:customerInfo
         }),
       });
 
       const { sessionId } = await response.json();
-
+      // WARNING CRÉER LA PAGE DE TRAITEMENT DE LA COMMANDE (LE SESSIONID EST RÉCUPÉRÉ ICI) / RETRIEVE
       stripe?.redirectToCheckout({ sessionId });
-      cancelPending();
     });
+    cancelPending();
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -157,7 +166,10 @@ export function InnerCheckoutForm() {
     isTransitionActive.current = true;
 
     isCookieSet();
-
+    const customerInfo = Cookies.get("customerInfo");
+    if (!customerInfo) {
+      throw new Error("Le cookie 'customerInfo' n'est pas défini.");
+    }
     startTransition(async () => {
       if (!stripe || !elements) {
         Toastify({ type: "error", value: "Une erreur est survenue" });
@@ -178,11 +190,10 @@ export function InnerCheckoutForm() {
       });
 
       if (error) {
-        console.error(error);
+        Toastify({ type: "error", value: error.message });
         cancelPending();
         return;
       }
-
       // Créer un PaymentIntent
       const response = await fetch("/api/stripe/create-payment-intent", {
         method: "POST",
@@ -191,17 +202,18 @@ export function InnerCheckoutForm() {
         },
         body: JSON.stringify({
           items: cartItems,
+          customerInfo: customerInfo
         }),
       });
 
       const paymentIntentData = await response.json();
+
       const confirmPayment = await stripe.confirmCardPayment(
         paymentIntentData.clientSecret,
         {
           payment_method: paymentMethod.id,
         }
       );
-
       if (confirmPayment.error) {
         Toastify({
           type: "error",
@@ -210,10 +222,29 @@ export function InnerCheckoutForm() {
         cancelPending();
         return;
       }
+      
       Toastify({
         type: "success",
         value: "Votre paiement a bien été traité. Merci pour votre achat !",
       });
+
+      if (!customerInfo) {
+        throw new Error("Cookie 'customerInfo' n'est pas trouvé.");
+      }
+      const cartData = Cookies.get("cart");
+      if (!cartData) {
+        // Gérer l'erreur, par exemple :
+        throw new Error("Données 'cartData' ne sont pas trouvées.");
+    }
+      const orderResult = await createOrder(JSON.parse(customerInfo), JSON.parse(cartData), confirmPayment);
+      if (!orderResult) {
+        Toastify({
+          type: "warning",
+          autoClose: false,
+          value: "Votre paiement a bien été enregistré, toutefois un problème est survenu lors de la création de votre commande, veuillez nous contacter !",
+        });
+      }
+      return;
       router.push("/");
     });
   };
@@ -237,13 +268,23 @@ export function InnerCheckoutForm() {
                 </div>
                 <div className="relative flex justify-center  text-xs ">
                   <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
+                    <FontAwesomeIcon
+                      icon={faLockKeyhole}
+                      className="mx-2"
+                      data-tooltip-id="dataSecure"
+                      data-tooltip-html={`
+                     Paiement sécurisé
+                       `}
+                    />
+                    <Tooltip id="dataSecure" />
                     Informations de paiement
                   </span>
                 </div>
               </div>
-
               <Suspense fallback={<Skeleton />}>
-                <CardElement id="paymentInfo" />
+                <div className="flex flex-col gap-y-5">
+                  <CardElement id="paymentInfo" />
+                </div>
               </Suspense>
             </div>
           </CardContent>
@@ -251,7 +292,9 @@ export function InnerCheckoutForm() {
             <Suspense fallback={<Skeleton />}>
               <div
                 className={`grid ${
-                  activeMonthly ? "grid-cols-2" : "grid-cols-1"
+                  activeMonthly
+                    ? "md:grid-cols-2 grid-cols-1 gap-y-3"
+                    : "grid-cols-1"
                 } w-full gap-x-5 mt-5 items-center`}>
                 <div
                   className="w-full"
@@ -306,10 +349,12 @@ export function InnerCheckoutForm() {
                         </div>
                       </DropdownMenuTrigger>
                       {areFieldsValid && calculatedTotal >= minMonthly && (
-                       <DropdownMenuContent className="flex flex-col">
-                       {Array.from({
-                         length: calculateInstallments({ total: calculatedTotal }),
-                       }).map((_, index) => (
+                        <DropdownMenuContent className="flex flex-col">
+                          {Array.from({
+                            length: calculateInstallments({
+                              total: calculatedTotal,
+                            }),
+                          }).map((_, index) => (
                             <DropdownMenuItem asChild key={index}>
                               <>
                                 <Button
