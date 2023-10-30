@@ -10,4 +10,6 @@ export interface CustomerCookie {
     addressBilling: string;
     addressBillingComp: string;
     isShippingChecked: boolean;
+    billingName:string;
+    deliveryName:string;
 }

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Progress } from "@/components/ui/progress";
+import { LottieDisplayOnSSR } from '@/src/feature/layout/lottie/LottieDisplayOnSSR'
 
 const Loading = (props: any) => {
   const [progress, setProgress] = React.useState(13);

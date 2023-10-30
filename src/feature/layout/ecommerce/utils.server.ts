@@ -88,6 +88,8 @@ export const createOrder = async (
         orderRef:generateOrderRef(),
         firstName: customerData.firstname,
         lastName: customerData.name,
+        addressName: customerData.deliveryName,
+        addressBillingName: customerData.billingName,
         address: customerData.address,
         addressComp: customerData?.addressComp,
         phone: customerData.phone,

@@ -92,8 +92,10 @@ model Order {
   lastName           String      @default("")
   orderRef           String?     @default("")
   userId             String
+  addressName        String?         
   address            String
   addressComp        String?
+  addressBillingName String?
   addressBilling     String?
   addressBillingComp String?
   phone              String      @default("")

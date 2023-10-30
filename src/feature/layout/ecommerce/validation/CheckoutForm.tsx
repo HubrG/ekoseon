@@ -1,18 +1,25 @@
 "use client";
 import CustomerInfoForm from "@/src/feature/layout/ecommerce/validation/CustomerInfoForm";
-import React, { useEffect, useRef, useState, Suspense } from "react"; // Assurez-vous d'importer React pour les types
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import React, { useEffect, useRef, useState, Suspense } from "react";
+import {
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 import { CartProduct } from "@/lib/types/CartProduct";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { Label } from "@/components/ui/label";
 import { Loader } from "@/components/ui/loader";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -23,7 +30,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LottieDisplayOnSSR } from "@/src/feature/layout/lottie/LottieDisplayOnSSR";
 import { User } from "@prisma/client";
 import Cookies from "js-cookie";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
@@ -31,16 +37,19 @@ import { Toastify } from "@/src/feature/layout/toastify/Toastify";
 import { Tooltip } from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLockKeyhole } from "@fortawesome/pro-solid-svg-icons";
-import { createOrder } from "@/src/feature/layout/ecommerce/utils.server"
+import {
+  faCcVisa,
+  faCcMastercard,
+  faCcAmex,
+} from "@fortawesome/free-brands-svg-icons";
+import { createOrder } from "@/src/feature/layout/ecommerce/utils.server";
 //
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
   throw new Error("STRIPE_PUBLIC_KEY is missing in environment variables.");
 }
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 //
-type CheckoutFormProps = {
-  user?: User | undefined;
-};
+
 type CartData = {
   items?: CartProduct[];
 };
@@ -49,7 +58,7 @@ type CalculateInstallmentsParams = {
 };
 //
 //
-export function CheckoutForm({ ...props }: CheckoutFormProps) {
+export function CheckoutForm() {
   return (
     <>
       <Elements stripe={stripePromise}>
@@ -61,7 +70,6 @@ export function CheckoutForm({ ...props }: CheckoutFormProps) {
 //
 //
 export function InnerCheckoutForm() {
- 
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -72,8 +80,11 @@ export function InnerCheckoutForm() {
   const [cartData, setCartData] = useState<CartData>();
   const [areFieldsValid, setAreFieldsValid] = useState(false);
 
+  // States Check
+  const [isCGVChecked, setIsCGVChecked] = useState<boolean>(false); // Adresse de livraison
+
   // Variable d'option
-  const isDelivery = true // NOTE Cet objet a-t-il besoin d'une livraison ?
+  const isDelivery = true; // NOTE Cet objet a-t-il besoin d'une livraison ?
   const activeMonthly = true; // NOTE Activation du paiement en plusieurs fois
   const minMonthly = 300; // NOTE Minimum d'activation du paiement en plusieurs fois
   const maxMonthlyPayment = 4; // NOTE Maximum de mensualités
@@ -118,18 +129,15 @@ export function InnerCheckoutForm() {
     }
   };
 
+  const handleCheckboxCGVChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const isChecked = e.currentTarget.getAttribute("aria-checked") === "true";
+    setIsCGVChecked(!isChecked);
+  };
+
   const handleSubscription = async ({ months }: { months: number }) => {
     if (!stripe || !elements) {
       cancelPending();
       Toastify({ type: "error", value: "Une erreur est survenue" });
-      return;
-    }
-
-    const cardElement = elements.getElement(CardElement);
-
-    if (!cardElement) {
-      Toastify({ type: "error", value: "Une erreur est survenue" });
-      cancelPending();
       return;
     }
 
@@ -151,15 +159,15 @@ export function InnerCheckoutForm() {
         body: JSON.stringify({
           items: cartItems,
           months: months,
-          customerInfo:customerInfo
+          customerInfo: customerInfo,
         }),
       });
 
       const { sessionId } = await response.json();
-      // WARNING CRÉER LA PAGE DE TRAITEMENT DE LA COMMANDE (LE SESSIONID EST RÉCUPÉRÉ ICI) / RETRIEVE
+
       stripe?.redirectToCheckout({ sessionId });
+      cancelPending();
     });
-    cancelPending();
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -178,17 +186,18 @@ export function InnerCheckoutForm() {
         return;
       }
 
-      const cardElement = elements.getElement(CardElement);
+      const cardNumberElement = elements.getElement(CardNumberElement);
+      const cardExpiryElement = elements.getElement(CardExpiryElement);
+      const cardCvcElement = elements.getElement(CardCvcElement);
 
-      if (!cardElement) {
+      if (!cardNumberElement || !cardExpiryElement || !cardCvcElement) {
         Toastify({ type: "error", value: "Une erreur est survenue" });
         cancelPending();
         return;
       }
-
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
-        card: cardElement,
+        card: cardNumberElement,
       });
 
       if (error) {
@@ -204,7 +213,7 @@ export function InnerCheckoutForm() {
         },
         body: JSON.stringify({
           items: cartItems,
-          customerInfo: customerInfo
+          customerInfo: customerInfo,
         }),
       });
 
@@ -224,13 +233,11 @@ export function InnerCheckoutForm() {
         cancelPending();
         return;
       }
-      
+
       Toastify({
         type: "success",
         value: "Votre paiement a bien été traité. Merci pour votre achat !",
       });
-
-      
 
       if (!customerInfo) {
         throw new Error("Cookie 'customerInfo' n'est pas trouvé.");
@@ -239,18 +246,41 @@ export function InnerCheckoutForm() {
       if (!cartData) {
         // Gérer l'erreur, par exemple :
         throw new Error("Données 'cartData' ne sont pas trouvées.");
-    }
-      const orderResult = await createOrder(JSON.parse(customerInfo), JSON.parse(cartData), confirmPayment);
+      }
+      const orderResult = await createOrder(
+        JSON.parse(customerInfo),
+        JSON.parse(cartData),
+        confirmPayment
+      );
       if (!orderResult) {
         Toastify({
           type: "warning",
           autoClose: false,
-          value: "Votre paiement a bien été enregistré, toutefois un problème est survenu lors de la création de votre commande, veuillez nous contacter !",
+          value:
+            "Votre paiement a bien été enregistré, toutefois un problème est survenu lors de la création de votre commande, veuillez nous contacter !",
         });
-        router.push("/achat/validation/error/commande-payee-mais-non-creee");
+       return router.push("/achat/validation/error/commande-reglee-mais-non-creee");
       }
       router.push("/achat/validation/succes/commande/" + orderResult);
     });
+  };
+
+  const THEME_STYLE = {
+    style: {
+      base: {
+        color: "#32325d",
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: "antialiased",
+        fontSize: "16px",
+        "::placeholder": {
+          color: "#aab7c4",
+        },
+      },
+      invalid: {
+        color: "#fa755a",
+        iconColor: "#fa755a",
+      },
+    },
   };
 
   return (
@@ -259,38 +289,77 @@ export function InnerCheckoutForm() {
         <Card>
           <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 pb-0 rounded-b-none shadow shadow-app-200">
             <CardTitle>
-              Paiement</CardTitle>
+              <div className="flex flex-row justify-between items-center">
+                <div>Paiement</div>
+                <div className="flex flex-row items-center gap-x-5 justify-center">
+                  <FontAwesomeIcon icon={faCcVisa} />
+                  <FontAwesomeIcon icon={faCcAmex} />
+                  <FontAwesomeIcon icon={faCcMastercard} />
+                </div>
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <CustomerInfoForm setValidity={setAreFieldsValid} isDelivery={isDelivery} />
-            <div className="grid w-full  items-center gap-3">
+            <CustomerInfoForm
+              setValidity={setAreFieldsValid}
+              isDelivery={isDelivery}
+            />
+            <div className="grid w-full  items-center gap-3  md:mt-4 mt-5">
               <div className="separatorWithText">
                 <div>
                   <span />
                 </div>
                 <div>
                   <span>
+                    <span   
+                    data-tooltip-id="dataSecure"
+                    data-tooltip-content={`Paiement sécurisé`}>
                     <FontAwesomeIcon
                       icon={faLockKeyhole}
                       className="mx-2"
-                      data-tooltip-id="dataSecure"
-                      data-tooltip-html={`
-                     Paiement sécurisé
-                       `}
+                    
                     />
                     <Tooltip id="dataSecure" />
-                    Informations de paiement
+                    </span>
+                    Paiement
                   </span>
                 </div>
               </div>
               <Suspense fallback={<Skeleton />}>
                 <div className="flex flex-col gap-y-5">
-                  <CardElement id="paymentInfo" />
+                  <div className="flex flex-col gap-y-5 justify-between mt-5 p-5 bg-app-50 rounded-lg border border-app-200">
+                    <div className="w-full grid  items-center gap-1.5">
+                      <Label>Numéro de carte *</Label>
+                      <CardNumberElement options={THEME_STYLE} />
+                    </div>
+                    <div className="flex md:flex-row flex-col gap-y-5 items-center justify-between gap-x-2">
+                      <div className="md:w-6/12 w-full grid  items-center gap-1.5">
+                        <Label>Date d&apos;expiration *</Label>
+                        <CardExpiryElement id="cardExp" options={THEME_STYLE} />
+                      </div>
+                      <div className="md:w-6/12 w-full grid  items-center gap-1.5">
+                        <Label>Code CCV *</Label>
+                        <CardCvcElement options={THEME_STYLE} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </Suspense>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="enableCGV"
+                  checked={isCGVChecked}
+                  onClick={(e) => {
+                    handleCheckboxCGVChange(e);
+                  }}
+                />
+                <label htmlFor="enableCGV">
+                  J&apos;ai lu et j&apos;accepte les CGV *
+                </label>
+              </div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-between -mt-5">
             <Suspense fallback={<Skeleton />}>
               <div
                 className={`grid ${
@@ -309,7 +378,7 @@ export function InnerCheckoutForm() {
                         ? "disabled opacity-50 cursor-default"
                         : null
                     }`}
-                    disabled={!areFieldsValid || !stripe}>
+                    disabled={!areFieldsValid || !isCGVChecked || !stripe}>
                     {isPending && isTransitionActive.current ? (
                       <Loader className="mr-2 h-4 w-4" />
                     ) : null}{" "}
@@ -335,9 +404,10 @@ export function InnerCheckoutForm() {
                             disabled={
                               !areFieldsValid ||
                               !stripe ||
+                              !isCGVChecked ||
                               calculatedTotal < minMonthly
                             }>
-                            Ou par mensualités
+                            Par mensualités
                           </Button>
                           {calculatedTotal < minMonthly && (
                             <>
@@ -368,6 +438,7 @@ export function InnerCheckoutForm() {
                                   disabled={
                                     !areFieldsValid ||
                                     !stripe ||
+                                    !isCGVChecked ||
                                     calculatedTotal < minMonthly
                                   }>
                                   {isPending && isTransitionActive.current ? (

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState, useLayoutEffect, ReactNode } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -8,7 +8,9 @@ interface MotionShowProps {
   threshold?: number;
   triggerOnce?: boolean;
   animation?: "BottomToTop" | "TopToBottom" | "slideIn" | "zoomIn" | "rotateIn" | "bounceIn" | "swingIn" | "slideInFromRight" | "slideInFromLeft" | "slideInFromTop" | "slideInFromBottom" | "rotateInFrom90" | "rotateInFromNeg90" | "scaleUp" | "scaleDown" | "flipX" | "flipY";
+  slowNtw?:boolean
 }
+
 
 const variants: { [key: string]: Variants } = {
     BottomToTop: {
@@ -86,19 +88,38 @@ const MotionShow: React.FC<MotionShowProps> = ({
   threshold = 0,
   triggerOnce = false,
   animation = "BottomToTop",
+  slowNtw = false
 }) => {
+  useEffect(() => {
+    const connection = (navigator as any).connection;
+    if (connection && ['slow-2g', '2g'].includes(connection.effectiveType)) {
+      console.log(connection);
+    } else {
+      console.log(connection);
+    }
+  }, []);
   const controls = useAnimation();
   const { ref, inView } = useInView({
     triggerOnce: triggerOnce,
     threshold: threshold,
   });
-
   const [isMounted, setIsMounted] = useState(false);
 
+  // const timeoutId = setTimeout(() => {
+  //   if (isMounted) {
+  //     caca = true;
+  //   }
+  // }, 1000); // 3 secondes de délai
   useEffect(() => {
     setIsMounted(true);
-    return () => setIsMounted(false);
   }, []);
+
+  
+
+  // return () => {
+  //   clearTimeout(timeoutId); // Nettoyage du timeout si le composant est démonté
+  // };
+  const [isMountedChecked, setIsMountedChecked] = useState(false);
 
   useEffect(() => {
     if (isMounted) {
@@ -107,20 +128,32 @@ const MotionShow: React.FC<MotionShowProps> = ({
       } else {
         controls.start("hidden");
       }
+      setTimeout(() => {
+        setIsMountedChecked(true);
+      }, 2000);
     }
   }, [controls, inView, isMounted]);
+  
+
+
 
   return (
-    <motion.div
-      ref={ref}
-      animate={controls}
-      initial="hidden"
-      transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-      variants={variants[animation]}
-    >
-      {children}
-    </motion.div>
-  );
+    <>
+        
+            <motion.div
+                ref={ref}
+                animate={controls}
+                initial={isMounted ? "hidden" : "visible"}
+                transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+                variants={variants[animation]}
+            >
+                {children}
+            </motion.div>
+       
+    </>
+);
+
+
 }
 
 export default MotionShow;

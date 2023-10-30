@@ -16,8 +16,11 @@ import Cookies from "js-cookie";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
 import { Tooltip } from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faTruck, faReceipt } from "@fortawesome/pro-solid-svg-icons";
-import { Separator } from "@/components/ui/separator";
+import {
+  faInfoCircle,
+  faTruck,
+  faReceipt,
+} from "@fortawesome/pro-solid-svg-icons";
 
 interface CustomerInfoForm {
   setValidity: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,10 +64,11 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [passwordCrypt, setPasswordCrypt] = useState<string>("");
+  const [deliveryName, setDeliveryName] = useState<string>("");
+  const [billingName, setBillingName] = useState<string>("");
 
   // ANCHOR Checks state
   const [isShippingChecked, setIsShippingChecked] = useState<boolean>(true); // Adresse de livraison
-  const [isCGVChecked, setIsCGVChecked] = useState<boolean>(false); // Adresse de livraison
   const [shippingInputHidden, setShippingInputHidden] = useState("hidden");
 
   // ANCHOR Location state
@@ -92,6 +96,8 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
         setLastName(customerInfo.name); // Et c'est name au lieu de lastname
         setEmail(customerInfo.email);
         setPhone(customerInfo.phone);
+        setDeliveryName(customerInfo.deliveryName);
+        setBillingName(customerInfo.billingName);
         setAddress(customerInfo.address);
         setAddressComp(customerInfo.addressComp);
         setAddressBilling(customerInfo.addressBilling);
@@ -118,6 +124,8 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
         phone: phone,
         address: address,
         addressComp: addressComp,
+        deliveryName: deliveryName,
+        billingName: billingName,
         addressBilling: addressBilling,
         addressBillingComp: addressBillingComp,
         isShippingChecked: isShippingChecked,
@@ -130,6 +138,8 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
     lastName,
     email,
     passwordCrypt,
+    deliveryName,
+    billingName,
     emailExist,
     phone,
     address,
@@ -148,13 +158,14 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
           validator.isEmail(email.trim()) &&
           email.trim() !== "" &&
           password.trim() === "" &&
+          deliveryName.trim() !== "" && 
           validator.isMobilePhone(phone) &&
-          isCGVChecked === true &&
           (isDelivery === true
             ? address?.trim() !== "" &&
               (isShippingChecked === true
                 ? true
-                : addressBilling?.trim() !== ""
+                : addressBilling?.trim() !== "" &&  billingName.trim() !== ""
+
                 ? true
                 : false)
             : true)
@@ -166,14 +177,14 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
           validator.isEmail(email.trim()) &&
           email.trim() !== "" &&
           password.trim() !== "" &&
+          deliveryName.trim() !== "" && 
           (password.trim() === "" || password === passwordConfirm) &&
           validator.isMobilePhone(phone) &&
-          isCGVChecked === true &&
           (isDelivery === true
             ? address?.trim() !== "" &&
               (isShippingChecked === true
                 ? true
-                : addressBilling?.trim() !== ""
+                : addressBilling?.trim() !== "" &&  billingName.trim() !== ""
                 ? true
                 : false)
             : true)
@@ -188,16 +199,18 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
     lastName,
     email,
     password,
+    isDelivery,
     passwordConfirm,
     emailExist,
     phone,
     address,
+    deliveryName,
+    billingName,
     isShippingChecked,
     addressBilling,
     passwordCrypt,
     addressBillingComp,
     addressComp,
-    isCGVChecked,
   ]);
 
   useEffect(() => {
@@ -208,12 +221,27 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
 
   // Consts/functions
 
+  const handleDeliveryNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDeliveryName(e.target.value);
+  };
+
+  const handleBillingNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBillingName(e.target.value);
+  };
+
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
+    if (deliveryName === firstName + " " + lastName || deliveryName === "") {
+      setDeliveryName(e.target.value + " " + lastName)
+    }
   };
+  
 
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(e.target.value);
+    if (deliveryName === firstName + " " + lastName || deliveryName === "") {
+      setDeliveryName(firstName + " " + e.target.value)
+    }
   };
 
   const handleAddressCompChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -305,13 +333,9 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
       setShippingInputHidden("hidden");
       setLocationDataBilling("");
       setAddressBilling("");
+      setBillingName("");
       setAddressBillingComp("");
     }
-  };
-
-  const handleCheckboxCGVChange = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const isChecked = e.currentTarget.getAttribute("aria-checked") === "true";
-    setIsCGVChecked(!isChecked);
   };
 
   // ANCHOR RETURN
@@ -327,7 +351,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
       <div className="grid grid-cols-1 grid-flow-row w-full gap-y-5  mb-5 -mt-4">
         <div className="grid md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-4">
           <div className="grid w-full  items-center gap-1.5">
-            <Label htmlFor="firstname">Votre prénom *</Label>
+            <Label htmlFor="firstname">Prénom *</Label>
             <Input
               id="firstname"
               value={firstName}
@@ -335,7 +359,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
             />
           </div>
           <div className="grid w-full  items-center gap-1.5">
-            <Label htmlFor="lastname">Votre nom *</Label>
+            <Label htmlFor="lastname">Nom *</Label>
             <Input
               id="lastname"
               value={lastName}
@@ -360,7 +384,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
                   </span>
                 </>
               )}
-              Votre numéro de téléphone *{" "}
+              Téléphone *{" "}
             </Label>
             <PhoneInput
               id="phone"
@@ -387,7 +411,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
                   </span>
                 </>
               )}
-              Votre adresse email *
+              Adresse email *
             </Label>
             <Input
               id="email"
@@ -397,7 +421,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
               onChange={handleEmailChange}
             />
           </div>
-</div>
+        </div>
         {!emailExist ? (
           <>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-y-4 gap-x-4">
@@ -446,7 +470,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
             </p>
           </>
         )}
-        {isDelivery &&
+        {isDelivery && (
           <>
             <div className="separatorWithText">
               <div>
@@ -454,20 +478,30 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
               </div>
               <div>
                 <span>
-                <FontAwesomeIcon
-                      icon={faTruck}
-                      className="mx-2"
-                      data-tooltip-id="dataSecure"
-                      data-tooltip-html={`
-                     Paiement sécurisé
-                       `}
-                    /> Informations de livraison
+                  <FontAwesomeIcon
+                    icon={faTruck}
+                    className="mx-2"
+                  />
+                  Livraison
                 </span>
               </div>
             </div>
             <Suspense fallback={<Skeleton />}>
+            
+                <div className="grid w-full  items-center gap-1.5">
+                  <Label htmlFor="deliveryName">Nom et prénom, société... *</Label>
+                  <Input
+                    id="deliveryName"
+                    value={deliveryName}
+                    onChange={handleDeliveryNameChange}
+                  />
+                </div>
+                
+             
               <div className="grid w-full  items-center gap-1.5">
-                <Label htmlFor="addLivraison">Adresse de livraison *</Label>
+                <Label htmlFor="addLivraison">
+                  Adresse complète de livraison *
+                </Label>
                 {isGoogleScriptLoaded ? (
                   <>
                     <LocationSearchInput
@@ -497,38 +531,46 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
                   handleCheckboxShippingChange(e);
                 }}
               />
-              <label
-                htmlFor="enableBilling"
-              >
-                Cette adresse est aussi mon adresse de facturation
+              <label htmlFor="enableBilling">
+                Cette adresse est aussi votre adresse de facturation
               </label>
             </div>
 
             <div
-              className={`${shippingInputHidden === "hidden"
+              className={`${
+                shippingInputHidden === "hidden"
                   ? "hidden"
                   : "grid grid-cols-1 grid-flow-row w-full gap-y-4 mb-5 "
-                }`}>
-              <div className="relative mt-4 uppercase">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-app-500" />
+              }`}>
+              <div className="separatorWithText">
+                <div>
+                  <span />
                 </div>
-                <div className="relative flex justify-center  text-xs ">
-                  <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
-                  <FontAwesomeIcon
+                <div>
+                  <span>
+                    <FontAwesomeIcon
                       icon={faReceipt}
-                      className="mx-2"
-                      data-tooltip-id="dataSecure"
-                      data-tooltip-html={`
-                     Paiement sécurisé
-                       `}
-                    />Informations de facturation
+                      className="mx-2"     
+                    />
+                    Facturation
                   </span>
                 </div>
               </div>
 
+                <div className="grid w-full  items-center gap-1.5">
+                  <Label htmlFor="billingName">Nom et prénom, société... *</Label>
+                  <Input
+                    id="billingName"
+                    value={billingName}
+                    onChange={handleBillingNameChange}
+                  />
+                </div>
               <div className="grid w-full  items-center gap-1.5">
-                <Label htmlFor="addBilling">Adresse de facturation *</Label>
+                <Label htmlFor="addBilling">
+                  Adresse complète de facturation *
+                </Label>
+
+
                 {isGoogleScriptLoaded ? (
                   <>
                     <LocationSearchInput
@@ -540,29 +582,19 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
                 ) : null}
               </div>
               <div className="grid w-full  items-center gap-1.5">
-                <Label htmlFor="addBillingComp">Complément d&apos;adresse</Label>
+                <Label htmlFor="addBillingComp">
+                  Complément d&apos;adresse
+                </Label>
                 <Input
                   id="addBillingComp"
                   onChange={handleAddressBillingCompChange}
                 />
               </div>
             </div>
-          </>}
+          </>
+        )}
       </div>
       {/* <Separator className="my-4" /> */}
-      <div className="flex items-center space-x-2">
-        <Checkbox
-          id="enableCGV"
-          checked={isCGVChecked}
-          onClick={(e) => {
-            handleCheckboxCGVChange(e);
-          }}
-        />
-        <label
-          htmlFor="enableCGV">
-          J&apos;ai lu et j&apos;accepte les CGV *
-        </label>
-      </div>
     </>
   );
 };

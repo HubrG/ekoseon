@@ -8,9 +8,9 @@ import {
 import Link from "next/link";
 import MotionShow from "@/src/feature/layout/effects/Show";
 
-export const Footer = () => {
+export const Footer = async () => {
   return (
-    <MotionShow threshold={0} triggerOnce={true} animation="TopToBottom">
+    <MotionShow threshold={0.2} triggerOnce={true} animation="TopToBottom">
       <footer className="bg-app-50 dark:bg-slate-900 mt-20  shadow-t-sm border-t-4 border-app-200 dark:border-app-800 ">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
@@ -117,11 +117,11 @@ export const Footer = () => {
               réservés
             </span>
             <div className="flex mt-4 space-x-5 sm:justify-center md:mt-0 text-sm">
-              <Link href="/mentions-legales" className="dark:text-slate-500">Mentions légale</Link>
-              <Link href="/politique-de-confidentialite" className="dark:text-slate-500">
+              <Link href="/mentions-legales" prefetch={false} className="dark:text-slate-500">Mentions légale</Link>
+              <Link href="/politique-de-confidentialite"  prefetch={false} className="dark:text-slate-500">
                 Politique de confidentialité
               </Link>
-              <Link href="/conditions-generales-de-vente" className="dark:text-slate-500">CGV</Link>
+              <Link href="/conditions-generales-de-vente"  prefetch={false} className="dark:text-slate-500">CGV</Link>
             </div>
             <div className="flex mt-4 space-x-5  sm:justify-center md:mt-0">
               <ul className="mt-8 flex justify-center gap-6 sm:mt-0 lg:justify-end">
@@ -175,6 +175,7 @@ export const Footer = () => {
           </div>
         </div>
       </footer>
-    </MotionShow>
+      </MotionShow>
+     
   );
 };

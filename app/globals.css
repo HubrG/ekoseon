@@ -1,10 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    --color-app1: theme('colors.app.500'); 
+    --color-app2: theme('colors.app.600'); 
+    --color-app3: theme('colors.app.700'); 
+    --color-app4: theme('colors.app.800'); 
+    --color-app5: theme('colors.app.900'); 
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -167,20 +172,20 @@
 .animated-gradient-audio-paper {
   background-image: linear-gradient(
     to right,
-    #2e1065,
-    #701a75,
-    #7c0d46,
-    #701a75,
-    #2e1065,
-    #701a75
-  );
+    var(--color-app1),
+    var(--color-app2),
+    var(--color-app3),
+    var(--color-app4),
+    var(--color-app5),
+    /* légèrement plus clair */
+    );
   background-size: 400% 100%;
   background-clip: text;
   color: transparent;
   animation: gradientChangeAudioPaper 10s infinite;
 }
 
-@keyframes gradientChangeAudioPaper {
+/* @keyframes gradientChangeAudioPaper {
   0% {
     background-position: 0 0;
   }
@@ -190,7 +195,7 @@
   100% {
     background-position: 0 0;
   }
-}
+} */
 
 a {
   @apply hover:underline text-app font-bold dark:text-app-300 !important;
@@ -324,10 +329,10 @@ div product-alt:first-child {
 }
 /* SHADCN */
 .shadcnInput {
-  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-medium placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
+  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-light placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
 }
 .shadcnLabel-base {
-  @apply md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2
+  @apply md:text-base text-sm font-semibold leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2
 }
 .shadcnCheckbox {
   @apply  h-4 w-4 shrink-0 rounded-sm border border-app shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-app data-[state=checked]:text-primary-foreground

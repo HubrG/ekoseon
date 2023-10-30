@@ -1,17 +1,17 @@
+import "./globals.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import "react-toastify/dist/ReactToastify.css";
 import Provider from "@/context/Provider";
 import { Footer } from "@/src/feature/layout/Footer";
 import { Header } from "@/src/feature/layout/Header";
 import { ThemeProvider } from "@/src/theme/ThemeProvider";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import 'react-toastify/dist/ReactToastify.css';
-import ToastProvider from "@/src/feature/layout/toastify/ToastProvider";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Session } from "next-auth";
 import { Bitter, Caveat, Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import "./globals.css";
-import { Suspense } from "react";
+import dynamic from 'next/dynamic';
+const ToastProvider = dynamic(() => import('@/src/feature/layout/toastify/ToastProvider'));
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -30,13 +30,11 @@ export const metadata: Metadata = {
   description: "Ekoseon",
 };
 
-export default function RootLayout({
-  children,
-  session,
-}: {
+export default function RootLayout(props: {
   children: React.ReactNode;
   session: Session;
 }) {
+  const { children, session } = props;
   return (
     <>
       <html
@@ -47,26 +45,24 @@ export default function RootLayout({
           <body
             className={clsx("bg-background")}
             suppressHydrationWarning={true}>
-              <ToastProvider>
-            <NextTopLoader
-              template='<div class="bar" role="bar"><div class="peg"></div></div> 
+            <ToastProvider>
+              <NextTopLoader
+                template='<div class="bar" role="bar"><div class="peg"></div></div> 
               <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-              color="#3d3d3d"
-              initialPosition={0.08}
-              crawlSpeed={200}
-              height={2}
-              crawl={true}
-              showSpinner={true}
-              easing="ease"
-              speed={200}
-              shadow={false}
-            />
-          </ToastProvider>
+                color="#3d3d3d"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={2}
+                crawl={true}
+                showSpinner={true}
+                easing="ease"
+                speed={200}
+                shadow={false}
+              />
+            </ToastProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Header />
-              <Suspense>
               <div>{children}</div>
-              </Suspense>
               <Footer />
             </ThemeProvider>
           </body>

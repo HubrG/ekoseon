@@ -33,11 +33,23 @@ type ProductProps = {
   key:string
 };
 
-type FetchedProduct = Omit<PrismaProduct, "price"> & {
+type FetchedProduct = Omit<{
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string | null;
+  stock: number;
+  categoryId: string;
+  display: boolean | null;
+  rebate: number | null;
+  rebateProgressive: boolean | null;
+  rebateProgressiveMaxInPercent: number | null;
+}, "price"> & {
   price: string;
-  rebate: number;
-  rebateProgressiveMaxInPercent: number;
+  // ajoutez d'autres propriétés ici si nécessaire
 };
+
 
 interface Cart {
   items: CartProduct[];
@@ -71,7 +83,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
       let bioPriceForQte = new DecimalJS(productWithBio.price).mul(qte);
       let totalBioPrice = bioPriceForQte;
       let rebatePercentage = 0;
-      if (qte > 1) {
+      if (qte > 1 && productWithBio && productWithBio.rebate  && productWithBio.rebateProgressiveMaxInPercent) {
         rebatePercentage = Math.min(productWithBio.rebate * qte, productWithBio.rebateProgressiveMaxInPercent);
         totalBioPrice = totalBioPrice.mul(
           new DecimalJS(1).minus(new DecimalJS(rebatePercentage).div(100))

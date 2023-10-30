@@ -88,24 +88,24 @@ export default async function Success({
                 </CardHeader>
                 <CardContent>
                   <p>
-                    Vous pouvez retrouver les informations concernant votre
-                    commande dans votre{" "}
-                    <Link href="/profil">espace client</Link>.
+                    Retrouvez toutes les informations concernant votre commande
+                    dans votre <Link href="/profil">espace client</Link>.
                   </p>
                   <h3>Ensuite ?</h3>
                   <p>
-                    Nous vous contacterons dans les 24 prochaines heures pour
-                    discuter de votre projet.
+                    Nous vous contacterons dans les 24 prochaines heures
+                    (ouvrées) pour discuter de votre projet et prendre
+                    rendez-vous pour sa réalisation.
                   </p>
                 </CardContent>
                 <CardFooter>
-               <div> <Separator />
-                  <p className="text-sm flex flex-row  items-baseline gap-x-5 text-left mt-10">
-                    <FontAwesomeIcon icon={faInfoCircle} />
-                    D&apos;ici là, si vous
-                    avez la moindre question, n&apos;hésitez pas à nous
-                    contacter au 06.12.75.82.61
-                  </p>
+                  <div>
+                    <Separator />
+                    <p className="text-sm flex flex-row  items-baseline gap-x-5 text-left mt-10">
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                      Si vous avez la moindre question d&apos;ici là,
+                      n&apos;hésitez pas à nous contacter au 06.12.75.82.61
+                    </p>
                   </div>
                 </CardFooter>
               </Card>
