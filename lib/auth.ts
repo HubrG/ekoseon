@@ -61,16 +61,7 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET, // Ajoutez cette ligne
   callbacks: {
-    // 	async jwt({ token, user }) {
-    // 		console.log(user);  // Ajoutez cette ligne
 
-    // 		// Si un utilisateur est présent, cela signifie qu'un nouveau JWT est en cours de création,
-    // 		// par exemple lors de la connexion. Nous ajoutons l'ID de l'utilisateur au token.
-    // 		if (user) {
-    // 			token.id = user.id;
-    // 		}
-    // 		return token;
-    // 	},
     async jwt({ token, user }) {
       if (user) {
         token.userId = user.id; // Assumant que user.id existe
