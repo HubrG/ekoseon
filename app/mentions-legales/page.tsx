@@ -6,6 +6,14 @@ import {  Card,
   CardHeader } from "@/components/ui/card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faScaleBalanced } from "@fortawesome/pro-duotone-svg-icons";
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: Meta("title", "Mentions légales"),
+  description: "Ekoseon",
+};
+
+
 
 export default async function legal() {
 

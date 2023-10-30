@@ -35,6 +35,8 @@ type ProductProps = {
 
 type FetchedProduct = Omit<PrismaProduct, "price"> & {
   price: string;
+  rebate: number;
+  rebateProgressiveMaxInPercent: number;
 };
 
 interface Cart {
@@ -70,7 +72,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
       let totalBioPrice = bioPriceForQte;
       let rebatePercentage = 0;
       if (qte > 1) {
-        rebatePercentage = Math.min(5 * qte, 30);
+        rebatePercentage = Math.min(productWithBio.rebate * qte, productWithBio.rebateProgressiveMaxInPercent);
         totalBioPrice = totalBioPrice.mul(
           new DecimalJS(1).minus(new DecimalJS(rebatePercentage).div(100))
         );
@@ -190,7 +192,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
         description: productWithMicro.description,
         products: [],
       };
-      cartItems.push(microCartItem); // Ajoutez directement au tableau cartItems
+      cartItems.push(microCartItem);
     }
 
     if (bioChecked && productWithBio) {
@@ -203,10 +205,10 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
         description: productWithBio.description,
         products: [],
       };
-      cartItems.push(bioCartItem); // Ajoutez directement au tableau cartItems
+      cartItems.push(bioCartItem); 
     }
 
-    // Remplacer l'objet "items" du localStorage par le nouvel objet
+    // Remplace l'objet "items" du localStorage par le nouvel objet
     let cart: Cart = { items: cartItems };
 
     Cookies.set("cart", JSON.stringify(cart));
@@ -220,8 +222,8 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
           <span className="text-4xl">{formatTime(qte)}</span> d&apos;interview
         </CardTitle>
         {/* <CardDescription>{product.description}</CardDescription> */}
-        <CardDescription>{product.description}</CardDescription>
-        <div className="grid grid-cols-2 gap-x-5  pt-3">
+        {/* <CardDescription>{product.description}</CardDescription> */}
+        <div className="grid grid-cols-2 gap-x-5  pt-0">
           <Button
             aria-label="Réduire d'une unité de quantité"
             variant="outline"
@@ -241,7 +243,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="flex md:flex-row flex-col gap-y-2 gap-x-2  ">
+        <div className="flex md:flex-row flex-col gap-y-2 gap-x-2  " >
           <div
             onClick={handleMicroClick}
             className={`product-alt ${
@@ -263,9 +265,10 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                 className=" md:text-7xl text-4xl text-app-900"
               />
               {/* {productWithMicro?.price} */}
-              J&apos;ai besoin d&apos;un meilleur microphone pour assurer la
-              qualité de l&apos;enregistrement.
+              <span className="font-semibold">J&apos;ai besoin d&apos;un meilleur microphone pour assurer la
+              qualité de l&apos;enregistrement.</span>
               <Badge
+              
                 className={`${
                   microChecked
                     ? "hover:bg-app-600  bg-app-600"
@@ -302,8 +305,8 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                 icon={faBookSparkles}
                 className="md:text-7xl text-4xl  text-app-900"
               />
-              Je souhaite faire écrire une jolie biographie à partir de cet
-              enregistrement.
+              <span className="font-semibold">Je souhaite faire écrire une jolie biographie à partir de cet
+              enregistrement.</span>
               <Badge
                 className={`${
                   bioChecked
@@ -323,15 +326,6 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                       {" "}
                       -{rebatePercentageDisplay.toFixed(2)}%
                     </small>
-
-                    {/* <span
-                      style={{
-                        textDecoration: "line-through",
-                        marginLeft: "8px",
-                        marginRight: "8px",
-                      }}>
-                      {originalBioPrice.toFixed(0)}€
-                    </span> */}
                   </div>
                 )}
               </Badge>

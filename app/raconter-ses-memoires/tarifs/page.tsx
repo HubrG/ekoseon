@@ -1,12 +1,14 @@
 import { Products } from "@/src/feature/layout/ecommerce/Products";
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
-import Loading from './loading';
-
+import Head from "next/head";
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: Meta("title", "Nos tarifs"),
+  description: "Ekoseon",
+};
 
 export default function pricing() {
-
-  // On converti le "price" (Decimal) en String
-  
 
   return (
     <PageTransition>

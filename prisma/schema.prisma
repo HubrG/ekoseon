@@ -57,23 +57,26 @@ model User {
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  date           DateTime?    @default(now())
+  date           DateTime? @default(now())
   accounts       Account[]
   sessions       Session[]
   order          Order[]
 }
 
 model Product {
-  id          String      @id @default(cuid())
-  title       String
-  description String
-  price       Decimal
-  imageUrl    String?
-  stock       Int
-  category    Category    @relation(fields: [categoryId], references: [id])
-  orderItems  OrderItem[]
-  categoryId  String // Modifié à String
-  display     Boolean?
+  id                            String      @id @default(cuid())
+  title                         String
+  description                   String
+  price                         Decimal
+  imageUrl                      String?
+  stock                         Int
+  category                      Category    @relation(fields: [categoryId], references: [id])
+  orderItems                    OrderItem[]
+  categoryId                    String // Modifié à String
+  display                       Boolean?
+  rebate                        Float?
+  rebateProgressive             Boolean?
+  rebateProgressiveMaxInPercent Int?
 }
 
 model Category {
@@ -87,6 +90,7 @@ model Order {
   date               DateTime    @default(now())
   firstName          String      @default("")
   lastName           String      @default("")
+  orderRef           String?     @default("")
   userId             String
   address            String
   addressComp        String?
@@ -102,13 +106,13 @@ model Order {
 }
 
 model Payment {
-  id             String  @id @default(cuid())
-  orderId        String
-  paymentIntent  String
-  status         String
-  amount         Decimal
-  order          Order   @relation(fields: [orderId], references: [id])
-  date           DateTime?    @default(now())
+  id            String    @id @default(cuid())
+  orderId       String
+  paymentIntent String
+  status        String
+  amount        Decimal
+  order         Order     @relation(fields: [orderId], references: [id])
+  date          DateTime? @default(now())
 }
 
 model OrderItem {

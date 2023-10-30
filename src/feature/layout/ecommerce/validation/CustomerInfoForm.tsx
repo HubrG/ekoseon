@@ -16,10 +16,12 @@ import Cookies from "js-cookie";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
 import { Tooltip } from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/pro-solid-svg-icons";
+import { faInfoCircle, faTruck, faReceipt } from "@fortawesome/pro-solid-svg-icons";
+import { Separator } from "@/components/ui/separator";
 
 interface CustomerInfoForm {
   setValidity: React.Dispatch<React.SetStateAction<boolean>>;
+  isDelivery: boolean;
 }
 
 interface CustomerInfo {
@@ -36,7 +38,10 @@ interface CustomerInfo {
   isShippingChecked: boolean;
 }
 
-const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
+const CustomerInfoForm: React.FC<CustomerInfoForm> = ({
+  setValidity,
+  isDelivery,
+}) => {
   // ANCHOR Cookie
   const storedCustomerInfo: string | undefined = Cookies.get("customerInfo");
   let customerInfo: CustomerInfo | null = null;
@@ -59,6 +64,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
 
   // ANCHOR Checks state
   const [isShippingChecked, setIsShippingChecked] = useState<boolean>(true); // Adresse de livraison
+  const [isCGVChecked, setIsCGVChecked] = useState<boolean>(false); // Adresse de livraison
   const [shippingInputHidden, setShippingInputHidden] = useState("hidden");
 
   // ANCHOR Location state
@@ -143,12 +149,15 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
           email.trim() !== "" &&
           password.trim() === "" &&
           validator.isMobilePhone(phone) &&
-          address?.trim() !== "" &&
-          (isShippingChecked === true
-            ? true
-            : addressBilling?.trim() !== ""
-            ? true
-            : false)
+          isCGVChecked === true &&
+          (isDelivery === true
+            ? address?.trim() !== "" &&
+              (isShippingChecked === true
+                ? true
+                : addressBilling?.trim() !== ""
+                ? true
+                : false)
+            : true)
         );
       } else {
         return (
@@ -159,12 +168,15 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
           password.trim() !== "" &&
           (password.trim() === "" || password === passwordConfirm) &&
           validator.isMobilePhone(phone) &&
-          address?.trim() !== "" &&
-          (isShippingChecked === true
-            ? true
-            : addressBilling?.trim() !== ""
-            ? true
-            : false)
+          isCGVChecked === true &&
+          (isDelivery === true
+            ? address?.trim() !== "" &&
+              (isShippingChecked === true
+                ? true
+                : addressBilling?.trim() !== ""
+                ? true
+                : false)
+            : true)
         );
       }
     };
@@ -185,6 +197,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
     passwordCrypt,
     addressBillingComp,
     addressComp,
+    isCGVChecked,
   ]);
 
   useEffect(() => {
@@ -296,6 +309,11 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
     }
   };
 
+  const handleCheckboxCGVChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const isChecked = e.currentTarget.getAttribute("aria-checked") === "true";
+    setIsCGVChecked(!isChecked);
+  };
+
   // ANCHOR RETURN
 
   return (
@@ -306,8 +324,8 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
           setIsGoogleScriptLoaded(true);
         }}></Script>
 
-      <div className="grid grid-cols-1 grid-flow-row w-full gap-y-4 mb-5 -mt-4">
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-x-2 gap-y-4">
+      <div className="grid grid-cols-1 grid-flow-row w-full gap-y-5  mb-5 -mt-4">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-4">
           <div className="grid w-full  items-center gap-1.5">
             <Label htmlFor="firstname">Votre prénom *</Label>
             <Input
@@ -325,63 +343,64 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
             />
           </div>
         </div>
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="phone">
-            {phoneError !== "" && (
-              <>
-                <span
-                  className="w-full"
-                  data-tooltip-id="ttPhone"
-                  data-tooltip-content={phoneError}>
-                  <FontAwesomeIcon
-                    icon={faInfoCircle}
-                    className="text-red-500 mr-2"
-                  />
-                  <Tooltip id="ttPhone" className="tooltip" />
-                </span>
-              </>
-            )}
-            Votre numéro de téléphone *{" "}
-          </Label>
-
-          <PhoneInput
-            id="phone"
-            value={phone}
-            onChange={handlePhoneChange}
-            onBlur={handlePhoneBlur}
-            defaultCountry="FR"
-          />
-        </div>
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="email">
-            {emailError !== "" && (
-              <>
-                <span
-                  className="w-full"
-                  data-tooltip-id="ttEmail"
-                  data-tooltip-content={emailError}>
-                  <FontAwesomeIcon
-                    icon={faInfoCircle}
-                    className="text-red-500 mr-2"
-                  />
-                  <Tooltip id="ttEmail" className="tooltip" />
-                </span>
-              </>
-            )}
-            Votre adresse email *
-          </Label>
-          <Input
-            id="email"
-            type="email"
-            onBlur={handleEmailBlur}
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div>
-
+        <div className="grid md:grid-cols-2 grid-cols-1 w-full  items-center gap-x-4 gap-y-4 gap-1.5">
+          <div className="grid w-full  items-center gap-1.5">
+            <Label htmlFor="phone">
+              {phoneError !== "" && (
+                <>
+                  <span
+                    className="w-full"
+                    data-tooltip-id="ttPhone"
+                    data-tooltip-content={phoneError}>
+                    <FontAwesomeIcon
+                      icon={faInfoCircle}
+                      className="text-red-500 mr-2"
+                    />
+                    <Tooltip id="ttPhone" className="tooltip" />
+                  </span>
+                </>
+              )}
+              Votre numéro de téléphone *{" "}
+            </Label>
+            <PhoneInput
+              id="phone"
+              countrySelectComponent={() => null}
+              value={phone}
+              onChange={handlePhoneChange}
+              onBlur={handlePhoneBlur}
+              defaultCountry="FR"
+            />
+          </div>
+          <div className="grid w-full  items-center gap-1.5">
+            <Label htmlFor="email">
+              {emailError !== "" && (
+                <>
+                  <span
+                    className="w-full"
+                    data-tooltip-id="ttEmail"
+                    data-tooltip-content={emailError}>
+                    <FontAwesomeIcon
+                      icon={faInfoCircle}
+                      className="text-red-500 mr-2"
+                    />
+                    <Tooltip id="ttEmail" className="tooltip" />
+                  </span>
+                </>
+              )}
+              Votre adresse email *
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              onBlur={handleEmailBlur}
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </div>
+</div>
         {!emailExist ? (
           <>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-x-2">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-y-4 gap-x-4">
               <div className="grid w-full  items-center gap-1.5">
                 <Label htmlFor="password">
                   {passwordError !== "" && (
@@ -408,7 +427,7 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
               </div>
               <div className="grid w-full  items-center gap-1.5">
                 <Label htmlFor="passwordConfirm">
-                  Confirmez le mot de passe *
+                  Confirmer le mot de passe *
                 </Label>
                 <Input
                   type="password"
@@ -421,97 +440,128 @@ const CustomerInfoForm: React.FC<CustomerInfoForm> = ({ setValidity }) => {
           </>
         ) : (
           <>
-            <p className="text-xs">
+            <p className="text-sm text-center mb-0">
               Vous avez déjà commandé avec cette adresse email, cette commande
               sera ajoutée à votre compte.
             </p>
           </>
         )}
-        <div className="relative my-4">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-app-500" />
-          </div>
-          <div className="relative flex justify-center  text-xs ">
-            <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
-              Informations de livraison
-            </span>
-          </div>
-        </div>
-        <Suspense fallback={<Skeleton />}>
-          <div className="grid w-full  items-center gap-1.5">
-            <Label htmlFor="addLivraison">Adresse de livraison *</Label>
-            {isGoogleScriptLoaded ? (
-              <>
-                <LocationSearchInput
-                  address={address}
-                  setAddress={setAddress}
-                  setLocationData={setLocationData}
-                />
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-        </Suspense>
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="addComp">Complément d&apos;adresse</Label>
-          <Input
-            id="addComp"
-            value={addressComp}
-            onChange={handleAddressCompChange}
-          />
-        </div>
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="enableBilling"
-            checked={isShippingChecked}
-            onClick={(e) => {
-              handleCheckboxShippingChange(e);
-            }}
-          />
-          <label
-            htmlFor="enableBilling"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Cette adresse est aussi mon adresse de facturation
-          </label>
-        </div>
-      </div>
-      <div
-        className={`${
-          shippingInputHidden === "hidden"
-            ? "hidden"
-            : "grid grid-cols-1 grid-flow-row w-full gap-y-4 mb-5 "
-        }`}>
-        <div className="relative my-4">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-app-500" />
-          </div>
-          <div className="relative flex justify-center  text-xs ">
-            <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
-              Informations de facturation
-            </span>
-          </div>
-        </div>
-
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="addBilling">Adresse de livraison *</Label>
-          {isGoogleScriptLoaded ? (
-            <>
-              <LocationSearchInput
-                address={addressBilling}
-                setAddress={setAddressBilling}
-                setLocationData={setLocationDataBilling}
+        {isDelivery &&
+          <>
+            <div className="separatorWithText">
+              <div>
+                <span />
+              </div>
+              <div>
+                <span>
+                <FontAwesomeIcon
+                      icon={faTruck}
+                      className="mx-2"
+                      data-tooltip-id="dataSecure"
+                      data-tooltip-html={`
+                     Paiement sécurisé
+                       `}
+                    /> Informations de livraison
+                </span>
+              </div>
+            </div>
+            <Suspense fallback={<Skeleton />}>
+              <div className="grid w-full  items-center gap-1.5">
+                <Label htmlFor="addLivraison">Adresse de livraison *</Label>
+                {isGoogleScriptLoaded ? (
+                  <>
+                    <LocationSearchInput
+                      address={address}
+                      setAddress={setAddress}
+                      setLocationData={setLocationData}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </Suspense>
+            <div className="grid w-full  items-center gap-1.5">
+              <Label htmlFor="addComp">Complément d&apos;adresse</Label>
+              <Input
+                id="addComp"
+                value={addressComp}
+                onChange={handleAddressCompChange}
               />
-            </>
-          ) : null}
-        </div>
-        <div className="grid w-full  items-center gap-1.5">
-          <Label htmlFor="addBillingComp">Complément d&apos;adresse</Label>
-          <Input
-            id="addBillingComp"
-            onChange={handleAddressBillingCompChange}
-          />
-        </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="enableBilling"
+                checked={isShippingChecked}
+                onClick={(e) => {
+                  handleCheckboxShippingChange(e);
+                }}
+              />
+              <label
+                htmlFor="enableBilling"
+              >
+                Cette adresse est aussi mon adresse de facturation
+              </label>
+            </div>
+
+            <div
+              className={`${shippingInputHidden === "hidden"
+                  ? "hidden"
+                  : "grid grid-cols-1 grid-flow-row w-full gap-y-4 mb-5 "
+                }`}>
+              <div className="relative mt-4 uppercase">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-app-500" />
+                </div>
+                <div className="relative flex justify-center  text-xs ">
+                  <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
+                  <FontAwesomeIcon
+                      icon={faReceipt}
+                      className="mx-2"
+                      data-tooltip-id="dataSecure"
+                      data-tooltip-html={`
+                     Paiement sécurisé
+                       `}
+                    />Informations de facturation
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid w-full  items-center gap-1.5">
+                <Label htmlFor="addBilling">Adresse de facturation *</Label>
+                {isGoogleScriptLoaded ? (
+                  <>
+                    <LocationSearchInput
+                      address={addressBilling}
+                      setAddress={setAddressBilling}
+                      setLocationData={setLocationDataBilling}
+                    />
+                  </>
+                ) : null}
+              </div>
+              <div className="grid w-full  items-center gap-1.5">
+                <Label htmlFor="addBillingComp">Complément d&apos;adresse</Label>
+                <Input
+                  id="addBillingComp"
+                  onChange={handleAddressBillingCompChange}
+                />
+              </div>
+            </div>
+          </>}
+      </div>
+      {/* <Separator className="my-4" /> */}
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="enableCGV"
+          checked={isCGVChecked}
+          onClick={(e) => {
+            handleCheckboxCGVChange(e);
+          }}
+        />
+        <label
+          htmlFor="enableCGV">
+          J&apos;ai lu et j&apos;accepte les CGV *
+        </label>
       </div>
     </>
   );

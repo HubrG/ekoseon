@@ -7,7 +7,12 @@ import {  Accordion,
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import React from 'react'
-
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: Meta("title", "Vos commandes"),
+  description: "Ekoseon",
+};
 export default async function Profile() {
   return (
     <PageTransition>

@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { LottieDisplayOnSSR } from "@/src/feature/layout/lottie/LottieDisplayOnSSR";
 import { User } from "@prisma/client";
 import Cookies from "js-cookie";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
@@ -61,6 +61,7 @@ export function CheckoutForm({ ...props }: CheckoutFormProps) {
 //
 //
 export function InnerCheckoutForm() {
+ 
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -72,10 +73,11 @@ export function InnerCheckoutForm() {
   const [areFieldsValid, setAreFieldsValid] = useState(false);
 
   // Variable d'option
-  const activeMonthly = true;
-  const minMonthly = 300;
-  const maxMonthlyPayment = 4;
-  const trancheAmount = 150; // Montant de la tranche pour le paiement en plusieurs fois
+  const isDelivery = true // NOTE Cet objet a-t-il besoin d'une livraison ?
+  const activeMonthly = true; // NOTE Activation du paiement en plusieurs fois
+  const minMonthly = 300; // NOTE Minimum d'activation du paiement en plusieurs fois
+  const maxMonthlyPayment = 4; // NOTE Maximum de mensualités
+  const trancheAmount = 150; // NOTE Montant de la tranche pour le paiement en plusieurs fois
   const calculateInstallments = ({ total }: CalculateInstallmentsParams) => {
     if (total < minMonthly) {
       return 0; // ou null, selon ce que vous préférez pour indiquer qu'aucun paiement échelonné n'est possible
@@ -228,6 +230,8 @@ export function InnerCheckoutForm() {
         value: "Votre paiement a bien été traité. Merci pour votre achat !",
       });
 
+      
+
       if (!customerInfo) {
         throw new Error("Cookie 'customerInfo' n'est pas trouvé.");
       }
@@ -243,9 +247,9 @@ export function InnerCheckoutForm() {
           autoClose: false,
           value: "Votre paiement a bien été enregistré, toutefois un problème est survenu lors de la création de votre commande, veuillez nous contacter !",
         });
+        router.push("/achat/validation/error/commande-payee-mais-non-creee");
       }
-      return;
-      router.push("/");
+      router.push("/achat/validation/succes/commande/" + orderResult);
     });
   };
 
@@ -253,21 +257,19 @@ export function InnerCheckoutForm() {
     <>
       <form onSubmit={handleSubmit}>
         <Card>
-          <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 rounded-b-none shadow shadow-app-200">
-            <CardTitle>Paiement</CardTitle>
-            <CardDescription>
-              Vous avez la possibilité de payer en plusieurs fois
-            </CardDescription>
+          <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 pb-0 rounded-b-none shadow shadow-app-200">
+            <CardTitle>
+              Paiement</CardTitle>
           </CardHeader>
           <CardContent>
-            <CustomerInfoForm setValidity={setAreFieldsValid} />
+            <CustomerInfoForm setValidity={setAreFieldsValid} isDelivery={isDelivery} />
             <div className="grid w-full  items-center gap-3">
-              <div className=" relative my-4">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-app-500" />
+              <div className="separatorWithText">
+                <div>
+                  <span />
                 </div>
-                <div className="relative flex justify-center  text-xs ">
-                  <span className="bg-app-50 font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2">
+                <div>
+                  <span>
                     <FontAwesomeIcon
                       icon={faLockKeyhole}
                       className="mx-2"
@@ -319,7 +321,6 @@ export function InnerCheckoutForm() {
                     </>
                   )}
                 </div>
-
                 {activeMonthly && (
                   <>
                     <DropdownMenu>

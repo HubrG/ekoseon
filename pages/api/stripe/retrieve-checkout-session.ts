@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import { NextApiRequest, NextApiResponse } from "next";
 import { createOrder } from "@/src/feature/layout/ecommerce/utils.server";
 import { prisma } from "@/lib/prisma";
+import { getOrder } from "@/src/query/order.query";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -29,21 +30,21 @@ try {
         isSub: session.subscription?.toString(),
       },
     });
-    // 
+    let orderId;
     if (!isOrderExist) {
       const subscriptionNumber = session.metadata?.monthly ? Number(session.metadata?.monthly) : undefined;
       let amountTotal = 0
       if (subscriptionNumber && session.amount_total) {
-        amountTotal = (session.amount_total * subscriptionNumber)/100 || 0;
+        amountTotal = (session.amount_total * subscriptionNumber) || 0;
       }
       const corder = await createOrder(JSON.parse(customerInfo), JSON.parse(cart), undefined, session.subscription?.toString(), subscriptionNumber, amountTotal)
-      return res.json(null)
+      res.json({status:"created", orderId:corder});
     } 
     // L'order a déjà été créé
-    return res.json("exist");
+    res.json({status:"exist", orderId:isOrderExist?.id});
   } catch (error) {
     // Erreur lors de la création du compte
-    res.json("errAcc")
+    res.json({ status: "errAcc" })
   }
 } catch (error) {
   // La commande n'existe pas

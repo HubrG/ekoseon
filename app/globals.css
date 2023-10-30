@@ -58,13 +58,13 @@
     @apply border-border font-sans p-0 m-0 
   }
   body {
-    @apply bg-app-50 dark:bg-slate-900 bg-opacity-50 !important;
+    @apply bg-white dark:bg-slate-900 bg-opacity-50 !important;
   }
   p {
     @apply text-app-900 dark:text-app-50
   }
   main {
-    @apply bg-app-50 dark:bg-slate-800 bg-opacity-50;
+    @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
   nav {
     @apply bg-app-50 dark:bg-slate-900 fixed w-full    z-20 top-0 left-0 shadow dark:shadow-slate-950 shadow-app-200 border-app-600 border-opacity-70   dark:border-slate-800;
@@ -72,10 +72,24 @@
   nav div:first-child {
     @apply max-w-screen-xl flex flex-wrap items-center backdrop-blur-lg justify-between mx-auto p-4 py-[0.5rem];
   }
+  .first-section {
+    @apply w-full relative  shadow-t-xl min-h-screen pt-10 z-10 bg-white rounded-t-2xl;
+  }
+  .dark .first-section {
+    @apply bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
+  }
+  section {
+    @apply border-opacity-50 bg-white  bg-opacity-50  text-app-950 dark:text-app-50;
+  }
+  
+  .dark section {
+    @apply bg-slate-800 border-opacity-50 !important;
+  }
+  
 }
 @layer components {
   .content {
-    @apply max-w-5xl px-5 pt-20 mx-auto mt-10 min-h-[70vh] text-lg ;
+    @apply max-w-5xl px-5 pt-20  mx-auto mt-10 min-h-[70vh] text-lg ;
   }
   .content-centered {
     @apply   mx-auto min-h-screen  flex items-center justify-center;
@@ -86,7 +100,7 @@
   h4,
   h5,
   h6 {
-    @apply font-sans  mt-0 mb-1 leading-7 flex flex-col gap-y-2;
+    @apply font-sans  mt-0 mb-5 leading-7 flex flex-col gap-y-2;
   }
   h1 svg,
   h2 svg,
@@ -183,7 +197,7 @@ a {
   position: relative;
 }
 a.nunderline {
-  @apply hover:no-underline dark:hover:text-app-300 hover:text-app-700 text-app-950 dark:text-app-50 !important;
+  @apply hover:no-underline dark:hover:text-app-300 hover:text-app-700 text-app-900 dark:text-app-50 font-semibold !important;
 }
 a.special-uderline::after,
 a.special-uderline-active::after {
@@ -216,19 +230,6 @@ a.special-uderline-active {
   transition: transform 0.1s ease-in-out; /* ajoute une transition animée */
 }
 
-.first-section {
-  @apply w-full relative  shadow-t-xl min-h-screen pt-10 z-10 bg-app-50 rounded-t-2xl;
-}
-.dark .first-section {
-  @apply bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
-}
-section {
-  @apply border-opacity-50 bg-app-50  bg-opacity-50  text-app-950 dark:text-app-50;
-}
-
-.dark section {
-  @apply bg-slate-800 border-opacity-50 !important;
-}
 
 /* styles.css */
 .page-transition-enter {
@@ -299,7 +300,7 @@ div product-alt:first-child {
   @apply border-2 border-r-2
 }
 .product-price {
-  @apply  w-full items-center space-x-2 gap-y-5  -mt-5 p-3 text-3xl bg-app-100 font-bold text-app rounded-xl;
+  @apply   items-center space-x-2 gap-y-5  -mt-5 p-3 text-3xl bg-app-200 font-bold text-app-800 rounded-xl;
 }
 
 .bar {
@@ -326,7 +327,7 @@ div product-alt:first-child {
   @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-medium placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
 }
 .shadcnLabel-base {
-  @apply text-sm font-bold leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2
+  @apply md:text-base text-sm font-medium leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2
 }
 .shadcnCheckbox {
   @apply  h-4 w-4 shrink-0 rounded-sm border border-app shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-app data-[state=checked]:text-primary-foreground
@@ -344,12 +345,27 @@ div product-alt:first-child {
   @apply bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80;
 }
 .shadcnButton-ghost {
-  @apply hover:bg-app-100 hover:text-app dark:hover:bg-app-900 text-app-900 dark:text-app-300;
+  @apply hover:bg-app-100 hover:text-app-800 dark:hover:bg-app-900 text-app-900 dark:text-app-300;
 }
 .shadcnButton-links {
   @apply text-primary underline-offset-4 hover:underline;
 }
 
+div.separatorWithText {
+  @apply relative mt-4 uppercase 
+} 
+div.separatorWithText div:first-child {
+  @apply absolute inset-0 flex items-center;
+}
+div.separatorWithText div:first-child span {
+  @apply w-full border-t border-app-500;
+}
+div.separatorWithText div:last-child {
+  @apply relative flex justify-center  text-xs ;
+}
+div.separatorWithText div:last-child span {
+  @apply bg-white font-bold text-base text-app-900 dark:text-app-500 dark:bg-slate-900 px-2;
+}
 
 .Toastify__toast-container {
   @apply rounded-xl z-[99999] !important
@@ -394,3 +410,6 @@ div product-alt:first-child {
     border-color: #f56565 !important;
   }
 
+label {
+  @apply shadcnLabel-base;
+}

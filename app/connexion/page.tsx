@@ -8,16 +8,22 @@ import {
 } from "@/components/ui/card";
 import { faArrowRightToArc } from "@fortawesome/pro-duotone-svg-icons";
 import Skeleton from "@/src/feature/layout/skeleton/Content";
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: Meta("title", "Connexion"),
+  description: "Ekoseon",
+};
 
 const Auth = async () => {
   const session = await getAuthSession();
   if (session) {
     redirect("/");
   }
-
+ 
   return (
     <section>
-      <div className="content  max-w-lg">
+      <div className="content  max-w-lg flex flex-col justify-center items-center">
         <h1 className="title-page">
           <FontAwesomeIcon icon={faArrowRightToArc} /> Connexion sur Ekoseon
         </h1>

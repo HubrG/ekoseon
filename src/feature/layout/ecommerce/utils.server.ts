@@ -1,4 +1,5 @@
 "use server";
+import { getOrder } from '@/src/query/order.query'
 import { getProducts } from "@/src/query/product.query";
 import { getUser } from "@/src/query/user.query";
 import bcrypt from "bcrypt";
@@ -39,7 +40,14 @@ export const hashPassword = async (password: string) => {
 export const isUserLog = async () => {
   return await getUserLog();
 };
-
+function generateOrderRef() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 7; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
 export const createOrder = async (
   customerData: CustomerCookie,
   cartData: CartProduct,
@@ -77,6 +85,7 @@ export const createOrder = async (
       data: {
         userId: userId,
         date: new Date(),
+        orderRef:generateOrderRef(),
         firstName: customerData.firstname,
         lastName: customerData.name,
         address: customerData.address,
@@ -85,7 +94,7 @@ export const createOrder = async (
         addressBilling: customerData?.addressBilling,
         addressBillingComp: customerData?.addressBillingComp,
         amount: paymentIntentData
-          ? paymentIntentData.paymentIntent.amount / 100
+          ? paymentIntentData.paymentIntent.amount
           : amountTotSub,
         monthly: monthly ? monthly : null,
         isSub: isSub? isSub : null
@@ -98,7 +107,7 @@ export const createOrder = async (
         orderId: orderId,
         productId: item.id,
         quantity: item.quantity,
-        amount: Number(item.price),
+        amount: Number(item.price*100),
       })) || [];
 
     if (itemsToInsert.length > 0) {
@@ -118,15 +127,21 @@ export const createOrder = async (
             ? paymentIntentData.paymentIntent.status
             : "",
           amount: paymentIntentData
-            ? paymentIntentData.paymentIntent.amount / 100
+            ? paymentIntentData.paymentIntent.amount
             : 0,
         },
       });
     }
+    return orderId;
+
   } catch (error) {
     console.error("Erreur", error);
     return false;
   }
 
-  return true;
+};
+
+export const getOrderInfo = async (id:string) => {
+  const order = await getOrder(id)
+  return order;
 };

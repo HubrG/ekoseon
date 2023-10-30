@@ -4,14 +4,14 @@ import { Header } from "@/src/feature/layout/Header";
 import { ThemeProvider } from "@/src/theme/ThemeProvider";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from "react-toastify";
+import ToastProvider from "@/src/feature/layout/toastify/ToastProvider";
 import { clsx } from "clsx";
 import type { Metadata } from "next";
 import { Session } from "next-auth";
 import { Bitter, Caveat, Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
-import Head from "next/head";
+import { Suspense } from "react";
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -26,7 +26,7 @@ const serif = Bitter({
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: "Ekoseon",
+  title: "Ekoseon | Racontez vos mémoires au format audio et papier",
   description: "Ekoseon",
 };
 
@@ -47,6 +47,7 @@ export default function RootLayout({
           <body
             className={clsx("bg-background")}
             suppressHydrationWarning={true}>
+              <ToastProvider>
             <NextTopLoader
               template='<div class="bar" role="bar"><div class="peg"></div></div> 
               <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
@@ -60,12 +61,12 @@ export default function RootLayout({
               speed={200}
               shadow={false}
             />
-          <ToastContainer
-          
-        />
+          </ToastProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Header />
+              <Suspense>
               <div>{children}</div>
+              </Suspense>
               <Footer />
             </ThemeProvider>
           </body>

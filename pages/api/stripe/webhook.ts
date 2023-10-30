@@ -1,5 +1,6 @@
 // /pages/api/webhook.js
 import { prisma } from "@/lib/prisma";
+import Decimal from "decimal.js";
 import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
@@ -8,6 +9,8 @@ interface Invoice {
   // ... autres propriétés
   subscription: string;
   payment_intent: string;
+  amount_paid: number;
+  status: string;
 }
 
 
@@ -65,47 +68,46 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const invoice = event.data.object as Invoice;
       const subId = invoice.subscription;
       const paymentIntent = invoice.payment_intent;
+      const amount = invoice.amount_paid;
+      const status = invoice.status;
       // 
-          await delay(10000);
+          await delay(15000);
   
       // On recherche l'ID de la commande
-      const orderId = await prisma.order.findFirst({
+      const order = await prisma.order.findFirst({
         where: {
           isSub: subId,
         },
       });
       // Si elle existe...
-      if (paymentIntent) {
+      if (paymentIntent && order) {
           await prisma.payment.create({
             data: {
-              status: "paid",
+              status: status,
               paymentIntent: paymentIntent,
-              orderId: orderId?.id,
-              amount: 100,
+              orderId: order.id,
+              amount: amount,
             },
           });
           // On vérifie avec Prisma combien il y a de subscribeId
-          // const count = await prisma.invoices.count({
-          //   where: {
-          //     subscribeId: subId,
-          //     paymentIntent: {
-          //       not: null,
-          //     },
-          //   },
-          // });
-          // if (count > 1) {
-          //   // On recherche le customer via son subscribeId sur Prisma
-          //   const customer = await prisma.order.findUnique({
-          //     where: {
-          //       stripePaymentIntent: subId,
-          //     },
-          //   });
-          //   // ON récupère stripeSubscriptionMonth avec Prisma
-          //   const stripeSubscriptionMonth = customer.stripeSubscriptionMonth;
-          //   if (count == stripeSubscriptionMonth) {
-          //     cancelSubscriptionAtPeriodEnd(subId);
-          //   }
-          // }
+          const totalAmount = await prisma.payment.aggregate({
+            where: {
+              orderId: order.id,
+              paymentIntent: {
+                not: "",
+              },
+              status: "paid"
+            },
+            _sum: {
+              amount: true
+            }
+          });
+          
+          
+          if (totalAmount._sum.amount && totalAmount._sum.amount >= new Decimal(order.amount.toNumber()))
+          {
+              cancelSubscriptionAtPeriodEnd(subId);
+          }
         
       }
     }

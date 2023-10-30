@@ -41,7 +41,7 @@ const createCheckoutSession = async (
         payment_method_types: ["card"],
         line_items,
         mode: "subscription",
-        success_url: `${process.env.NEXT_PUBLIC_RELATIVE_URI}/achat/validation/succes/{CHECKOUT_SESSION_ID}`,
+        success_url: `${process.env.NEXT_PUBLIC_RELATIVE_URI}/achat/validation/succes/sub/{CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.NEXT_PUBLIC_RELATIVE_URI}/achat/validation`,
         metadata: {
           firstName: customer?.firstname,
