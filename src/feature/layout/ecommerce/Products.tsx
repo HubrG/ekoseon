@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Product as PrismaProduct } from "@prisma/client";
 import { Product } from "./Product";
 import { fetchProducts } from './utils.server';
+import Skeleton from '../skeleton/Content';
+
 
 type FetchedProduct = Omit<PrismaProduct, "price"> & {
   price: string;
@@ -30,7 +32,9 @@ export const Products = () => {
         {products
           .filter((product) => product.display)
           .map((product, index) => (
-            <Product key={product.id} product={product} products={products} />
+            <Suspense  key={product.id} fallback={<Skeleton />}>
+              <Product key={product.id + 1} product={product} products={products} />
+            </Suspense>
           ))}
       </div>
     </>

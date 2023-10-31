@@ -12,6 +12,8 @@ import { Bitter, Caveat, Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import dynamic from 'next/dynamic';
 const ToastProvider = dynamic(() => import('@/src/feature/layout/toastify/ToastProvider'));
+import Head from 'next/head';
+import Script from "next/script";
 
 const sans = Nunito({
   subsets: ["latin"],

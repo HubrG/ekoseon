@@ -197,7 +197,7 @@
   }
 } */
 
-a {
+a:not(.getStartedButton) {
   @apply hover:underline text-app font-bold dark:text-app-300 !important;
   position: relative;
 }
@@ -337,6 +337,9 @@ div product-alt:first-child {
 .shadcnCheckbox {
   @apply  h-4 w-4 shrink-0 rounded-sm border border-app shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-app data-[state=checked]:text-primary-foreground
 }
+.shadcnButton {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 !important;
+}
 .shadcnButton-default {
 @apply bg-app dark:bg-app-300 dark:text-app-800 dark:hover:bg-app-300/90 text-app-100 shadow hover:bg-app/90
 }
@@ -417,4 +420,7 @@ div.separatorWithText div:last-child span {
 
 label {
   @apply shadcnLabel-base;
+}
+.getStartedButton {
+  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mt-10 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border border-fuchsia-100  hover:border-fuchsia-800 hover:border-solid hover:bg-fuchsia-900  text-white hover:text-fuchsia-100  bg-opacity-80 !important;
 }

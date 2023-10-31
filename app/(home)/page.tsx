@@ -22,7 +22,7 @@ export default  function Home() {
             </div>
             <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen  bg-app-900 bg-opacity-50"></div>
             <div className="z-10 text-center text-neutral-content w-full">
-              <MotionParallax speed={0.4} type={0}>
+              <MotionParallax speed={0.2} type={0}>
                 <MotionShow threshold={0.3} animation="bounceIn">
                   <div className="max-w-3xl   mx-auto">
                     <h1 className="mb-5  lg:text-7xl md:text-6xl px-2  text-5xl   font-bold">

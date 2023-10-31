@@ -15,7 +15,7 @@ const retrieveCheckoutSession = async (
 ) => {
 
   if (req.method !== "POST") {
-    res.status(405).send("Method Not Allowed");  // Gère les méthodes non prises en charge
+    return res.status(405).send("Method Not Allowed");  // Gère les méthodes non prises en charge
     return;
   }
 
@@ -38,17 +38,17 @@ try {
         amountTotal = (session.amount_total * subscriptionNumber) || 0;
       }
       const corder = await createOrder(JSON.parse(customerInfo), JSON.parse(cart), undefined, session.subscription?.toString(), subscriptionNumber, amountTotal)
-      res.json({status:"created", orderId:corder});
+      return  res.json({status:"created", orderId:corder});
     } 
     // L'order a déjà été créé
-    res.json({status:"exist", orderId:isOrderExist?.id});
+   return res.json({status:"exist", orderId:isOrderExist?.id});
   } catch (error) {
     // Erreur lors de la création du compte
-    res.json({ status: "errAcc" })
+    return res.json({ status: "errAcc" })
   }
 } catch (error) {
   // La commande n'existe pas
-  res.status(500).json({ error: "Internal Server Error", message: error });
+  return res.status(500).json({ error: "Internal Server Error", message: error });
 }
 
 

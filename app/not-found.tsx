@@ -1,4 +1,4 @@
-// import { LottieDisplayOnSSR } from '@/src/feature/layout/lottie/LottieDisplayOnSSR'
+import { LottieDisplayOnSSR } from '@/src/feature/layout/lottie/LottieDisplayOnSSR'
 import Link from 'next/link'
 
 export default function NotFound() {
@@ -7,7 +7,7 @@ export default function NotFound() {
       <h2>Erreur 404</h2>
       <p>Nous ne trouvons pas la page demandée.</p>
       <Link href="/">Revenir sur la page d&apos;accueil</Link>
-      {/* <LottieDisplayOnSSR animation="404" autoplay={true} loop={true} /> */}
+      <LottieDisplayOnSSR animation="404" autoplay={true} loop={true} />
     </div>
   )
 }
