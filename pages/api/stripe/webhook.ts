@@ -65,59 +65,61 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (event.type === "invoice.payment_succeeded") {
       // NOTE : PAYMENT INTENT SUBSCRIPTION
-      const invoice = event.data.object as Invoice;
-      const subId = invoice.subscription;
-      const paymentIntent = invoice.payment_intent;
-      const amount = invoice.amount_paid;
-      const status = invoice.status;
-      // 
-          await delay(15000);
+      // const invoice = event.data.object as Invoice;
+      // const subId = invoice.subscription;
+      // const paymentIntent = invoice.payment_intent;
+      // const amount = invoice.amount_paid;
+      // const status = invoice.status;
+      // //
+      //     await delay(15000);
   
-      // On recherche l'ID de la commande
-      const order = await prisma.order.findFirst({
-        where: {
-          isSub: subId,
-        },
-      });
-      // Si elle existe...
-      if (paymentIntent && order) {
-          await prisma.payment.create({
-            data: {
-              status: status,
-              paymentIntent: paymentIntent,
-              orderId: order.id,
-              amount: amount,
-            },
-          });
-          // On vérifie avec Prisma combien il y a de subscribeId
-          const totalAmount = await prisma.payment.aggregate({
-            where: {
-              orderId: order.id,
-              paymentIntent: {
-                not: "",
-              },
-              status: "paid"
-            },
-            _sum: {
-              amount: true
-            }
-          });
+      // // On recherche l'ID de la commande
+      // const order = await prisma.order.findFirst({
+      //   where: {
+      //     isSub: subId,
+      //   },
+      // });
+      // // Si elle existe...
+      // if (paymentIntent && order) {
+      //     await prisma.payment.create({
+      //       data: {
+      //         status: status,
+      //         paymentIntent: paymentIntent,
+      //         orderId: order.id,
+      //         amount: amount,
+      //       },
+      //     });
+      //     // On vérifie avec Prisma combien il y a de subscribeId
+      //     const totalAmount = await prisma.payment.aggregate({
+      //       where: {
+      //         orderId: order.id,
+      //         paymentIntent: {
+      //           not: "",
+      //         },
+      //         status: "paid"
+      //       },
+      //       _sum: {
+      //         amount: true
+      //       }
+      //     });
           
           
-          if (totalAmount._sum.amount && totalAmount._sum.amount >= new Decimal(order.amount.toNumber()))
-          {
-              cancelSubscriptionAtPeriodEnd(subId);
-          }
+      //     if (totalAmount._sum.amount && totalAmount._sum.amount >= new Decimal(order.amount.toNumber()))
+      //     {
+      //         cancelSubscriptionAtPeriodEnd(subId);
+      //     }
         
-      }
+      // }
+      console.log("coucou")
     }
 
   
 
-    res.status(200).json({ received: true });
+    return res.status(200).json({ received: true });
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).end("Method Not Allowed");
+    return;
   }
 };
 
