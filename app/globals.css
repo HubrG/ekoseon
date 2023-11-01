@@ -5,11 +5,11 @@
 
 @layer base {
   :root {
-    --color-app1: theme('colors.app.500'); 
+    /* --color-app1: theme('colors.app.500'); 
     --color-app2: theme('colors.app.600'); 
     --color-app3: theme('colors.app.700'); 
     --color-app4: theme('colors.app.800'); 
-    --color-app5: theme('colors.app.900'); 
+    --color-app5: theme('colors.app.900');  */
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -72,10 +72,10 @@
     @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
   nav {
-    @apply bg-app-50 dark:bg-slate-900 fixed w-full    z-20 top-0 left-0 shadow dark:shadow-slate-950 shadow-app-200 border-app-600 border-opacity-70   dark:border-slate-800;
+    @apply bg-app-50 dark:bg-slate-900 fixed w-full z-20 top-0 left-0 shadow dark:shadow-slate-950  border border-app-200  dark:border-slate-800;
   }
   nav div:first-child {
-    @apply max-w-screen-xl flex flex-wrap items-center backdrop-blur-lg justify-between mx-auto p-4 py-[0.5rem];
+    @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
   }
   .first-section {
     @apply w-full relative  shadow-t-xl min-h-screen pt-10 z-10 bg-white rounded-t-2xl;
@@ -105,7 +105,7 @@
   h4,
   h5,
   h6 {
-    @apply font-sans  mt-0 mb-5 leading-7 flex flex-col gap-y-2;
+    @apply font-sans  mt-0 my-10  leading-7 flex flex-col gap-y-2;
   }
   h1 svg,
   h2 svg,
@@ -172,20 +172,22 @@
 .animated-gradient-audio-paper {
   background-image: linear-gradient(
     to right,
-    var(--color-app1),
-    var(--color-app2),
-    var(--color-app3),
-    var(--color-app4),
-    var(--color-app5),
+    theme('colors.app.950'),
+    theme('colors.app.900'),
+    theme('colors.app.950'),
+    theme('colors.app.900'),
+    theme('colors.app.800')
     /* légèrement plus clair */
     );
+    z-index:99999999;
   background-size: 400% 100%;
+  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+    color: transparent;
   animation: gradientChangeAudioPaper 10s infinite;
 }
 
-/* @keyframes gradientChangeAudioPaper {
+@keyframes gradientChangeAudioPaper {
   0% {
     background-position: 0 0;
   }
@@ -195,7 +197,7 @@
   100% {
     background-position: 0 0;
   }
-} */
+}
 
 a:not(.getStartedButton) {
   @apply hover:underline text-app font-bold dark:text-app-300 !important;
@@ -259,7 +261,7 @@ div.main-menu {
   @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1;
 }
 ul.main-menu li a {
-  @apply nunderline block py-2 pl-3 text-[1.105rem] pr-4 rounded hover:bg-slate-100 md:hover:bg-transparent md:hover:text-app md:p-0 md:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700;
+  @apply nunderline block py-2 pl-3 md:text-[1.105rem] pr-4 rounded hover:bg-slate-100 md:hover:bg-transparent md:hover:text-app md:p-0 md:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700;
 }
 
 /* Burger Menu */
@@ -274,7 +276,7 @@ div.burger-menu ul li a {
 }
 /* LOGO */
 .logo {
-  @apply flex items-center nunderline  gap-x-3;
+  @apply flex items-center nunderline  gap-x-1 md:text-base text-xs;
 }
 .logo span {
   @apply self-center text-3xl font-semibold whitespace-nowrap dark:text-white;
@@ -305,7 +307,7 @@ div product-alt:first-child {
   @apply border-2 border-r-2
 }
 .product-price {
-  @apply   items-center space-x-2 gap-y-5  -mt-5 p-3 text-3xl bg-app-200 font-bold text-app-800 rounded-xl;
+  @apply   items-center space-x-2 gap-y-5  -mt-5 p-3 text-3xl font-bold text-app-800 rounded-xl;
 }
 
 .bar {
@@ -422,5 +424,14 @@ label {
   @apply shadcnLabel-base;
 }
 .getStartedButton {
-  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mt-10 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border border-fuchsia-100  hover:border-fuchsia-800 hover:border-solid hover:bg-fuchsia-900  text-white hover:text-fuchsia-100  bg-opacity-80 !important;
+  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mt-10 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border border-app-100  hover:border-app-800 hover:border-solid hover:bg-app-900  text-white hover:text-app-100  bg-opacity-80 !important;
+}
+a.subFooterLink {
+  @apply font-normal !important;
+}
+.shadow-offset {
+  box-shadow: 0 0 0 4px white;
+}
+.outer-border {
+  box-shadow: 0 0 0 4px white;
 }

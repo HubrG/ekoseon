@@ -27,13 +27,13 @@ export const Header = async () => {
     <header className=" z-20 w-full">
       <nav>
         <div>
-          <Link href="/" className="logo">
-            <span>
+          <Link href="/" className="logo mr-2">
+            <span className="sm:text-xs">
               <span>e</span>
               <span>koseon</span>
             </span>
           </Link>
-          <div className="flex gap-x-2 md:order-2 items-center">
+          <div className="flex gap-x-2 md:order-2 items-center md:text-base">
             <div className="flex items-center gap-x-2">
               <Link href="/raconter-ses-memoires/tarifs">
                 <Button size="lg" variant="ghost">
@@ -41,7 +41,7 @@ export const Header = async () => {
                   Acheter
                 </Button>
               </Link>
-              <div className="md:block hidden">
+              <div className="sm:block hidden">
                 <Suspense fallback={<FontAwesomeIcon icon={faSpinner} />}>
                 {session?.user ? <UserProfile /> : <LoginButton />}
                 </Suspense>

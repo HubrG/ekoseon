@@ -14,7 +14,7 @@ export default function pricing() {
     <PageTransition>
       <section className=" relative z-0  ">
         <div className="content max-w-xl">
-          <h1>test</h1>
+          <h1 className="text-center">Notre seule raison d&apos;être</h1>
             <Products  />
         </div>
       </section>

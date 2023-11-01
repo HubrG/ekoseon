@@ -288,7 +288,7 @@ export function InnerCheckoutForm() {
       <form onSubmit={handleSubmit}>
         <Card>
           <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 pb-0 rounded-b-none shadow shadow-app-200">
-            <CardTitle>
+            <CardTitle className="py-0 mb-5">
               <div className="flex flex-row justify-between items-center">
                 <div>Paiement</div>
                 <div className="flex flex-row items-center gap-x-5 justify-center">
@@ -370,7 +370,7 @@ export function InnerCheckoutForm() {
                 <div
                   className="w-full"
                   data-tooltip-id="tooltipPay"
-                  data-tooltip-content={`Certains champs obligatoires ne sont pas renseignés, ou des erreurs ont été détectées !`}>
+                  data-tooltip-content={!areFieldsValid ? "Certains champs obligatoires ne sont pas renseignés ou des erreurs ont été détectées." : !isCGVChecked ? "Vous devez accepter les CGV" : null}>
                   <Button
                     type="submit"
                     className={`${
@@ -379,16 +379,16 @@ export function InnerCheckoutForm() {
                         : null
                     }`}
                     disabled={!areFieldsValid || !isCGVChecked || !stripe}>
-                    {isPending && isTransitionActive.current ? (
+                    {isPending &&  isTransitionActive.current ? (
                       <Loader className="mr-2 h-4 w-4" />
                     ) : null}{" "}
                     Régler {calculatedTotal}€
                   </Button>
-                  {!areFieldsValid && (
+                  {!areFieldsValid  || !isCGVChecked ? (
                     <>
                       <Tooltip id="tooltipPay" className="tooltip" />
                     </>
-                  )}
+                  ) : null}
                 </div>
                 {activeMonthly && (
                   <>
@@ -428,6 +428,11 @@ export function InnerCheckoutForm() {
                           }).map((_, index) => (
                             <DropdownMenuItem asChild key={index}>
                               <>
+                              <div
+                  className="w-full"
+                  data-tooltip-id="tooltipMonthly"
+                  data-tooltip-content={!areFieldsValid ? "Certains champs obligatoires ne sont pas renseignés ou des erreurs ont été détectées." : !isCGVChecked ? "Vous devez accepter les CGV" : null}>
+              
                                 <Button
                                   type="button"
                                   variant="ghost"
@@ -447,7 +452,9 @@ export function InnerCheckoutForm() {
                                   {index + 2} mensualités (
                                   {(calculatedTotal / (index + 2)).toFixed(2)}
                                   €/mois)
-                                </Button>
+                                  </Button>
+                                  
+                                  </div>
                               </>
                             </DropdownMenuItem>
                           ))}

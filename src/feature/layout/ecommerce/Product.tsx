@@ -4,6 +4,7 @@ import { Product as PrismaProduct } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
 import { CartProduct } from "@/lib/types/CartProduct";
 import Cookies from "js-cookie";
+import { Separator } from "@/components/ui/separator";
 import {
   Card,
   CardContent,
@@ -19,37 +20,41 @@ import { Switch } from "@/components/ui/switch";
 import DecimalJS from "decimal.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBookSparkles,
   faArrowRightToArc,
-  faMicrophoneStand,
   faMinusCircle,
   faPlusCircle,
 } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faMicrophoneLines,
+  faBookUser,
+} from "@fortawesome/pro-duotone-svg-icons";
 import { useRouter } from "next/navigation";
 
 type ProductProps = {
   product: FetchedProduct;
   products: FetchedProduct[];
-  key:string
+  key: string;
 };
 
-type FetchedProduct = Omit<{
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  imageUrl: string | null;
-  stock: number;
-  categoryId: string;
-  display: boolean | null;
-  rebate: number | null;
-  rebateProgressive: boolean | null;
-  rebateProgressiveMaxInPercent: number | null;
-}, "price"> & {
+type FetchedProduct = Omit<
+  {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    imageUrl: string | null;
+    stock: number;
+    categoryId: string;
+    display: boolean | null;
+    rebate: number | null;
+    rebateProgressive: boolean | null;
+    rebateProgressiveMaxInPercent: number | null;
+  },
+  "price"
+> & {
   price: string;
   // ajoutez d'autres propriétés ici si nécessaire
 };
-
 
 interface Cart {
   items: CartProduct[];
@@ -83,8 +88,16 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
       let bioPriceForQte = new DecimalJS(productWithBio.price).mul(qte);
       let totalBioPrice = bioPriceForQte;
       let rebatePercentage = 0;
-      if (qte > 1 && productWithBio && productWithBio.rebate  && productWithBio.rebateProgressiveMaxInPercent) {
-        rebatePercentage = Math.min(productWithBio.rebate * qte, productWithBio.rebateProgressiveMaxInPercent);
+      if (
+        qte > 1 &&
+        productWithBio &&
+        productWithBio.rebate &&
+        productWithBio.rebateProgressiveMaxInPercent
+      ) {
+        rebatePercentage = Math.min(
+          productWithBio.rebate * qte,
+          productWithBio.rebateProgressiveMaxInPercent
+        );
         totalBioPrice = totalBioPrice.mul(
           new DecimalJS(1).minus(new DecimalJS(rebatePercentage).div(100))
         );
@@ -217,7 +230,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
         description: productWithBio.description,
         products: [],
       };
-      cartItems.push(bioCartItem); 
+      cartItems.push(bioCartItem);
     }
 
     // Remplace l'objet "items" du localStorage par le nouvel objet
@@ -230,73 +243,37 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
   return (
     <Card>
       <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 rounded-b-none shadow shadow-app-200">
-        <CardTitle>
-          <span className="text-4xl">{formatTime(qte)}</span> d&apos;interview
+        <CardTitle className="py-0 my-0 px-0 mx-0">
+          <div className="flex flex-row justify-center  gap-x-2  pt-0 items-center">
+            <Button
+              aria-label="Réduire d'une unité de quantité"
+              variant="ghost"
+              className={` rounded-full w-2/12 ${
+                qte === 1 ? "opacity-50 cursor-default" : null
+              } bg-app-50/50`}
+              onClick={() => handleQte(qte - 0.5)}>
+              <FontAwesomeIcon icon={faMinusCircle} />
+            </Button>
+            <div className="w-full flex flex-col">
+              {" "}
+              <span className="md:text-4xl text-2xl">
+                {formatTime(qte)}
+              </span>{" "}
+              d&apos;interview
+            </div>
+            <Button
+              aria-label="Ajouter d'une unité de quantité"
+              variant="ghost"
+              onClick={() => handleQte(qte + 0.5)}
+              className="w-2/12 rounded-full  bg-app-50/50">
+              <FontAwesomeIcon icon={faPlusCircle} />
+            </Button>
+          </div>
         </CardTitle>
-        {/* <CardDescription>{product.description}</CardDescription> */}
-        {/* <CardDescription>{product.description}</CardDescription> */}
-        <div className="grid grid-cols-2 gap-x-5  pt-0">
-          <Button
-            aria-label="Réduire d'une unité de quantité"
-            variant="outline"
-            className={`${
-              qte === 1 ? "opacity-50 cursor-default" : null
-            } bg-app-50/50`}
-            onClick={() => handleQte(qte - 0.5)}>
-            <FontAwesomeIcon icon={faMinusCircle} />
-          </Button>
-          <Button
-            aria-label="Ajouter d'une unité de quantité"
-            variant="outline"
-            onClick={() => handleQte(qte + 0.5)}
-            className=" bg-app-50/50">
-            <FontAwesomeIcon icon={faPlusCircle} />
-          </Button>
-        </div>
       </CardHeader>
       <CardContent>
-        <div className="flex md:flex-row flex-col gap-y-2 gap-x-2  " >
-          <div
-            onClick={handleMicroClick}
-            className={`product-alt ${
-              microChecked
-                ? "border border-app-500  bg-app-200/50"
-                : "border border-transparent"
-            }`}>
-            <Switch
-              id={`${key}-microphone`}
-              aria-label="Ajouter un micro"
-              onClick={handleMicro}
-              className="absolute bottom-5"
-            />
-            <Label
-              htmlFor={`${key}-microphone`}
-              className="text-center select-none cursor-pointer flex flex-col gap-y-5">
-              <FontAwesomeIcon
-                icon={faMicrophoneStand}
-                className=" md:text-7xl text-4xl text-app-900"
-              />
-              {/* {productWithMicro?.price} */}
-              <span className="font-semibold">J&apos;ai besoin d&apos;un meilleur microphone pour assurer la
-              qualité de l&apos;enregistrement.</span>
-              <Badge
-              
-                className={`${
-                  microChecked
-                    ? "hover:bg-app-600  bg-app-600"
-                    : "hover:bg-app-500  bg-app-500"
-                } rounded-lg rounded-tl-none rounded-br-none absolute text-base right-0 top-0 flex flex-col `}>
-                <span>
-                  {" "}
-                  +
-                  {productWithMicro?.price
-                    ? new DecimalJS(productWithMicro.price).toFixed(0)
-                    : "0"}
-                  €
-                </span>
-              </Badge>
-            </Label>
-          </div>
+        <div className="flex md:flex-row flex-col gap-y-2 gap-x-2  ">
+          
           <div
             onClick={handleBioClick}
             className={`product-alt ${
@@ -314,11 +291,13 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
               htmlFor={`${key}-biography`}
               className="text-center  select-none cursor-pointer  flex flex-col gap-y-5 ">
               <FontAwesomeIcon
-                icon={faBookSparkles}
+                icon={faBookUser}
                 className="md:text-7xl text-4xl  text-app-900"
               />
-              <span className="font-semibold">Je souhaite faire écrire une jolie biographie à partir de cet
-              enregistrement.</span>
+              <span className="font-semibold">
+                Je souhaite faire écrire une jolie biographie à partir de cet
+                enregistrement.
+              </span>
               <Badge
                 className={`${
                   bioChecked
@@ -343,16 +322,60 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
               </Badge>
             </Label>
           </div>
+          <div
+            onClick={handleMicroClick}
+            className={`product-alt ${
+              microChecked
+                ? "border border-app-500  bg-app-200/50"
+                : "border border-transparent"
+            }`}>
+            <Switch
+              id={`${key}-microphone`}
+              aria-label="Ajouter un micro"
+              onClick={handleMicro}
+              className="absolute bottom-5"
+            />
+            <Label
+              htmlFor={`${key}-microphone`}
+              className="text-center select-none cursor-pointer flex flex-col gap-y-5">
+              <FontAwesomeIcon
+                icon={faMicrophoneLines}
+                className=" md:text-7xl text-4xl text-app-900"
+              />
+              {/* {productWithMicro?.price} */}
+              <span className="font-semibold">
+                J&apos;ai besoin d&apos;un meilleur microphone pour assurer la
+                qualité de l&apos;enregistrement.
+              </span>
+              <Badge
+                className={`${
+                  microChecked
+                    ? "hover:bg-app-600  bg-app-600"
+                    : "hover:bg-app-500  bg-app-500"
+                } rounded-lg rounded-tl-none rounded-br-none absolute text-base right-0 top-0 flex flex-col `}>
+                <span>
+                  {" "}
+                  +
+                  {productWithMicro?.price
+                    ? new DecimalJS(productWithMicro.price).toFixed(0)
+                    : "0"}
+                  €
+                </span>
+              </Badge>
+            </Label>
+          </div>
         </div>
       </CardContent>
       <CardContent></CardContent>
       <CardContent className="text-center">
+        <Separator className="-mt-2 h-1 rounded-full" />
         <div className="product-price">{finalPrice}€</div>
+        {/* <Separator className=" h-1 rounded-full" /> */}
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button
           aria-label="Procéder au paiement"
-          className={`${
+          className={`-mt-5 ${
             isPending ? "disabled opacity-50 cursor-default" : null
           } w-full`}
           onClick={addToCart}>

@@ -22,7 +22,7 @@ export const Footer = async () => {
 						</span>
 					</Link>
             </div>
-            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-1">
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-app-900 uppercase dark:text-white">
                   Navigation
@@ -70,58 +70,21 @@ export const Footer = async () => {
                   </li>
                 </ul>
               </div>
-              <div>
-                <h2 className="mb-6 text-sm font-semibold text-app-900 uppercase dark:text-white">
-                  Follow us
-                </h2>
-                <ul className="text-app-500 dark:text-app-400 font-normal">
-                  <li className="mb-4">
-                    <a
-                      href="https://github.com/themesberg/flowbite"
-                      className="hover:underline ">
-                      Github
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://discord.gg/4eeurUVvTy"
-                      className="hover:underline">
-                      Discord
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h2 className="mb-6 text-sm font-semibold text-app-900 uppercase dark:text-white">
-                  Legal
-                </h2>
-                <ul className="text-app-500 dark:text-app-400 font-normal">
-                  <li className="mb-4">
-                    <a href="#" className="hover:underline">
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:underline">
-                      Terms &amp; Conditions
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              
             </div>
           </div>
           {/* <hr className="my-6 border-app-200 rounded-lg sm:mx-auto dark:border-app-700 lg:my-8" /> */}
-          <div className="px-4 py-6 mt-8 bg-app-100 rounded-lg text-app-500 dark:text-slate-300 dark:bg-slate-950 md:flex md:items-center md:justify-between">
+          <div className="px-4 py-6 mt-8 bg-app-100 rounded-lg text-app-500 dark:text-slate-300 dark:bg-slate-950  md:flex md:items-center md:justify-between">
             <span className="text-sm  sm:text-center font-semibold">
               © 2023 <Link href="/">Ekoseon</Link>. Tous droits
               réservés
             </span>
             <div className="flex mt-4 space-x-5 sm:justify-center md:mt-0 text-sm">
-              <Link href="/mentions-legales" prefetch={false} className="dark:text-slate-500">Mentions légale</Link>
-              <Link href="/politique-de-confidentialite"  prefetch={false} className="dark:text-slate-500">
+              <Link href="/mentions-legales" prefetch={false} className="subFooterLink">Mentions légale</Link>
+              <Link href="/politique-de-confidentialite"  prefetch={false} className="subFooterLink">
                 Politique de confidentialité
               </Link>
-              <Link href="/conditions-generales-de-vente"  prefetch={false} className="dark:text-slate-500">CGV</Link>
+              <Link href="/conditions-generales-de-vente"  prefetch={false} className=" subFooterLink">CGV</Link>
             </div>
             <div className="flex mt-4 space-x-5  sm:justify-center md:mt-0">
               <ul className="mt-8 flex justify-center gap-6 sm:mt-0 lg:justify-end">

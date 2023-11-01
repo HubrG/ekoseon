@@ -9,12 +9,21 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border-[2px] border-dashed  border-app-300 dark:border-app-300  bg-transparent text-card-foreground shadow-sm  shadow-app-100",
+      "p-0   rounded-2xl  bg-transparent", // Ici, vous mettez votre ombre et le fond blanc
       className
     )}
-    {...props}
-  />
+  >
+    <div className="border-4 border-app-200 rounded-2xl" style={{borderImageSlice: 1, borderImageSource: "linear-gradient(to left, white, white)"}}> 
+      {/* Cette div crée l'effet de décalage blanc */}
+      <div className=" border-app-200 border-[2px]  rounded-2xl p-0" {...props}>
+        {/* Cette div est votre bordure pointillée */}
+        {/* Assurez-vous que le contenu est bien placé ici */}
+      </div>
+    </div>
+  </div>
 ))
+
+
 Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<

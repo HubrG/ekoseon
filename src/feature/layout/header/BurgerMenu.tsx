@@ -26,12 +26,12 @@ export default function BurgerMenu(props:MenuProps) {
         onClick={() => { display ? setDisplay(false) : setDisplay(true) }}
       type="button"
       size="sm"
-      className="inline-flex md:hidden"
+      className="inline-flex sm:hidden"
       >
       <span className="sr-only">Ouvrir le menu principal</span>
       <FontAwesomeIcon icon={faBars} />
     </Button>
-    <div className={`${display? "md:hidden absolute" : "hidden"} burger-menu`}>
+    <div className={`${display? "hidden sm:absolute" : "hidden"} burger-menu`}>
     <ul>
     {links.map((link, index) => (
           <li key={index}>

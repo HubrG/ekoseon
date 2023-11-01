@@ -17,7 +17,7 @@ export default  function Home() {
                 src="/img/test.jpeg"
                 alt="Interview"
                 fill
-                className=" object-center object-cover brightness-90"
+                className=" object-center object-cover brightness-150"
               />
             </div>
             <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen  bg-app-900 bg-opacity-50"></div>
@@ -26,22 +26,24 @@ export default  function Home() {
                 <MotionShow threshold={0.3} animation="bounceIn">
                   <div className="max-w-3xl   mx-auto">
                     <h1 className="mb-5  lg:text-7xl md:text-6xl px-2  text-5xl   font-bold">
-                      <small className="text-white">
+                      <small className="text-white flex flex-col">
                         {" "}
-                        Nous vous interviewons et consignons vos mémoires <br />
-                        sur des supports{" "}
+                        <span>Nous vous interviewons et consignons vos mémoires <br />
+                        sur des supports</span>
+                        <span>
                         <span className="animated-gradient-audio-paper">
                           audio
                         </span>
-                        <span className="text-xl  text-white">&</span>
+                        <span className="text-xl  text-white px-2">&</span>
                         <span className="animated-gradient-audio-paper">
                           papier
                         </span>
+                        </span>
                       </small>
                     </h1>
-                  </div>
-                  <div className="absolute justify-center w-full">
+                  <div className=" justify-center w-full">
                     <GetStartButton />
+                  </div>
                   </div>
                 </MotionShow>
               </MotionParallax>

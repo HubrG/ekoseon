@@ -71,7 +71,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const amount = invoice.amount_paid;
       const status = invoice.status;
       // 
-          await delay(8000);
+          await delay(7000);
   
       // On recherche l'ID de la commande
       const order = await prisma.order.findFirst({
