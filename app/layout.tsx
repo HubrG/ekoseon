@@ -13,11 +13,10 @@ import NextTopLoader from "nextjs-toploader";
 import dynamic from 'next/dynamic';
 const ToastProvider = dynamic(() => import('@/src/feature/layout/toastify/ToastProvider'));
 import ReactGA from 'react-ga4';
-if (typeof process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS === 'string') {
-  ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS);
-} else {
-  console.error('NEXT_PUBLIC_GOOGLE_ANALYTICS is not defined');
-}
+
+// Google Analytics
+ReactGA.initialize("G-XLYGHQ2YYR");
+
 const sans = Nunito({
   subsets: ["latin"],
   display: "swap",

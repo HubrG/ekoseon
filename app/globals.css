@@ -173,7 +173,7 @@
   background-image: linear-gradient(
     to right,
     theme('colors.app.950'),
-    theme('colors.app.900'),
+    theme('colors.app.800'),
     theme('colors.app.950'),
     theme('colors.app.900'),
     theme('colors.app.800')
