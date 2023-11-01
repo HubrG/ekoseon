@@ -14,7 +14,7 @@ export default  function Home() {
             <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen">
               <Image
                 priority={true}
-                src="/img/test.jpeg"
+                src="/img/header-home.webp"
                 alt="Interview"
                 fill
                 className=" object-center object-cover brightness-150"
