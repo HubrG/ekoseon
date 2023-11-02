@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Order } from "@prisma/client";
+import { Order, OrderItem, Payment, Product } from "@prisma/client";
 import { Separator } from "@/components/ui/separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,16 +17,44 @@ import {
   faReceipt,
 } from "@fortawesome/pro-solid-svg-icons";
 import { faSortDown, faSortUp } from "@fortawesome/pro-duotone-svg-icons";
+import Image from "next/image";
 
-interface ProfilProps {
-  orders: Order[];
+interface CustomOrderItem extends OrderItem {
+  product: Product;
 }
+
+interface ConvertedProduct extends Omit<Product, 'price'> {
+  price: number;
+}
+
+interface ConvertedOrderItem extends Omit<OrderItem, 'amount'> {
+  amount: number;
+  product: ConvertedProduct;
+}
+
+interface ConvertedPayment extends Omit<Payment, 'amount'> {
+  amount: number;
+}
+
+interface ConvertedOrderItems extends Omit<Order, 'amount'> {
+  amount: number;
+  items: ConvertedOrderItem[];
+  payments: ConvertedPayment[];
+}
+
+
+
+interface OrdersProps {
+  orders: ConvertedOrderItems[];
+}
+
 type SortKey = "orderRef" | "date" | "amount";
 
-export const Profil: React.FC<ProfilProps> = ({ orders: initialOrders }) => {
+export const Orders: React.FC<OrdersProps> = ({ orders: initialOrders }) => {
+ 
   const [selectedRow, setSelectedRow] = useState<string>("");
   const [isPending, startTransition] = useTransition();
-  const [orders, setOrders] = useState<Order[]>(initialOrders);
+  const [orders, setOrders] = useState<ConvertedOrderItems[]>(initialOrders);
   const [sortType, setSortType] = useState("date");
   const [sortDirections, setSortDirections] = useState<
     Record<SortKey, "asc" | "desc">
@@ -103,7 +131,7 @@ export const Profil: React.FC<ProfilProps> = ({ orders: initialOrders }) => {
   return (
     <div>
       <Accordion type="single" collapsible className="w-full relative">
-        <div className="grid sticky top-[4.5rem] z-10 bg-white py-5 rounded-lg grid-cols-3 text-center mb-5 md:text-base text-sm text-app-800 font-bold cursor-pointer select-none ">
+        <div className="shadow-sm  px-2 grid sticky top-[4.5rem] z-10 bg-white py-5 rounded-lg grid-cols-3 text-center mb-5 md:text-base text-sm text-app-800 font-bold cursor-pointer select-none ">
           <div
             className="text-left flex flex-row gap-x-2 items-center"
             onClick={() => handleSort("orderRef")}>
@@ -163,15 +191,29 @@ export const Profil: React.FC<ProfilProps> = ({ orders: initialOrders }) => {
               }}>
               <div className="text-left">#{order.orderRef}</div>
               <span>
-                {new Date(order.date).toLocaleDateString("fr-FR", {
-                  year: "2-digit",
-                  month: "2-digit",
-                  day: "2-digit",
-                })}
+                Le {order.date
+                  ? new Date(order.date.toString()).toLocaleDateString(
+                      "fr-FR",
+                      {
+                        year: "2-digit",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    ) +
+                    " à " +
+                    new Date(order.date.toString()).toLocaleTimeString(
+                      "fr-FR",
+                      {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      }
+                    )
+                  : null}
               </span>
               <span>{order.amount / 100}€</span>
             </AccordionTrigger>
-            <AccordionContent className="bg-app-50 border-t rounded-b-lg border-app-100 p-10 pt-3">
+            <AccordionContent className="bg-app-50 border-t rounded-b-lg border-app-400 p-10 pt-3">
               <div className="flex flex-col">
                 <div className="flex flex-row gap-x-2">
                   <div
@@ -227,7 +269,16 @@ export const Profil: React.FC<ProfilProps> = ({ orders: initialOrders }) => {
                       {order.items.map((orderIt: any) => (
                         <div
                           key={orderIt.id}
-                          className={`rounded-lg p-5   bg-app-100 w-1/${order.items.length}`}>
+                          className={`rounded-lg p-5 shadow-sm shadow-app-300 bg-app-100 w-1/${order.items.length}`}>
+                          <div className="rounded-full h-14 w-14 mx-auto mb-2">
+                            <Image
+                              className="object-cover rounded-full "
+                              src={orderIt.product.imageUrl}
+                              alt={orderIt.title}
+                              width="60"
+                              height="60"
+                            />
+                          </div>
                           <div>
                             <h5 className="mb-0 font-semibold text-center text-lg">
                               {orderIt.title}
@@ -254,30 +305,51 @@ export const Profil: React.FC<ProfilProps> = ({ orders: initialOrders }) => {
                         mensualités
                       </p>
                     )}
-
                     <div className="pt-3">
-                      {order.payments.map((paymentIt: any) => (
+                      {order.payments.map((invoiceIt: Payment) => (
                         <div
-                          key={paymentIt.id}
-                          className="p-2 rounded-lg flex flex-row justify-between hover:bg-app-200">
+                          key={invoiceIt.id}
+                          onClick={(event) => handleFetch(event, invoiceIt)}
+                          className="p-2 cursor-pointer rounded-lg flex flex-row justify-between hover:bg-app-200">
                           <div className="flex flex-row items-center gap-x-3">
                             <FontAwesomeIcon icon={faReceipt} />
                             <span className="font-bold text-base">
-                              {paymentIt.amount / 100}€
+                              {Number(invoiceIt.amount) / 100}€
                             </span>
                           </div>
-                          <a
-                            className={`flex flex-row items-center gap-x-2 cursor-pointer font-semibold ${
+                          <div>
+                            <span>
+                              Réglée le{" "}
+                              {invoiceIt.date
+                                ? new Date(
+                                    invoiceIt.date.toString()
+                                  ).toLocaleDateString("fr-FR", {
+                                    year: "2-digit",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                  }) +
+                                  " à " +
+                                  new Date(
+                                    invoiceIt.date.toString()
+                                  ).toLocaleTimeString("fr-FR", {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    hour12: false,
+                                  })
+                                : null}
+                            </span>
+                          </div>
+                          <div
+                            className={`flex flex-row hover:no-underline items-center gap-x-2 cursor-pointer font-semibold ${
                               isPending ? "opacity-50" : null
-                            }`}
-                            onClick={(event) => handleFetch(event, paymentIt)}>
+                            }`}>
                             {isPending ? (
                               <FontAwesomeIcon icon={faSpinner} spinPulse />
                             ) : (
                               <FontAwesomeIcon icon={faEye} />
                             )}
                             <span>voir la facture</span>
-                          </a>
+                          </div>
                         </div>
                       ))}
                     </div>

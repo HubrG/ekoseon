@@ -81,6 +81,10 @@ export const authOptions: AuthOptions = {
 
       return session;
     },
+    async signIn({ user, account, profile, email, credentials }) {
+        console.log(user, account, profile, email, credentials);
+        return true;
+    }
   },
   pages: {
     signIn: "/connexion",
@@ -93,6 +97,3 @@ export const getAuthSession = async () => {
   return session;
 };
 
-export const getCoucou  = async () => {
-  return "ok";
-}

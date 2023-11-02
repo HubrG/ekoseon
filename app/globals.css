@@ -105,7 +105,7 @@
   h4,
   h5,
   h6 {
-    @apply font-sans  mt-0 my-10  leading-7 flex flex-col gap-y-2;
+    @apply font-sans  mt-0 my-10 text-app-900  leading-7 flex flex-col gap-y-2;
   }
   h1 svg,
   h2 svg,
@@ -135,15 +135,15 @@
   }
 
   h4 {
-    @apply md:text-lg text-base font-bold  text-app-950;
+    @apply md:text-lg text-base font-bold  text-app-900;
   }
 
   h5 {
-    @apply md:text-base text-sm font-bold  text-app-950;
+    @apply md:text-base text-sm font-bold  text-app-900;
   }
 
   h6 {
-    @apply md:text-sm text-xs font-bold  text-app-950;
+    @apply md:text-sm text-xs font-bold  text-app-900;
   }
   p {
     @apply md:text-base text-sm leading-6 mb-4;
@@ -255,7 +255,7 @@ a.special-uderline-active {
 }
 /* Main Menu */
 ul.main-menu {
-  @apply flex flex-col p-4 md:p-0 mt-4 font-medium border border-slate-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-slate-800 md:dark:bg-slate-900 dark:border-slate-700 text-lg;
+  @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border border-slate-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 lg:border-0  dark:bg-slate-800 md:dark:bg-slate-900 dark:border-slate-700 text-lg;
 }
 div.main-menu {
   @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1;
@@ -266,13 +266,13 @@ ul.main-menu li a {
 
 /* Burger Menu */
 div.burger-menu {
-  @apply -z-10 absolute top-[4.5rem] left-0 w-full bg-app-200 dark:bg-slate-800 border-b-2 border-t-2 border-app-300;
+  @apply -z-10 md:hidden absolute top-[4.5rem] left-0 w-full bg-app-200 dark:bg-slate-800 border-b-2 border-t-2 border-app-300;
 }
 div.burger-menu ul {
   @apply text-base w-full text-center;
 }
 div.burger-menu ul li a {
-  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  hover:bg-app-100 md:hover:bg-transparent md:hover:text-app md:p-0 md:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700;
+  @apply no-underline block w-full hover:no-underline py-4 px-2 text-base font-bold  hover:bg-app-100 lg:hover:bg-transparent lg:hover:text-app lg:p-0 lg:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-slate-700;
 }
 /* LOGO */
 .logo {
@@ -437,9 +437,9 @@ a.subFooterLink {
   @apply pb-0 mb-0 !important;
 }
 .selectedRow {
-  @apply bg-app-300 text-app-800 font-bold  !important;
+  @apply bg-app-300 text-app-800 font-bold shadow-t-sm  !important;
 }
 
 .accordionTrigger {
-  @apply hover:bg-app-50 rounded-lg mb-2   border-app-300;
+  @apply hover:bg-app-100 bg-app-50 rounded-lg mb-2   border-app-200;
 }

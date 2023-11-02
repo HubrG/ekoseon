@@ -1,10 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { faBars } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LoginButton } from "@/src/feature/layout/header/auth/LoginButton";
+import { UserProfile } from "@/src/feature/layout/header/auth/UserProfile";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {  faSpinner } from "@fortawesome/pro-solid-svg-icons";
 
 interface Link {
   url: string;
@@ -13,12 +16,14 @@ interface Link {
 
 interface MenuProps {
   links: Link[];
+  user: any;
 }
 
 export default function BurgerMenu(props:MenuProps) {
   const pathname = usePathname();
-  const { links } = props;
+  const { links, user } = props;
   const [display, setDisplay] = useState(false);
+
   return (
     <>
     <Button
@@ -26,19 +31,19 @@ export default function BurgerMenu(props:MenuProps) {
         onClick={() => { display ? setDisplay(false) : setDisplay(true) }}
       type="button"
       size="sm"
-      className="inline-flex sm:hidden"
+      className="inline-flex md:hidden"
       >
       <span className="sr-only">Ouvrir le menu principal</span>
       <FontAwesomeIcon icon={faBars} />
     </Button>
-    <div className={`${display? "hidden sm:absolute" : "hidden"} burger-menu`}>
+    <div className={`${display? "md:absolute" : "hidden"} burger-menu`}>
     <ul>
     {links.map((link, index) => (
-          <li key={index}>
+          <li key={index} className="md:hidden">
             <Link
              onClick={() => { setDisplay(false) }}
               href={link.url}
-              className={`${
+              className={` ${
                 pathname === link.url
                   ? "burger-active"
                   : "text-app-900"
@@ -47,6 +52,11 @@ export default function BurgerMenu(props:MenuProps) {
             </Link>
           </li>
         ))}
+        <li onClick={() => { setDisplay(false) }}>
+            <Suspense fallback={<FontAwesomeIcon icon={faSpinner} />}>
+              {user?.name ? <UserProfile user={user.name} /> : <LoginButton />}
+            </Suspense>
+          </li>
         </ul>
       </div>
     </>

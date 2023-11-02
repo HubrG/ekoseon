@@ -4,6 +4,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["localhost", "res.cloudinary.com", "www.referenseo.com", "daisyui.com", "res.cloudinary.com"],
+  },
   async headers() {
     return [
       {

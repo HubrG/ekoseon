@@ -16,7 +16,6 @@ export default function MainMenu(props:MenuProps) {
   const pathname = usePathname();
   const { links } = props;
  
-
   return (
     <div
       className="main-menu"

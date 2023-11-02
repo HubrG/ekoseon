@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const appColor = "fuchsia";
-const appColorRGBA = "fuchsia";
+const appColor = "rose";
+const appColorRGBA = "rose";
 // tahiti   #22d3ee,
 // rose     #fb7185,
 // orange   #fb923c,

@@ -9,6 +9,25 @@ interface OrderItems extends Order {
   payments: Payment[];
 }
 
+interface ConvertedProduct extends Omit<Product, 'price'> {
+  price: number;
+}
+
+interface ConvertedOrderItem extends Omit<OrderItem, 'amount'> {
+  amount: number;
+  product: ConvertedProduct;
+}
+
+interface ConvertedPayment extends Omit<Payment, 'amount'> {
+  amount: number;
+}
+
+interface ConvertedOrderItems extends Omit<Order, 'amount'> {
+  amount: number;
+  items: ConvertedOrderItem[];
+  payments: ConvertedPayment[];
+}
+
 export const getOrder = async (id?: string): Promise<Order | null> => {
   try {
     const order = await prisma.order.findUnique({
@@ -41,7 +60,7 @@ export const getOrdersByUserId = async ({
   userId: string;
   sortBy?: string;
   sort?: string;
-}): Promise<OrderItems[]> => {
+}): Promise<ConvertedOrderItems[]> => {
   try {
     const orders = await prisma.order.findMany({
       where: {
@@ -59,7 +78,26 @@ export const getOrdersByUserId = async ({
         payments: true,
       },
     });
-    return orders;
+     // Convert Decimal to String or Number
+     const convertedOrders = orders.map(order => ({
+      ...order,
+      amount: Number(order.amount),  // convert Decimal to String
+      payments: order.payments.map(payment => ({
+        ...payment,
+        amount: Number(payment.amount),  // convert Decimal to String
+      })),
+      items: order.items.map(item => ({
+        ...item,
+        amount: Number(item.amount),  // convert Decimal to String
+        product: {
+          ...item.product,
+          price: Number(item.product.price),  // convert Decimal to String
+        },
+      })),
+     }));
+  
+    return convertedOrders;
+
   } catch (error) {
     console.error("Erreur lors de la récupération des commandes:", error);
     return [];
