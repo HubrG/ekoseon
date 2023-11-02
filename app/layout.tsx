@@ -16,9 +16,6 @@ const ToastProvider = dynamic(
 );
 import Script from "next/script";
 
-// Google Analytics
-ReactGA.initialize("G-XLYGHQ2YYR");
-
 const sans = Nunito({
   subsets: ["latin"],
   display: "swap",
