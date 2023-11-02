@@ -42,7 +42,7 @@ export const Header = async () => {
               </Link>
               <div className="md:block hidden">
                 <Suspense fallback={<FontAwesomeIcon icon={faSpinner} />}>
-                  {session?.user ? <UserProfile user={session.user.name}  /> : <LoginButton />}
+                  {session?.user?.name ? <UserProfile user={session.user.name}  /> : <LoginButton />}
                 </Suspense>
                 </div>
               {/* <ThemeToggle /> */}
