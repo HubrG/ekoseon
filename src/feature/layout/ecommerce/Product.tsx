@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useTransition } from "react";
-import { Product as PrismaProduct } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
 import { CartProduct } from "@/lib/types/CartProduct";
 import Cookies from "js-cookie";
@@ -8,7 +7,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -248,7 +246,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
             <Button
               aria-label="Réduire d'une unité de quantité"
               variant="ghost"
-              className={` rounded-full w-2/12 ${
+              className={` rounded-full  md:h-20 h-14 w-2/12 ${
                 qte === 1 ? "opacity-50 cursor-default" : null
               } bg-app-50/50`}
               onClick={() => handleQte(qte - 0.5)}>
@@ -259,13 +257,13 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
               <span className="md:text-4xl text-2xl">
                 {formatTime(qte)}
               </span>{" "}
-              d&apos;interview
+              d&apos;entretien
             </div>
             <Button
               aria-label="Ajouter d'une unité de quantité"
               variant="ghost"
               onClick={() => handleQte(qte + 0.5)}
-              className="w-2/12 rounded-full  bg-app-50/50">
+              className="w-2/12 md:h-20 h-14 rounded-full  bg-app-50/50">
               <FontAwesomeIcon icon={faPlusCircle} />
             </Button>
           </div>
@@ -390,6 +388,6 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
           )}
         </Button>
       </CardFooter>
-    </Card>
+      </Card>
   );
 };

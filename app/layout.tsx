@@ -30,7 +30,7 @@ const serif = Bitter({
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: "Ekoseon | Racontez vos mémoires au format audio et papier",
+  title: "Ekoseon | Vos mémoires au format audio et papier",
   description: "Ekoseon",
 };
 

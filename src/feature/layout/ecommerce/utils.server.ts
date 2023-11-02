@@ -109,6 +109,7 @@ export const createOrder = async (
         orderId: orderId,
         productId: item.id,
         quantity: item.quantity,
+        title: item.name,
         amount: Number(item.price*100),
       })) || [];
 

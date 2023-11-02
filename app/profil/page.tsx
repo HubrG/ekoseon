@@ -1,47 +1,33 @@
-import PageTransition from "@/src/feature/layout/effects/PageTransition";
-
-import {  Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger, } from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import React from 'react'
+import React from "react";
 import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import { Metadata } from "next";
+import { Profil } from "@/src/feature/layout/profil/Profil";
+import { getAuthSession } from "@/lib/auth";
+import { getOrdersByUserId } from "@/src/query/order.query";
+import { redirect } from 'next/navigation'
+
+
 export const metadata: Metadata = {
   title: Meta("title", "Vos commandes"),
   description: "Ekoseon",
 };
+
 export default async function Profile() {
+
+  let orders;
+  const session = await getAuthSession();
+  if (session?.user.id) {
+    orders = await getOrdersByUserId({ userId: session.user.id });
+  } else {
+    return redirect("/connexion")
+  }
+
   return (
-    <PageTransition>
+    <>
       <div className="content">
-          <Button>Click me</Button>
-          <Input />
-          <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It comes with default styles that matches the other
-          components&apos; aesthetic.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It&apos;s animated by default, but you can disable it if you
-          prefer.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+        <h1>Mes commandes</h1>
+        <Profil orders={orders} />
       </div>
-      </PageTransition>
-  )
+    </>
+  );
 }

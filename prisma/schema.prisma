@@ -92,7 +92,7 @@ model Order {
   lastName           String      @default("")
   orderRef           String?     @default("")
   userId             String
-  addressName        String?         
+  addressName        String?
   address            String
   addressComp        String?
   addressBillingName String?
@@ -121,6 +121,7 @@ model OrderItem {
   id        String  @id @default(cuid())
   productId String
   product   Product @relation(fields: [productId], references: [id])
+  title     String  @default("")
   quantity  Float?
   amount    Decimal @default(0)
   orderId   String

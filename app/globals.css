@@ -63,7 +63,7 @@
     @apply border-border font-sans p-0 m-0 
   }
   body {
-    @apply bg-white dark:bg-slate-900 bg-opacity-50 !important;
+    @apply bg-white dark:bg-slate-900 bg-opacity-50 text-app-900 !important;
   }
   p {
     @apply text-app-900 dark:text-app-50
@@ -297,11 +297,9 @@ div.burger-menu ul li a {
 
 /* Product */
 
+
 .product-alt {
-  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 rounded-xl;
-}
-.product-alt {
-  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 rounded-xl pb-16;
+  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 hover:shadow hover:shadow-app-200 rounded-xl pb-16;
 }
 div product-alt:first-child {
   @apply border-2 border-r-2
@@ -434,4 +432,14 @@ a.subFooterLink {
 }
 .outer-border {
   box-shadow: 0 0 0 4px white;
+}
+.accordionTrigger h3 {
+  @apply pb-0 mb-0 !important;
+}
+.selectedRow {
+  @apply bg-app-300 text-app-800 font-bold  !important;
+}
+
+.accordionTrigger {
+  @apply hover:bg-app-50 rounded-lg mb-2   border-app-300;
 }

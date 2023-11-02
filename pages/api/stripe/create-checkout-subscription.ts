@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { CartProduct } from "@/lib/types/CartProduct";
-import { createOrder } from "@/src/feature/layout/ecommerce/utils.server";
-import { hashPassword } from '../../../src/feature/layout/ecommerce/utils.server';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16" as any,
 });
@@ -48,8 +46,10 @@ const createCheckoutSession = async (
           lastName: customer?.name,
           email: customer?.email,
           phone: customer?.phone,
+          addressName: customer?.deliveryName,
           address: customer?.address,
           addressComp: customer?.addressComp,
+          billingName: customer?.billingName,
           addressBilling: customer?.addressBilling,
           addressBillingComp: customer?.addresseBillingComp,
           monthly: months,

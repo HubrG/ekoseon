@@ -63,6 +63,7 @@ export default function LocationSearchInput({
               {...getInputProps({
                 placeholder: "",
                 className: "shadcnInput",
+                autoComplete: "street-address postal-code",
               })}
             />
             <div className="absolute z-50 w-full bg-base-100 shadow-lg rounded-b-lg">

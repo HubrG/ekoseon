@@ -1,6 +1,6 @@
 "use client";
 import CustomerInfoForm from "@/src/feature/layout/ecommerce/validation/CustomerInfoForm";
-import React, { useEffect, useRef, useState, Suspense } from "react";
+import React, { useEffect, useRef, useMemo, useState, Suspense } from "react";
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -83,6 +83,7 @@ export function InnerCheckoutForm() {
   // States Check
   const [isCGVChecked, setIsCGVChecked] = useState<boolean>(false); // Adresse de livraison
 
+ 
   // Variable d'option
   const isDelivery = true; // NOTE Cet objet a-t-il besoin d'une livraison ?
   const activeMonthly = true; // NOTE Activation du paiement en plusieurs fois
@@ -259,7 +260,9 @@ export function InnerCheckoutForm() {
           value:
             "Votre paiement a bien été enregistré, toutefois un problème est survenu lors de la création de votre commande, veuillez nous contacter !",
         });
-       return router.push("/achat/validation/error/commande-reglee-mais-non-creee");
+        return router.push(
+          "/achat/validation/error/commande-reglee-mais-non-creee"
+        );
       }
       router.push("/achat/validation/succes/commande/" + orderResult);
     });
@@ -282,6 +285,17 @@ export function InnerCheckoutForm() {
       },
     },
   };
+ // 
+ const MemoizedChildComponent = useMemo(() => {
+  return <CustomerInfoForm
+    setValidity={setAreFieldsValid}
+    isDelivery={isDelivery}
+  />
+}
+, [isDelivery]);
+
+  const enableCheckout =
+    !areFieldsValid || !isCGVChecked || !stripe ? true : false;
 
   return (
     <>
@@ -300,10 +314,7 @@ export function InnerCheckoutForm() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <CustomerInfoForm
-              setValidity={setAreFieldsValid}
-              isDelivery={isDelivery}
-            />
+            {MemoizedChildComponent}
             <div className="grid w-full  items-center gap-3  md:mt-4 mt-5">
               <div className="separatorWithText">
                 <div>
@@ -311,15 +322,11 @@ export function InnerCheckoutForm() {
                 </div>
                 <div>
                   <span>
-                    <span   
-                    data-tooltip-id="dataSecure"
-                    data-tooltip-content={`Paiement sécurisé`}>
-                    <FontAwesomeIcon
-                      icon={faLockKeyhole}
-                      className="mx-2"
-                    
-                    />
-                    <Tooltip id="dataSecure" />
+                    <span
+                      data-tooltip-id="dataSecure"
+                      data-tooltip-content={`Paiement sécurisé`}>
+                      <FontAwesomeIcon icon={faLockKeyhole} className="mx-2" />
+                      <Tooltip id="dataSecure" />
                     </span>
                     Paiement
                   </span>
@@ -370,7 +377,13 @@ export function InnerCheckoutForm() {
                 <div
                   className="w-full"
                   data-tooltip-id="tooltipPay"
-                  data-tooltip-content={!areFieldsValid ? "Certains champs obligatoires ne sont pas renseignés ou des erreurs ont été détectées." : !isCGVChecked ? "Vous devez accepter les CGV" : null}>
+                  data-tooltip-content={
+                    !areFieldsValid
+                      ? "Certains champs obligatoires ne sont pas renseignés ou des erreurs ont été détectées."
+                      : !isCGVChecked
+                      ? "Vous devez accepter les CGV"
+                      : null
+                  }>
                   <Button
                     type="submit"
                     className={`${
@@ -378,13 +391,13 @@ export function InnerCheckoutForm() {
                         ? "disabled opacity-50 cursor-default"
                         : null
                     }`}
-                    disabled={!areFieldsValid || !isCGVChecked || !stripe}>
-                    {isPending &&  isTransitionActive.current ? (
+                    disabled={enableCheckout}>
+                    {isPending && isTransitionActive.current ? (
                       <Loader className="mr-2 h-4 w-4" />
                     ) : null}{" "}
                     Régler {calculatedTotal}€
                   </Button>
-                  {!areFieldsValid  || !isCGVChecked ? (
+                  {!areFieldsValid || !isCGVChecked ? (
                     <>
                       <Tooltip id="tooltipPay" className="tooltip" />
                     </>
@@ -402,9 +415,7 @@ export function InnerCheckoutForm() {
                             type="button"
                             variant="outline"
                             disabled={
-                              !areFieldsValid ||
-                              !stripe ||
-                              !isCGVChecked ||
+                              enableCheckout ||
                               calculatedTotal < minMonthly
                             }>
                             Par mensualités
@@ -428,33 +439,35 @@ export function InnerCheckoutForm() {
                           }).map((_, index) => (
                             <DropdownMenuItem asChild key={index}>
                               <>
-                              <div
-                  className="w-full"
-                  data-tooltip-id="tooltipMonthly"
-                  data-tooltip-content={!areFieldsValid ? "Certains champs obligatoires ne sont pas renseignés ou des erreurs ont été détectées." : !isCGVChecked ? "Vous devez accepter les CGV" : null}>
-              
-                                <Button
-                                  type="button"
-                                  variant="ghost"
-                                  className="w-auto"
-                                  onClick={() =>
-                                    handleSubscription({ months: index + 2 })
-                                  }
-                                  disabled={
-                                    !areFieldsValid ||
-                                    !stripe ||
-                                    !isCGVChecked ||
-                                    calculatedTotal < minMonthly
+                                <div
+                                  className="w-full"
+                                  data-tooltip-id="tooltipMonthly"
+                                  data-tooltip-content={
+                                    !areFieldsValid
+                                      ? "Certains champs obligatoires ne sont pas renseignés ou des erreurs ont été détectées."
+                                      : !isCGVChecked
+                                      ? "Vous devez accepter les CGV"
+                                      : null
                                   }>
-                                  {isPending && isTransitionActive.current ? (
-                                    <Loader className="mr-2 h-4 w-4" />
-                                  ) : null}{" "}
-                                  {index + 2} mensualités (
-                                  {(calculatedTotal / (index + 2)).toFixed(2)}
-                                  €/mois)
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    className="w-auto"
+                                    onClick={() =>
+                                      handleSubscription({ months: index + 2 })
+                                    }
+                                    disabled={
+                                      enableCheckout ||
+                                      calculatedTotal < minMonthly
+                                    }>
+                                    {isPending && isTransitionActive.current ? (
+                                      <Loader className="mr-2 h-4 w-4" />
+                                    ) : null}{" "}
+                                    {index + 2} mensualités (
+                                    {(calculatedTotal / (index + 2)).toFixed(2)}
+                                    €/mois)
                                   </Button>
-                                  
-                                  </div>
+                                </div>
                               </>
                             </DropdownMenuItem>
                           ))}
