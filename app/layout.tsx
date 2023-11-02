@@ -10,9 +10,11 @@ import type { Metadata } from "next";
 import { Session } from "next-auth";
 import { Bitter, Caveat, Nunito } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import dynamic from 'next/dynamic';
-const ToastProvider = dynamic(() => import('@/src/feature/layout/toastify/ToastProvider'));
-import ReactGA from 'react-ga4';
+import dynamic from "next/dynamic";
+const ToastProvider = dynamic(
+  () => import("@/src/feature/layout/toastify/ToastProvider")
+);
+import Script from "next/script";
 
 // Google Analytics
 ReactGA.initialize("G-XLYGHQ2YYR");
@@ -45,6 +47,21 @@ export default function RootLayout(props: {
         lang="fr"
         suppressHydrationWarning={true}
         className={`${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+        <Script
+          defer
+          src="https://www.googletagmanager.com/gtag/js?id=G-XLYGHQ2YYR"
+        />
+        <Script
+          id="show-banner"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-XLYGHQ2YYR');
+              `,
+          }}
+        />
         <Provider session={session}>
           <body
             className={clsx("bg-background")}
