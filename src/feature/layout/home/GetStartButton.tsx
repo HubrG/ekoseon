@@ -9,8 +9,9 @@ export const GetStartButton = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   //
-  const handleScrollButton =
-    (anchorId: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleScrollButton = 
+     (anchorId: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
+     
       e.preventDefault();
       const elem = document.getElementById(anchorId);
       if (elem) {

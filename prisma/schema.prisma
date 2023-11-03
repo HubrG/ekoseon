@@ -49,18 +49,26 @@ model VerificationToken {
 }
 
 // Application de base
-
+enum UserRole {
+  USER
+  ADMIN
+  EDITOR
+  // Ajoutez d'autres rôles au besoin
+}
 model User {
-  id             String    @id @default(cuid())
+  id             String        @id @default(cuid())
   name           String?
-  email          String?   @unique
+  email          String?       @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  date           DateTime? @default(now())
+  date           DateTime?     @default(now())
+  role           UserRole      @default(USER)
   accounts       Account[]
   sessions       Session[]
   order          Order[]
+  posts          BlogPost[]
+  comments       BlogComment[]
 }
 
 model Product {
@@ -83,6 +91,8 @@ model Category {
   id       String    @id @default(cuid())
   name     String    @unique
   products Product[]
+
+  BlogPost BlogPost[]
 }
 
 model Order {
@@ -126,6 +136,53 @@ model OrderItem {
   amount    Decimal @default(0)
   orderId   String
   order     Order   @relation(fields: [orderId], references: [id])
+}
+
+model BlogPost {
+  id             String          @id @default(cuid())
+  title          String
+  content        String?
+  authorId       String
+  author         User            @relation(fields: [authorId], references: [id])
+  comments       BlogComment[]
+  tags           BlogTagOnPost[]
+  categoryId     String?
+  category       Category?       @relation(fields: [categoryId], references: [id])
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  BlogCategory   BlogCategory?   @relation(fields: [blogCategoryId], references: [id])
+  blogCategoryId String?
+}
+
+model BlogComment {
+  id        String   @id @default(cuid())
+  content   String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  postId    String
+  post      BlogPost @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model BlogCategory {
+  id    String     @id @default(cuid())
+  name  String     @unique
+  posts BlogPost[]
+}
+
+model BlogTag {
+  id    String          @id @default(cuid())
+  name  String          @unique
+  posts BlogTagOnPost[]
+}
+
+model BlogTagOnPost {
+  tagId  String
+  tag    BlogTag  @relation(fields: [tagId], references: [id])
+  postId String
+  post   BlogPost @relation(fields: [postId], references: [id])
+
+  @@id([tagId, postId])
 }
 
 // USER:

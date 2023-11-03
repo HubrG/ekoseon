@@ -56,7 +56,7 @@ export const Footer = async () => {
                   </li>
                   <li>
                     <Link
-                      href="/raconter-ses-memoires/contact"
+                      href="/blog"
                       className="hover:underline">
                       Blog
                     </Link>

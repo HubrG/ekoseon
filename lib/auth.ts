@@ -34,7 +34,6 @@ export const authOptions: AuthOptions = {
       authorize: async (
         credentials: Record<"email" | "password", string> | undefined
       ) => {
-        console.log("Credentials provided:", credentials);
 
         if (!credentials) {
           return null;
@@ -43,7 +42,6 @@ export const authOptions: AuthOptions = {
         const user = (await prisma.user.findUnique({
           where: { email: credentials.email },
         })) as any;
-        // console.log(user);  // Ajoutez cette ligne
 
         if (
           user &&
@@ -70,21 +68,16 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token.userId) {
-        // Créez un nouvel objet user avec l'id de l'utilisateur
         const user = { ...session.user, id: token.userId };
-
-        // Créez un nouvel objet session avec le nouvel objet user
         const newSession = { ...session, user };
-
         return newSession;
       }
-
       return session;
     },
-    async signIn({ user, account, profile, email, credentials }) {
-        console.log(user, account, profile, email, credentials);
-        return true;
-    }
+    // async signIn({ user, account, profile, email, credentials }) {
+    //     console.log(user, account, profile, email, credentials);
+    //     return true;
+    // }
   },
   pages: {
     signIn: "/connexion",

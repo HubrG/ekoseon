@@ -1,12 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSpinner
-} from "@fortawesome/pro-duotone-svg-icons";
+import { faSpinner } from "@fortawesome/pro-duotone-svg-icons";
 import {
   CardContent,
   CardFooter,
@@ -14,7 +12,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Toastify } from "@/src/feature/layout/toastify/Toastify";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -36,16 +34,19 @@ const LoginPage = () => {
       }),
     });
 
-    setIsLoading(false); // Déplacé ici pour s'assurer qu'il est appelé même en cas d'erreur
+    setIsLoading(false);
 
     if (res.ok) {
-      Toastify({ type: "default", value: "Heureux de vous revoir !" });
       const result = await signIn("credentials", {
         email: email.current,
         password: pass.current,
         redirect: false,
         callbackUrl: "/profil/mes-commandes",
       });
+      const session = await getSession();
+      Toastify({ type: "default", value: `Heureux de vous revoir  ${session?.user.name} !` });
+      router.refresh();
+      router.push("/profil/mes-commandes");
     } else {
       const { error } = await res.json();
       Toastify({ type: "error", value: error });
@@ -54,9 +55,9 @@ const LoginPage = () => {
 
   const onGithubSignIn = async () => {
     // Ajouté async
-    setIsLoading(true); // Définir isLoading à true avant de signer
-    await signIn("github", { callbackUrl: "/" }); // Attendre la fin de la signature
-    setIsLoading(false); // Définir isLoading à false après la signature
+    setIsLoading(true);
+    await signIn("github", { callbackUrl: "/" });
+    setIsLoading(false);
   };
 
   return (
