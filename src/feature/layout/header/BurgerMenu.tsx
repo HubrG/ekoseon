@@ -54,7 +54,7 @@ export default function BurgerMenu(props:MenuProps) {
         ))}
         <li onClick={() => { setDisplay(false) }}>
             <Suspense fallback={<FontAwesomeIcon icon={faSpinner} />}>
-              {user?.name ? <UserProfile user={user.name} /> : <LoginButton />}
+              {user?.name ? <UserProfile user={user.name} role={user.role} /> : <LoginButton />}
             </Suspense>
           </li>
         </ul>

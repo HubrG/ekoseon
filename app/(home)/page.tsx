@@ -2,12 +2,13 @@ import MotionParallax from "@/src/feature/layout/effects/Parallax";
 import Image from "next/image";
 import GetStartButton from "@/src/feature/layout/home/GetStartButton";
 import MotionShow from "@/src/feature/layout/effects/Show";
+import { signOut } from "next-auth/react";
 
 const AnimatedGradientText = ({ children } : {children:string}) => (
   <span className="animated-gradient-audio-paper">{children}</span>
 );
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <section className="static z-0">

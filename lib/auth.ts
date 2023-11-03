@@ -41,6 +41,13 @@ export const authOptions: AuthOptions = {
 
         const user = (await prisma.user.findUnique({
           where: { email: credentials.email },
+          select: { // Si vous utilisez "select", assurez-vous d'inclure tous les champs nécessaires
+            id: true,
+            email: true,
+            name: true,
+            hashedPassword: true,
+            role: true,
+          },
         })) as any;
 
         if (
@@ -63,12 +70,13 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.userId = user.id; // Assumant que user.id existe
+        token.role = (user as any).role;
       }
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token.userId) {
-        const user = { ...session.user, id: token.userId };
+        const user = { ...session.user, id: token.userId, role:token.role };
         const newSession = { ...session, user };
         return newSession;
       }

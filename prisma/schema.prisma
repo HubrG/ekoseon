@@ -55,6 +55,7 @@ enum UserRole {
   EDITOR
   // Ajoutez d'autres rôles au besoin
 }
+
 model User {
   id             String        @id @default(cuid())
   name           String?
