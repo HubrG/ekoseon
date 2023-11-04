@@ -9,7 +9,7 @@ import Link from "next/link";
 import { DropdownMenuItemLogout } from "./LogoutButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/pro-duotone-svg-icons";
-import { faTools } from "@fortawesome/pro-solid-svg-icons";
+import { faTools,faBasketShopping } from "@fortawesome/pro-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
 
 interface MenuProps {
@@ -28,7 +28,7 @@ export const UserProfile = (props: MenuProps) => {
       <DropdownMenuContent className="w-full">
         <DropdownMenuItem className="w-full" asChild>
           <Link href="/profil/mes-commandes" className="nunderline">
-            <FontAwesomeIcon icon={faUser} className="mr-2 h-4 w-4" />
+            <FontAwesomeIcon icon={faBasketShopping} className="mr-2 h-4 w-4" />
             Mes commandes
           </Link>
         </DropdownMenuItem>

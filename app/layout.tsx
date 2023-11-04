@@ -44,6 +44,7 @@ export default function RootLayout(props: {
         lang="fr"
         suppressHydrationWarning={true}
         className={`${sans.variable} ${serif.variable}  ${display.variable} font-sans`}>
+
         <Script
           defer
           src="https://www.googletagmanager.com/gtag/js?id=G-XLYGHQ2YYR"

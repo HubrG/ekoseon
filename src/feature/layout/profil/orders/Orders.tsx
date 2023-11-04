@@ -130,7 +130,7 @@ export const Orders: React.FC<OrdersProps> = ({ orders: initialOrders }) => {
 
   return (
     <div>
-      <Accordion type="single" collapsible className="w-full relative">
+      <Accordion type="single"  collapsible className="w-full relative">
         <div className="shadow-sm  px-2 grid sticky top-[4.5rem] z-10 bg-white py-5 rounded-lg grid-cols-3 text-center mb-5 md:text-base text-sm text-app-800 font-bold cursor-pointer select-none ">
           <div
             className="text-left flex flex-row gap-x-2 items-center"

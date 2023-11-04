@@ -1,10 +1,12 @@
+import React from 'react'
 import PageTransition from '@/src/feature/layout/effects/PageTransition'
 import { redirect } from 'next/navigation';
-import React from 'react'
 import { getAuthSession } from "@/lib/auth";
-import Link from 'next/link';
+import { CreatePost } from '../../../src/feature/layout/blog/admin/CreatePost';
 
-export default async function Admin() {
+
+
+export default async function Blog() {
     const session = await getAuthSession();
     if (!session) {
         redirect('/connexion');
@@ -12,14 +14,17 @@ export default async function Admin() {
     if (session.user.role !== "ADMIN") {
       redirect('/')
     }
-  
 
+
+  
   return (
+    <>
+   
     <PageTransition>
-      <div className="content"><h1>Admin</h1>
-        <div>
-          <Link href="/admin/blog">Gérer le blog</Link>
-        </div></div>
-    </PageTransition>
+    <div className="content">
+     <CreatePost />
+    </div>
+      </PageTransition>
+      </>
   )
 }
