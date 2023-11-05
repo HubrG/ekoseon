@@ -98,14 +98,7 @@
   .content-centered {
     @apply mx-auto min-h-screen  flex items-center justify-center;
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-sans  mt-0 my-10 text-app-900  leading-7 flex flex-col gap-y-2;
-  }
+
   h1 svg,
   h2 svg,
   h3 svg,
@@ -114,39 +107,44 @@
   h6 svg {
     @apply dark:text-app-200 text-app-600 text-3xl !important;
   }
-  h1 {
-    @apply text-app-900 dark:text-app-400;
-  }
+ 
   h1.title-page {
     @apply text-center  mb-14;
   }
 
   h1 {
-    @apply md:text-4xl text-3xl font-bold;
-  }
+    @apply md:text-[2.5rem] text-[2.34375rem] font-bold text-app-900 dark:text-app-400 mb-[1.545rem];
+}
 
-  h2 {
-    @apply md:text-2xl text-xl font-bold  text-app-900 dark:text-app-300;
-  }
+h2 {
+    @apply md:text-[1.545rem] text-[1.447rem] font-bold text-app-900 dark:text-app-300 mb-[0.955rem];
+}
 
-  h3 {
-    @apply md:text-xl text-lg font-bold  text-app-800;
-  }
+h3 {
+    @apply md:text-[0.955rem] text-[0.895rem] font-bold text-app-800 mb-[0.59rem];
+}
 
-  h4 {
-    @apply md:text-lg text-base font-bold  text-app-800;
-  }
+h4 {
+    @apply md:text-[0.59rem] text-[0.553rem] font-bold text-app-800 mb-[0.364rem];
+}
 
-  h5 {
-    @apply md:text-base text-sm font-bold  text-app-800;
-  }
+h5 {
+    @apply md:text-[0.364rem] text-[0.342rem] font-bold text-app-800 mb-[0.225rem];
+}
 
-  h6 {
-    @apply md:text-sm text-xs font-bold  text-app-800;
-  }
-  p {
-    @apply md:text-lg text-base leading-6 mb-4;
-  }
+h6 {
+    @apply md:text-[0.225rem] text-[0.211rem] font-bold text-app-800 mb-[0.139rem];
+}
+
+p {
+  @apply md:text-[1.125rem] text-[1.054rem] leading-[1.821rem] mb-[0.696rem];
+}
+
+
+
+
+
+
 }
 .background-hero {
   animation: animateBackground 10s infinite;
@@ -351,6 +349,9 @@ div product-alt:first-child {
 .shadcnButton-links {
   @apply text-primary underline-offset-4 hover:underline;
 }
+.shadcnCard-description {
+  @apply md:text-[1rem] text-[0.9375rem] leading-[1.618rem] mb-[0.618rem] text-app-900 dark:text-app-50;
+}
 
 div.separatorWithText {
   @apply relative mt-4 uppercase;
@@ -472,7 +473,7 @@ article h6 {
   @apply text-base font-bold mt-3 mb-2;
 }
 article p {
-  @apply md:text-lg text-base mt-4 mb-4 !important;
+  @apply  mt-4 mb-4 !important;
 }
 article em,
 article i {
@@ -530,38 +531,48 @@ article .task-list-item {
 /* REACT SELECT CONTAINER */
 .react-select-container {
   @apply shadcnInput h-auto flex flex-row items-center !important;
-  .react-select__control {
-    @apply border-0 w-full  bg-transparent focus:border-0 focus:ring-0;
-    .react-select__control--is-focused {
-      @apply border-0 w-full  bg-transparent shadow-none focus:border-0 focus:ring-0;
-      .react-select__control--menu-is-open {
-        @apply border-0 w-full  bg-transparent focus:border-0 focus:ring-0;
-        .react-select__value-container {
-          @apply border-0 bg-transparent focus:border-0 focus:ring-0;
-        }
-      }
-    }
-  }
-
-  .react-select__menu-list {
-    @apply bg-app-50 shadow-app-100 rounded-b rounded-t-none !important;
-    .react-select__option {
-      @apply hover:bg-app-100 text-app-900 focus:bg-app-100 active:bg-app-100;
-    }
-    .react-select__option--is-focused {
-      @apply bg-app-100 text-app-900 !important;
-    }
-  }
-  .react-select__multi-value__remove {
-    @apply bg-app-300 ml-2 hover:bg-app-400 hover:text-app-50;
-  }
-  .react-select__menu-notice--no-options {
-    @apply text-app-400 !important;
-  }
-  .react-select__menu {
-    @apply rounded-b rounded-t-none shadow-app-300 shadow-sm  mt-0.5 -ml-3 border-app-300 !important;
-  }
 }
+
+.react-select-container .react-select__control {
+  @apply border-0 w-full bg-transparent focus:border-0 focus:ring-0;
+}
+
+.react-select-container .react-select__control .react-select__control--is-focused {
+  @apply border-0 w-full bg-transparent shadow-none focus:border-0 focus:ring-0;
+}
+
+.react-select-container .react-select__control .react-select__control--is-focused .react-select__control--menu-is-open {
+  @apply border-0 w-full bg-transparent focus:border-0 focus:ring-0;
+}
+
+.react-select-container .react-select__control .react-select__control--is-focused .react-select__control--menu-is-open .react-select__value-container {
+  @apply border-0 bg-transparent focus:border-0 focus:ring-0;
+}
+
+.react-select-container .react-select__menu-list {
+  @apply bg-app-50 shadow-app-100 rounded-b rounded-t-none !important;
+}
+
+.react-select-container .react-select__menu-list .react-select__option {
+  @apply hover:bg-app-100 text-app-900 focus:bg-app-100 active:bg-app-100;
+}
+
+.react-select-container .react-select__menu-list .react-select__option--is-focused {
+  @apply bg-app-100 text-app-900 !important;
+}
+
+.react-select-container .react-select__multi-value__remove {
+  @apply bg-app-300 ml-2 hover:bg-app-400 hover:text-app-50;
+}
+
+.react-select-container .react-select__menu-notice--no-options {
+  @apply text-app-400 !important;
+}
+
+.react-select-container .react-select__menu {
+  @apply rounded-b rounded-t-none shadow-app-300 shadow-sm mt-0.5 -ml-3 border-app-300 !important;
+}
+
 .textareaBlogPostEditor {
   @apply border-[1px] outline-0 border-app-300 max-h-[92vh] shadow-t-lg shadow-app-50 h-[50vh] p-5 rounded-t-lg border-l-0 border-r-0 text-base border-t-[5px] border-t-app-500 z-10 bg-white ;
   /* no outline on focus */

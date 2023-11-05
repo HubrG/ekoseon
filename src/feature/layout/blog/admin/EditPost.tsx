@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useTransition } from "react";
 import Showdown from "showdown";
 import { Input } from "@/components/ui/input";
 import { BlogCategory, BlogPost, BlogTag, BlogTagOnPost } from "@prisma/client";
@@ -16,6 +16,7 @@ import slugify from "slugify";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import CreatableSelect from "react-select/creatable";
+import { Loader } from '@/components/ui/loader';
 
 interface EditPostProps {
   post: BlogPost;
@@ -49,11 +50,14 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     tables: true,
     backslashEscapesHTMLTags: true,
   });
+
+  const [isPending, startTransition] = useTransition();
+  const isTransitionActive = useRef(true); // Par défaut, la transition est active
   const [delta, setDelta] = useState<string>(post?.content || "");
   const [markdown, setMarkdown] = useState<string>(
     post?.content ? converter.makeMarkdown(post.content) : ""
   );
-
+  const [markDownIA, setMarkDownIA] = useState<string>("");
   const [title, setTitle] = useState<string>(post?.title || "");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -191,6 +195,32 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     setTagsOptions((prevOptions) => [...prevOptions, ...newTagsWithId]);
   };
 
+  //  On fait appel à l'api api/prompt pour créer un post avec l'IA
+  const handleCreatePostWithAI = async () => {
+    startTransition(async () => {
+      const response = await fetch("/api/gpt/prompt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: "Créer un post avec l'IA",
+          max_tokens: 100,
+          temperature: 0.9,
+          top_p: 1,
+          n: 1,
+          stream: false,
+          logprobs: null,
+          stop: ["###"],
+        }),
+      });
+
+      const data = await response.json();
+
+      setMarkDownIA(converter.makeMarkdown(data));
+    });
+  };
+
   return (
     <>
       <div className="flex flex-col gap-4 relative justify-center w-full mx-auto">
@@ -233,7 +263,9 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
             </div>
             <Image
               src={image}
-              // fit="cover"
+              // width={1920}
+              // height={1080}
+              fill={true}
               alt={title}
               className="object-cover rounded-lg"
             />
@@ -329,6 +361,30 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
               value={selectedTags}
             />
           </div>
+          <div className="grid w-full  items-center gap-1.5">
+            <Label htmlFor="textIA">Générateur de texte</Label>
+            <Button
+               className={`${
+                isPending 
+                  ? "disabled opacity-50 cursor-default"
+                  : null
+              }`}
+              onClick={() => {
+                handleCreatePostWithAI();
+              }}>
+              {isPending && isTransitionActive.current ? (
+                <Loader className="mr-2 h-4 w-4" />
+              ) : null}{" "}
+              Créer un post avec l&apos;IA
+            </Button>
+          </div>
+        </div>
+        <div className="mt-5">
+          <article
+            className="min-h-[100vh] p-5 rounded-lg"
+            dangerouslySetInnerHTML={{
+              __html: markDownIA.replace(/\\/g, ""),
+            }}></article>
         </div>
       </div>
     </>

@@ -310,7 +310,7 @@ export const Orders: React.FC<OrdersProps> = ({ orders: initialOrders }) => {
                         <div
                           key={invoiceIt.id}
                           onClick={(event) => handleFetch(event, invoiceIt)}
-                          className="p-2 cursor-pointer rounded-lg flex flex-row justify-between hover:bg-app-200">
+                          className="p-2 cursor-pointer rounded-lg flex md:flex-row flex-col mb-2 justify-between hover:bg-app-200">
                           <div className="flex flex-row items-center gap-x-3">
                             <FontAwesomeIcon icon={faReceipt} />
                             <span className="font-bold text-base">

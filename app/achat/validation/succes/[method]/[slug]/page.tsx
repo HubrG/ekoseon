@@ -89,7 +89,7 @@ export default async function Success({
                 <CardContent>
                   <p>
                     Retrouvez toutes les informations concernant votre commande
-                    dans votre <Link href="/profil">espace client</Link>.
+                    dans votre <Link href="/profil/mes-commandes">espace client</Link>.
                   </p>
                   <h3>Ensuite ?</h3>
                   <p>
