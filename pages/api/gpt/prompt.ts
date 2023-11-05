@@ -96,6 +96,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
         published: false,
         authorId: req.body.userId,
         category: undefined,
+        isIA: true,
       },
     });
     console.log("✅ Post créé");
