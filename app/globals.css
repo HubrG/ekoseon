@@ -5,11 +5,17 @@
 
 @layer base {
   :root {
-    /* --color-app1: theme('colors.app.500'); 
-    --color-app2: theme('colors.app.600'); 
-    --color-app3: theme('colors.app.700'); 
-    --color-app4: theme('colors.app.800'); 
-    --color-app5: theme('colors.app.900');  */
+    --color-app1: theme('colors.app.50'); 
+    --color-app2: theme('colors.app.100'); 
+    --color-app3: theme('colors.app.200'); 
+    --color-app4: theme('colors.app.300'); 
+    --color-app5: theme('colors.app.400'); 
+    --color-app6: theme('colors.app.500'); 
+    --color-app7: theme('colors.app.600'); 
+    --color-app8: theme('colors.app.700'); 
+    --color-app9: theme('colors.app.800');
+    --color-app10: theme('colors.app.900');
+    --color-app11: theme('colors.app.950');
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -320,7 +326,7 @@ div product-alt:first-child {
 }
 /* SHADCN */
 .shadcnInput {
-  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-light placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-80 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
+  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-light placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-60 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
 }
 .shadcnLabel-base {
   @apply md:text-base text-sm font-semibold leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2;
@@ -472,9 +478,10 @@ article h5 {
 article h6 {
   @apply text-base font-bold mt-3 mb-2;
 }
+*/
 article p {
-  @apply  mt-4 mb-4 !important;
-} */
+  @apply  text-lg pl-2 mt-4 mb-4 !important;
+} 
 article em,
 article i {
   @apply italic;
@@ -577,4 +584,11 @@ article .task-list-item {
   @apply border-[1px] outline-0 border-app-300 max-h-[92vh] shadow-t-lg  md:h-[50vh] h-[30vh] p-5 rounded-t-lg border-l-0 border-r-0 text-base border-t-[5px] border-t-app-500 z-10 bg-white ;
   /* no outline on focus */
 
+}
+
+.rounded-b-none-imp {
+  @apply rounded-b-none  !important;
+}
+.rounded-t-none-imp {
+  @apply rounded-t-none  !important; 
 }

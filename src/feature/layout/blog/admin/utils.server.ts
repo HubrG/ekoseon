@@ -41,7 +41,7 @@ export const saveEditPost = async ({
   canonicalSlug,
   excerpt,
   published,
-  categoryId
+  category,
 }: {
   id: string;
   title: string;
@@ -49,9 +49,8 @@ export const saveEditPost = async ({
   image: string;
   canonicalSlug: string;
   excerpt: string;
-    published: boolean;
-    categoryId: string;
-  
+  published: boolean;
+  category: string | null;
 }) => {
   // On sauvegarde l'article
   const user = await getUserLog();
@@ -68,7 +67,7 @@ export const saveEditPost = async ({
         excerpt: excerpt,
         published: published,
         publishedAt: published ? new Date() : null,
-        categoryId: categoryId,
+        categoryId: category ? category : null,
       },
     });
     return post;
@@ -84,7 +83,7 @@ export const getBlogCategories = async () => {
     return categories;
   }
   return false;
-}
+};
 
 export const getBlogTags = async () => {
   // On récupère les tags
@@ -94,7 +93,7 @@ export const getBlogTags = async () => {
     return tags;
   }
   return false;
-}
+};
 
 export const getBlogTagOnPost = async (id: string) => {
   // On récupère les tags
@@ -102,13 +101,13 @@ export const getBlogTagOnPost = async (id: string) => {
   if (user) {
     const tags = await prisma.blogTagOnPost.findMany({
       where: {
-        postId: id
-      }
+        postId: id,
+      },
     });
     return tags;
   }
   return false;
-}
+};
 export const saveTagsForPost = async (id: string, tagNames: string[]) => {
   const user = await getUserLog();
   if (!user) {
@@ -125,9 +124,11 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
   });
 
   // 2. Créez les nouveaux tags
-  const existingTagNames = existingTags.map(tag => tag.name);
-  const newTagNames = tagNames.filter(tagName => !existingTagNames.includes(tagName));
-  const newTags = newTagNames.map(tagName => ({ name: tagName }));
+  const existingTagNames = existingTags.map((tag) => tag.name);
+  const newTagNames = tagNames.filter(
+    (tagName) => !existingTagNames.includes(tagName)
+  );
+  const newTags = newTagNames.map((tagName) => ({ name: tagName }));
   await prisma.blogTag.createMany({
     data: newTags,
   });
@@ -149,7 +150,7 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
   });
 
   // 5. Créez les nouvelles associations
-  const tagPostAssociations = allTags.map(tag => ({
+  const tagPostAssociations = allTags.map((tag) => ({
     tagId: tag.id,
     postId: id,
   }));
@@ -160,4 +161,46 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
   return true;
 };
 
-  
+// Suppression d'un post
+export const deletePost = async (id: string) => {
+  const user = await getUserLog();
+  if (user) {
+    // Exécutez les deux opérations dans une transaction
+    await prisma.$transaction(async (prisma) => {
+      // Supprimez d'abord les BlogTagOnPost liés
+      await prisma.blogTagOnPost.deleteMany({
+        where: {
+          postId: id,
+        },
+      });
+
+      // Ensuite, supprimez le post lui-même
+      await prisma.blogPost.delete({
+        where: {
+          id: id,
+        },
+      });
+    });
+
+    return true;
+  }
+  return false;
+};
+
+// Modificatio ndu status de publication d'un post (published)
+export const publishPost = async (id: string, isPublished: boolean) => {
+  const user = await getUserLog();
+  if (user) {
+    const post = await prisma.blogPost.update({
+      where: {
+        id: id,
+      },
+      data: {
+        published: isPublished,
+        publishedAt: new Date(),
+      },
+    });
+    return post;
+  }
+  return false;
+};

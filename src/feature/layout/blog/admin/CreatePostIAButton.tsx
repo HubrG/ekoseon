@@ -3,9 +3,10 @@ import { Toastify } from "@/src/feature/layout/toastify/Toastify";
 import { Button } from "@/components/ui/button";
 import React, { useRef, useState, useTransition } from "react";
 import { Loader } from "@/components/ui/loader";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { faMicrochipAi } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const CreatePostIA = ({ userId }: { userId: string }) => {
   const router = useRouter();
@@ -70,18 +71,19 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
   return (
     <div>
       <div className="grid w-full  items-center gap-1.5">
-        <Label htmlFor="subjectIA">Sujet</Label>
         <Input
           onChange={(e) => setSubjectIA(e.currentTarget.value)}
           type="text"
           id="subjectIA"
-          placeholder="Sujet"
+          placeholder="Entrez un sujet d'article à générer avec l'IA"
+          className="rounded-b-none-imp text-center"
         />
       </div>
       <div className="grid w-full  items-center gap-1.5">
-        <Button
-          className={`${
-            isPending ? "disabled opacity-50 cursor-default" : null
+          <Button
+            variant="ghost"
+          className={`rounded-t-none-imp shadow ${
+            isPending ? " disabled opacity-50 cursor-default" : null
           }`}
           onClick={() => {
             handleCreatePostWithAI();
@@ -89,7 +91,7 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
           {isPending && isTransitionActive.current ? (
             <Loader className="mr-2 h-4 w-4" />
           ) : null}{" "}
-          Créer un post avec l&apos;IA
+          <FontAwesomeIcon icon={faMicrochipAi} className="mx-4" /> Créer un post avec l&apos;IA
         </Button>
       </div>
     </div>

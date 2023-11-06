@@ -72,7 +72,7 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
       boxShadow: shadow,
     },
     color: {
-      backgroundColor: "#f0f",
+      backgroundColor: "var(--color-app1)",
       transition: { duration: duration },
       boxShadow: shadow,
     },

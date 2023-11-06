@@ -16,6 +16,8 @@ import slugify from "slugify";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import CreatableSelect from "react-select/creatable";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface EditPostProps {
   post: BlogPost;
@@ -49,7 +51,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     tables: true,
     backslashEscapesHTMLTags: true,
   });
-
+  const router = useRouter();
   const [delta, setDelta] = useState<string>(post?.content || "");
   const [markdown, setMarkdown] = useState<string>(
     post?.content ? converter.makeMarkdown(post.content) : ""
@@ -116,7 +118,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       canonicalSlug: slugify(canonicalSlug, { lower: true }),
       excerpt: excerpt,
       published: published,
-      categoryId: selectedCategory ? selectedCategory : "nothing",
+      category: selectedCategory ? selectedCategory : null,
     });
     await saveTagsForPost(post.id, tagIds);
 
@@ -131,16 +133,6 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     if ((event.ctrlKey || event.metaKey) && event.key === "s") {
       event.preventDefault(); // Empêche l'action par défaut du navigateur pour CTRL/CMD + S
       handleSavePost();
-    }
-  };
-
-  const handlePublish = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const state = event.currentTarget.getAttribute("data-state");
-
-    if (state === "checked") {
-      setPublished(false);
-    } else if (state === "unchecked") {
-      setPublished(true);
     }
   };
 
@@ -191,10 +183,28 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     setTagsOptions((prevOptions) => [...prevOptions, ...newTagsWithId]);
   };
 
- 
+  const handlePublishChange = async (newValue: boolean) => {
+    setPublished(newValue);
+    handleSavePost();
+    router.refresh();
+  };
 
   return (
     <>
+    <div className="flex w-full justify-between items-center space-x-2 -mt-5 text-sm">
+            <div>
+              <Link href="/admin/blog">« Retour sur la liste des articles</Link>
+            </div>
+            <div className="flex flex-row justify-left items-center gap-x-2">
+              <Switch
+                id="published"
+                className="my-0 py-0"
+                checked={published}
+                onCheckedChange={(newValue) => handlePublishChange(newValue)}
+              />
+              <Label htmlFor="published" className=" text-sm">Publier</Label>
+            </div>
+          </div>
       <div className="flex flex-col gap-4 relative justify-center mt-10 w-full mx-auto">
         <Input
           placeholder="Titre de l'article"
@@ -235,8 +245,6 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
             </div>
             <Image
               src={image}
-              // width={1920}
-              // height={1080}
               fill={true}
               alt={title}
               className="object-cover rounded-lg"
@@ -294,14 +302,6 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
               }
             />
           </div>
-          <div className="flex items-center space-x-2 mt-5 absolute -top-20 right-0">
-            <Switch
-              id="published"
-              checked={published}
-              onMouseDown={handlePublish}
-            />
-            <Label htmlFor="published">Publier</Label>
-          </div>
           <div className="grid w-full  items-center gap-1.5">
             <Label htmlFor="category">Catégorie</Label>
             <select
@@ -333,9 +333,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
               value={selectedTags}
             />
           </div>
-          
         </div>
-        
       </div>
     </>
   );
