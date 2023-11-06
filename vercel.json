@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/gpt/prompt.ts": {
+      "app/api/gpt/prompt.ts": {
         "memory": 3008,
         "maxDuration": 300
       }
