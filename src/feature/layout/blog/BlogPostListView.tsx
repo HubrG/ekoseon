@@ -6,6 +6,7 @@ import { BlogPost } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MotionHover from "../effects/Hover";
+import MotionShow from "../effects/Show";
 
 
 interface BlogPostListProps {
@@ -34,7 +35,8 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
         .map((post: CustomBlogPost) => (
           <>
             {post.published && (
-              <MotionHover scale={1.02} type={"grow"} key={post.id}>
+              <MotionShow animation="bounceIn"  key={post.id}>
+              <MotionHover scale={1.02} type={"grow"} >
                 <div className="flex md:flex-row flex-col gap-5 rounded-lg  p-3 items-start cursor-pointer " onClick={handleLink(post.canonicalSlug ? post.canonicalSlug : "", post.id)}>
                   <div className="md:w-1/3 w-full relative">
                     <div className="relative w-full h-24 mx-auto rounded-lg overflow-hidden">
@@ -60,7 +62,8 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                     <p>{post.excerpt ? post.excerpt : ""}</p>
                   </div>
                 </div>
-              </MotionHover>
+                </MotionHover>
+              </MotionShow>
             )}
           </>
         ))}
