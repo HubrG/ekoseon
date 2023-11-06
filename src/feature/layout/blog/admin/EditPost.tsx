@@ -121,7 +121,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       content: formattedMarkdown,
       canonicalSlug: slugify(canonicalSlug, { lower: true }),
       excerpt: excerpt,
-      published: newValue,
+      published: newValue  ? newValue : published,
       category: selectedCategory ? selectedCategory : null,
     });
     await saveTagsForPost(post.id, tagIds);
