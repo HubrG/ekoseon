@@ -134,9 +134,9 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     await saveTagsForPost(post.id, tagIds);
 
     if (!save) {
-      Toastify({ type: "error", value: "Une erreur est survenue", limit:1 });
+      Toastify({ type: "error", value: "Une erreur est survenue"});
     } else {
-      Toastify({ type: "success", value: "L'article a bien été enregistré", limit:1 });
+      Toastify({ type: "success", value: "L'article a bien été enregistré" });
     }
   };
 
