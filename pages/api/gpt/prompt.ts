@@ -8,7 +8,11 @@ import cloudinary from "@/lib/cloudinary";
 const openai = new OpenAI({
   apiKey: process.env.API_KEY_GPT,
 });
-
+export const config = {
+  api: {
+    maxDuration: 300,  // Durée maximale de 5 minutes
+  },
+};
 const strip_tags = (str: string) => {
   if (typeof str === "string") {
     return str.replace(/<\/?[^>]+(>|$)/g, "");
