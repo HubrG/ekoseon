@@ -181,7 +181,7 @@ export const Orders: React.FC<OrdersProps> = ({ orders: initialOrders }) => {
             key={order.id}
             className="accordionTrigger">
             <AccordionTrigger
-              className={` rounded-t-lg ${
+              className={`w-full rounded-t-lg ${
                 selectedRow === `item-${order.id}` ? "selectedRow" : null
               } px-2 grid grid-cols-3 text-center`}
               onClick={() => {
