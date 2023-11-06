@@ -62,8 +62,12 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
   const [image, setImage] = useState<string>(post?.image || "");
   const [excerpt, setExcerpt] = useState<string>(post?.excerpt || "");
   const [published, setPublished] = useState<boolean>(post?.published || false);
+  const [oneTime, setOneTime] = useState<boolean>(false);
   const [canonicalSlugInitial, setCanonicalSlugInitial] = useState<string>(
     post?.canonicalSlug ? post.canonicalSlug : ""
+  );
+  const [initialPublished, setInitialPublished] = useState<boolean>(
+    post?.published || false
   );
   const [canonicalSlug, setCanonicalSlug] = useState<string>(
     post?.canonicalSlug
@@ -107,7 +111,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     setDelta(markdown);
   }, [markdown]);
 
-  const handleSavePost = async () => {
+  const handleSavePost = async (newValue?:boolean) => {
     const tagIds = selectedTags.map((tag) => tag.value); // Assumant que 'value' contient l'ID du tag
 
     const save = await saveEditPost({
@@ -117,15 +121,15 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       content: formattedMarkdown,
       canonicalSlug: slugify(canonicalSlug, { lower: true }),
       excerpt: excerpt,
-      published: published,
+      published: newValue,
       category: selectedCategory ? selectedCategory : null,
     });
     await saveTagsForPost(post.id, tagIds);
 
     if (!save) {
-      Toastify({ type: "error", value: "Une erreur est survenue" });
+      Toastify({ type: "error", value: "Une erreur est survenue", limit:1 });
     } else {
-      Toastify({ type: "success", value: "L'article a bien été enregistré" });
+      Toastify({ type: "success", value: "L'article a bien été enregistré", limit:1 });
     }
   };
 
@@ -182,10 +186,10 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     // Ajouter les nouveaux tags à tagsOptions
     setTagsOptions((prevOptions) => [...prevOptions, ...newTagsWithId]);
   };
-
+  // Les dépendances de l'effet
   const handlePublishChange = async (newValue: boolean) => {
-    setPublished(newValue == true ? false : true);
-    handleSavePost();
+    setPublished(newValue);
+    await handleSavePost(newValue); // Appelé uniquement lorsque l'utilisateur change l'état de "published".
     router.refresh();
   };
 
