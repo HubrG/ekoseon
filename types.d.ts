@@ -18,3 +18,4 @@ declare module "uuid"
 declare module 'cookie';
 declare module 'showdown';
 declare module 'react-resizable';
+declare module 'lodash'

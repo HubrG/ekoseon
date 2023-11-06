@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect, useTransition } from "react";
+import React, { useRef, useState, useEffect, useTransition, useCallback } from "react";
 import Showdown from "showdown";
 import { Input } from "@/components/ui/input";
 import { BlogCategory, BlogPost, BlogTag, BlogTagOnPost } from "@prisma/client";
@@ -18,6 +18,8 @@ import { Switch } from "@/components/ui/switch";
 import CreatableSelect from "react-select/creatable";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import debounce from 'lodash/debounce';
+
 
 interface EditPostProps {
   post: BlogPost;
@@ -74,7 +76,12 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       ? post.canonicalSlug
       : slugify(title, { lower: true }) || ""
   );
-
+  const debouncedSavePost = useCallback(
+    debounce(async (newValue) => {
+      // Votre logique de sauvegarde ici...
+    }, 500),
+    [], // Dépendances de useCallback, laissez vide si rien ne change la fonction de sauvegarde
+  );
   // Showdown
   useEffect(() => {
     if (post.categoryId) {
@@ -111,7 +118,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     setDelta(markdown);
   }, [markdown]);
 
-  const handleSavePost = async (newValue?:boolean) => {
+  const handleSavePost = async() => {
     const tagIds = selectedTags.map((tag) => tag.value); // Assumant que 'value' contient l'ID du tag
 
     const save = await saveEditPost({
@@ -121,7 +128,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       content: formattedMarkdown,
       canonicalSlug: slugify(canonicalSlug, { lower: true }),
       excerpt: excerpt,
-      published: newValue  ? newValue : published,
+      published: published,
       category: selectedCategory ? selectedCategory : null,
     });
     await saveTagsForPost(post.id, tagIds);
@@ -189,9 +196,11 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
   // Les dépendances de l'effet
   const handlePublishChange = async (newValue: boolean) => {
     setPublished(newValue);
-    await handleSavePost(newValue); // Appelé uniquement lorsque l'utilisateur change l'état de "published".
+    
+    debouncedSavePost(newValue);
     router.refresh();
   };
+
 
   return (
     <>
