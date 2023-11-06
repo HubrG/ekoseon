@@ -13,8 +13,7 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
   const [subjectIA, setSubjectIA] = useState<string>("");
   const isTransitionActive = useRef(true); // Par défaut, la transition est active
 
-  const [pollingIntervalId, setPollingIntervalId] = useState<NodeJS.Timeout | null>(null);  // Ajouté
-
+  
 
   const promptSystem = `Tu es un écrivain expert en SEO et en littérature, écrivant pour un public francophone. Tu écris dans un langage soutenu, un peu comme Flaubert.
   \n\nTu travaille pour le blog du site Ekoseon.fr, une société qui propose un service d'entretiens oraux pour les particuliers, menant à la conception d'une véritable émission biographique, et d'une transposition dans un livre biographique.
@@ -28,26 +27,6 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
   \n\nIl doit y avoir du Symbolisme, de la Métaphore, de la Personnification ; Ironie ; Allusion ; Hyperbole ; Imagerie ; Préfiguration ; Thème Langage figuratif ; Comparaison Onomatopée ; Répétition ; Rime ; Suspense ; Ambiance ; Dialogue Conflit ; Caractérisation ; Point de vue.
   \n\nTrès important : tu génères tes textes en Markdown.
   \n\nTu commences par le titre (en markdown : # titre, sans autre formatage), il doit être accrocheur.`
-
-
-  const pollForResults = async (taskId: string) => {  // Ajouté
-    const response = await fetch(`/api/gpt/status/${taskId}`);
-    if (response.ok) {
-      const data = await response.json();
-      if (data.status === 'completed') {
-        clearInterval(pollingIntervalId!);  // Arrête le sondage
-        // Traitez et utilisez les résultats ici
-        Toastify({ type: "success", value: "Post créé avec succès" });
-        router.push(`/admin/blog/edit/${data.id}/${data.title}`);
-      } else if (data.status === 'error') {
-        clearInterval(pollingIntervalId!);  // Arrête le sondage
-        Toastify({
-          type: "error",
-          value: data.error || "Une erreur s'est produite",
-        });
-      }
-    }
-  };
 
   const handleCreatePostWithAI = async () => {
     if (!subjectIA) {
@@ -80,11 +59,9 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
         });
         return;
       } else {
-        const data = await response.json();
-        const taskId = data.taskId;  // Supposons que l'identifiant de la tâche est renvoyé sous le nom de 'taskId'
-        // Démarrer le sondage toutes les 5 secondes
-        const intervalId = setInterval(() => pollForResults(taskId), 5000);
-        setPollingIntervalId(intervalId);
+        const data = await response.json();  // Ajoutez cette ligne
+        Toastify({ type: "success", value: "Post créé avec succès" });
+        router.push(`/admin/blog/edit/${data.id}/${data.title}`);  // Modifiez cette ligne
       }
       
     });
