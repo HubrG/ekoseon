@@ -119,15 +119,15 @@
   }
 
   h1 {
-    @apply md:text-4xl text-xl font-bold text-app-900 dark:text-app-400 mb-[1.545rem];
+    @apply md:text-4xl text-3xl font-bold text-app-900 dark:text-app-400 mb-[1.545rem];
 }
 
 h2 {
-    @apply md:text-2xl text-lg font-bold text-app-900 dark:text-app-300 mb-[0.955rem];
+    @apply md:text-2xl text-xl font-bold text-app-900 dark:text-app-300 mb-[0.955rem];
 }
 
 h3 {
-    @apply md:text-xl text-base font-bold text-app-800 mb-[0.59rem];
+    @apply md:text-xl text-lg font-bold text-app-800 mb-[0.59rem];
 }
 
 h4 {
@@ -419,7 +419,7 @@ label {
   @apply shadcnLabel-base;
 }
 .getStartedButton {
-  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mb-0 -mt-14 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border border-app-100  hover:border-app-800 hover:border-solid hover:bg-app-900  text-white hover:text-app-100  bg-opacity-80 !important;
+  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mb-0 mt-20 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border border-app-100  hover:border-app-800 hover:border-solid hover:bg-app-900  text-white hover:text-app-100  bg-opacity-80 !important;
 }
 a.subFooterLink {
   @apply font-normal !important;

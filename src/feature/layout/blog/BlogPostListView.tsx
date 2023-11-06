@@ -52,6 +52,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                   </div>
                   <div className="flex flex-col">
                     <Link
+                      prefetch={false}
                       className="nunderline"
                       href={`/blog/lecture/${post.canonicalSlug}/${post.id}`}>
                       <h2>{post.title}</h2>

@@ -27,42 +27,25 @@ export default function Hero() {
             <MotionParallax speed={0.4} type={0}>
               <MotionShow threshold={0.6} animation="bounceIn">
                 <div className="max-w-3xl mx-auto">
-                  <h1 className="mb-5 lg:text-7xl md:text-6xl px-2 text-5xl font-bold">
+                  <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
                     <small className="text-white flex flex-col gap-y-2">
-                      <span>
-                        <span>
+                      <span className="gap-y-2">
+                          Nous faisons d&apos;une simple
                           <AnimatedGradientText>
-                            Une empreinte
+                          {" "}discussion
                           </AnimatedGradientText>{" "}
-                          éternelle <br />
-                          de votre existence{" "}
+                          un objet 
+                          <AnimatedGradientText>
+                            {" "}éternel
+                          </AnimatedGradientText>
                         </span>
-                        <br />
-                        <AnimatedGradientText>
-                          par une discussion
-                        </AnimatedGradientText>
-                      </span>
-
-                      <span className="text-5xl text-white px-2 font-display">
-                        ( en{" "}
-                        <AnimatedGradientText>
-                          <span className=" font-display">audio </span>
-                        </AnimatedGradientText>
-                        , puis dans un
-                        <AnimatedGradientText>
-                          <span className=" font-display"> livre </span>
-                        </AnimatedGradientText>
-                        )
-                      </span>
                     </small>
                   </h1>
+                  <GetStartButton />
                 </div>
               </MotionShow>
             </MotionParallax>
           </div>
-        </div>
-        <div className="absolute w-full flex justify-center mx-auto md:bottom-40 bottom-20">
-          <GetStartButton />
         </div>
       </MotionParallax>
     </section>

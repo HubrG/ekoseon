@@ -73,6 +73,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
             <TableRow key={post.id}>
               <TableCell className="text-right">
                 <Link
+                prefetch={false}
                   href={`/admin/blog/edit/${post.id}/${
                     post.title ? post.title : "article"
                   }`}>

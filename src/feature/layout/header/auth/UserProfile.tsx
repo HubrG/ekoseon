@@ -36,7 +36,7 @@ export const UserProfile = (props: MenuProps) => {
         {props.role === "ADMIN" && (
           <>
             <DropdownMenuItem className="w-full" asChild>
-              <Link href="/admin" className="nunderline">
+              <Link prefetch={false} href="/admin" className="nunderline">
                 <FontAwesomeIcon icon={faTools} className="mr-2 h-4 w-4" />
                 Admin
               </Link>

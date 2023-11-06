@@ -26,12 +26,38 @@ const serif = Bitter({
   display: "swap",
   variable: "--font-serif",
 });
+// METADATAS
 const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
-
+const title = "Ekoseon | Vos mémoires au format audio et papier";
+const description =
+  "Ekoseon transforme vos dialogues en podcasts mémorables et livres biographiques avec des entretiens personnalisés, capturant ainsi l'essence de vos souvenirs et histoires.";
+const url = "https://ekoseon.fr";
+const img = "https://ekoseon.fr/img/header-home.webp"
 export const metadata: Metadata = {
-  title: "Ekoseon | Vos mémoires au format audio et papier",
-  description: "Ekoseon",
+  title: title,
+  description: description, // 170 caractères maximum
+  alternates: {
+    canonical: url, // URL Canonique, pour éviter les "duplicate content"
+  },
+  openGraph: {
+    title: title,
+    description: description,
+    url: url,
+    siteName: "Ekoseon",
+    images: [
+      {
+        url: img,
+        width: 1800,
+        height: 1600,
+        alt: 'Ekoseon',
+      },
+    ],
+    locale: 'fr_FR',
+    type: 'website',
+  },
 };
+
+
 
 export default function RootLayout(props: {
   children: React.ReactNode;

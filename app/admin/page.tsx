@@ -18,7 +18,7 @@ export default async function Admin() {
     <PageTransition>
       <div className="content"><h1>Admin</h1>
         <div>
-          <Link href="/admin/blog">Gérer le blog</Link>
+          <Link href="/admin/blog" prefetch={false}>Gérer le blog</Link>
         </div></div>
     </PageTransition>
   )

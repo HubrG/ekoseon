@@ -35,7 +35,7 @@ export const Header = async () => {
           <div className="flex gap-x-2 md:order-2 items-center lg:text-base">
             <div className="flex items-center gap-x-2">
               <Link href="/raconter-ses-memoires/tarifs">
-                <Button size="lg" variant="ghost">
+                <Button size="lg" className="px-4" variant="ghost">
                   <FontAwesomeIcon icon={faGift} className="mr-2" />
                   Acheter
                 </Button>
