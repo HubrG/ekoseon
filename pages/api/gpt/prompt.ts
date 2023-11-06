@@ -47,21 +47,48 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     console.log("⚙️  Réponse de GPT en cours de génération...");
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: req.body.promptSystem },
-        { role: "user", content: req.body.prompt },
-      ],
-      temperature: req.body.temperature,
-      max_tokens: req.body.max_tokens,
-      top_p: req.body.top_p,
-      frequency_penalty: req.body.frequency_penalty,
-      presence_penalty: req.body.presence_penalty,
-    });
-    console.log("✅ Réponse de GPT");
+    // const response = await openai.chat.completions.create({
+    //   model: "gpt-3.5-turbo",
+    //   messages: [
+    //     { role: "system", content: req.body.promptSystem },
+    //     { role: "user", content: req.body.prompt },
+    //   ],
+    //   temperature: req.body.temperature,
+    //   max_tokens: req.body.max_tokens,
+    //   top_p: req.body.top_p,
+    //   frequency_penalty: req.body.frequency_penalty,
+    //   presence_penalty: req.body.presence_penalty,
+    // });
+    // console.log("✅ Réponse de GPT");
 
-    const resp = response.choices[0].message.content;
+    // const resp = response.choices[0].message.content;
+    const resp = `Il est dit que les histoires sont le reflet de l'âme humaine, des récits qui nous permettent de transcender les barrières du temps et de l'espace. Chaque individu porte en lui une histoire unique, tissée par les expériences vécues et les souvenirs gravés dans sa mémoire. Mais comment partager cette précieuse richesse avec nos proches ? Comment créer un lien intime et intergénérationnel à travers la narration personnelle ?
+
+    ## La puissance des anecdotes personnelles
+    
+    Lorsque nous partageons une anecdote personnelle, nous offrons bien plus qu'un simple récit. Nous dévoilons notre identité profonde, nos valeurs et nos émotions. C'est comme si nous ouvrions une fenêtre sur notre âme, invitant ceux qui nous écoutent à plonger dans notre univers intérieur.
+    
+    Prenons par exemple une anecdote où je me suis perdu lors d'une promenade en forêt étant enfant. En racontant cette histoire, je peux transmettre non seulement le suspense ressenti pendant ma recherche désespérée du chemin du retour, mais aussi l'émerveillement face à la nature sauvage qui m'a entouré tout au long de mon errance.
+    
+    ## Un dialogue entre générations
+    
+    La narration personnelle crée également un pont entre les différentes générations. En partageant nos histoires familiales avec nos enfants ou petits-enfants, nous leur permettons d'en apprendre davantage sur leurs racines et sur ceux qui ont façonné leur existence.
+    
+    Imaginez un instant raconter à votre petite-fille comment vous avez rencontré son grand-père, le frisson de l'amour naissant et les obstacles surmontés. Cette histoire devient alors une partie intégrante de sa propre histoire, lui offrant des clés pour comprendre son passé et envisager son avenir.
+    
+    ## La narration comme héritage
+    
+    Raconter notre histoire personnelle est également un moyen de léguer un héritage immatériel à nos descendants. Les souvenirs que nous partageons avec eux deviennent une véritable richesse qui peut être transmise de génération en génération.
+    
+    Pensez-y : combien d'entre nous ont regretté de ne pas avoir pu connaître les histoires et les anecdotes vécues par leurs ancêtres ? En faisant le choix conscient de partager nos récits, nous créons un lien indélébile entre passé, présent et futur.
+    
+    ## Conclusion
+    
+    La narration personnelle est bien plus qu'un simple acte de communication. C'est une invitation à plonger dans l'intimité d'une personne, à découvrir ses émotions profondes et à tisser des liens intergénérationnels durables.
+    
+    Alors n'hésitez pas : prenez la plume ou laissez libre cours à votre imagination lors des conversations familiales. Vous serez surpris(e) des merveilles que vos histoires peuvent accomplir !
+    
+    `
     if (!resp) throw new Error("Réponse vide de GPT");
 
     console.log("⚙️  Création du post...");
