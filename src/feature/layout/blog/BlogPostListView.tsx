@@ -35,8 +35,8 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
           <>
             {post.published && (
               <MotionHover scale={1.02} type={"grow"} key={post.id}>
-                <div className="flex flex-row gap-5 rounded-lg  p-3 items-start cursor-pointer " onClick={handleLink(post.canonicalSlug ? post.canonicalSlug : "", post.id)}>
-                  <div className="w-1/3 relative">
+                <div className="flex md:flex-row flex-col gap-5 rounded-lg  p-3 items-start cursor-pointer " onClick={handleLink(post.canonicalSlug ? post.canonicalSlug : "", post.id)}>
+                  <div className="md:w-1/3 w-full relative">
                     <div className="relative w-full h-24 mx-auto rounded-lg overflow-hidden">
                       {post.image ? (
                         <Image

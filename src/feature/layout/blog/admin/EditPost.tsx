@@ -184,7 +184,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
   };
 
   const handlePublishChange = async (newValue: boolean) => {
-    setPublished(newValue);
+    setPublished(newValue == true ? false : true);
     handleSavePost();
     router.refresh();
   };

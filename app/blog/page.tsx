@@ -13,11 +13,11 @@ export default async function faq() {
     <PageTransition>
       <div className="content">
         <h1>Blog</h1>
-        <div className="flex flex-row gap-5">
-        <div className="w-5/6">
+        <div className="flex md:flex-row flex-col gap-5">
+        <div className="md:w-4/6 w-full">
           <BlogPostList  />
           </div>
-        <div  className="w-1/6">
+        <div  className="md:w-2/6 w-full md:border-l-[1px] md:pl-4">
           Coucou
           </div>
         </div>

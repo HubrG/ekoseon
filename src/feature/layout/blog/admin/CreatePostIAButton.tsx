@@ -62,7 +62,7 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
       } else {
         const data = await response.json();  // Ajoutez cette ligne
         Toastify({ type: "success", value: "Post créé avec succès" });
-        router.push(`/admin/blog/edit/${data.id}/${data.title}`);  // Modifiez cette ligne
+        router.refresh();  // Modifiez cette ligne
       }
       
     });

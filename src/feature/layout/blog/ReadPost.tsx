@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { BlogPost } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +22,27 @@ interface BlogPostProps {
 }
 
 export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set screen size upon resize
+      setIsMobile(window.innerWidth < 768);
+    }
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []); // Empty array ensures that effect is only run on mount and unmount
+
+  const maxLength = isMobile ? 25 : 100;
+  const displayedTitle = blogPost.title ? blogPost.title.length > maxLength ? blogPost.title.slice(0, maxLength) + "..." : blogPost.title : "";
+
   return (
     <>
       {blogPost.content && blogPost.title ? (
@@ -49,9 +70,7 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
                       data-tooltip-id="ttTitle"
                       data-tooltip-content={blogPost.title}>
                       <span className="cursor-default ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
-                        {blogPost.title.length > 25
-                          ? blogPost.title.slice(0, 25) + "..."
-                          : blogPost.title}
+                        {displayedTitle}
                       </span>
                       <Tooltip place="bottom" id="ttTitle" className="tooltip" />
                     </div>
