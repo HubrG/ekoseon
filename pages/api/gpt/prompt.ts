@@ -46,7 +46,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
       backslashEscapesHTMLTags: true,
     });
 
-    console.log("⚙️  Réponse de GPT en cours de génération...");
+    // console.log("⚙️  Réponse de GPT en cours de génération...");
     // const response = await openai.chat.completions.create({
     //   model: "gpt-3.5-turbo",
     //   messages: [
@@ -62,7 +62,9 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     // console.log("✅ Réponse de GPT");
 
     // const resp = response.choices[0].message.content;
-    const resp = `Il est dit que les histoires sont le reflet de l'âme humaine, des récits qui nous permettent de transcender les barrières du temps et de l'espace. Chaque individu porte en lui une histoire unique, tissée par les expériences vécues et les souvenirs gravés dans sa mémoire. Mais comment partager cette précieuse richesse avec nos proches ? Comment créer un lien intime et intergénérationnel à travers la narration personnelle ?
+    const resp = `# Salut mon pote 
+    
+    Il est dit que les histoires sont le reflet de l'âme humaine, des récits qui nous permettent de transcender les barrières du temps et de l'espace. Chaque individu porte en lui une histoire unique, tissée par les expériences vécues et les souvenirs gravés dans sa mémoire. Mais comment partager cette précieuse richesse avec nos proches ? Comment créer un lien intime et intergénérationnel à travers la narration personnelle ?
 
     ## La puissance des anecdotes personnelles
     
