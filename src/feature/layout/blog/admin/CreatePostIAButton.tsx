@@ -62,6 +62,7 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
       } else {
         const data = await response.json();  // Ajoutez cette ligne
         Toastify({ type: "success", value: "Post créé avec succès" });
+        setSubjectIA("");
         router.refresh();  // Modifiez cette ligne
       }
       
