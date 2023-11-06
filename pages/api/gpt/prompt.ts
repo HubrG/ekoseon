@@ -9,9 +9,7 @@ const openai = new OpenAI({
   apiKey: process.env.API_KEY_GPT,
 });
 export const config = {
-  api: {
     maxDuration: 300,  // Durée maximale de 5 minutes
-  },
 };
 const strip_tags = (str: string) => {
   if (typeof str === "string") {
@@ -63,7 +61,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // const resp = response.choices[0].message.content;
     const resp = `# Salut mon pote 
-    
+
     Il est dit que les histoires sont le reflet de l'âme humaine, des récits qui nous permettent de transcender les barrières du temps et de l'espace. Chaque individu porte en lui une histoire unique, tissée par les expériences vécues et les souvenirs gravés dans sa mémoire. Mais comment partager cette précieuse richesse avec nos proches ? Comment créer un lien intime et intergénérationnel à travers la narration personnelle ?
 
     ## La puissance des anecdotes personnelles
