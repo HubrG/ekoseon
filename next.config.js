@@ -4,7 +4,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  
+  trailingSlash: false, // Pour supprimer le trailing slash (/ à la fin de l'url)
   images: {
     remotePatterns: [
       {
