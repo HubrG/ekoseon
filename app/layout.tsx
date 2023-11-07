@@ -31,10 +31,11 @@ const display = Caveat({ subsets: ["latin"], variable: "--font-display" });
 const title = "Ekoseon | Vos mémoires au format audio et papier";
 const description =
   "Ekoseon transforme vos dialogues en podcasts mémorables et livres biographiques avec des entretiens personnalisés, capturant ainsi l'essence de vos souvenirs et histoires.";
-const url = "https://ekoseon.fr";
-const img = "https://ekoseon.fr/img/header-home.webp"
+const url = process.env.NEXT_PUBLIC_RELATIVE_URI;
+const img = `${process.env.NEXT_PUBLIC_RELATIVE_URI}/img/header-home.webp`
 export const metadata: Metadata = {
   title: title,
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_RELATIVE_URI}`),
   description: description, // 170 caractères maximum
   alternates: {
     canonical: url, // URL Canonique, pour éviter les "duplicate content"
@@ -43,21 +44,19 @@ export const metadata: Metadata = {
     title: title,
     description: description,
     url: url,
-    siteName: "Ekoseon",
+    siteName: `${process.env.NEXT_PUBLIC_APP_NAME}`,
     images: [
       {
         url: img,
         width: 1800,
         height: 1600,
-        alt: 'Ekoseon',
+        alt: `${process.env.NEXT_PUBLIC_APP_NAME}`,
       },
     ],
     locale: 'fr_FR',
     type: 'website',
   },
 };
-
-
 
 export default function RootLayout(props: {
   children: React.ReactNode;

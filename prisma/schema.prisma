@@ -156,6 +156,11 @@ model BlogPost {
   updatedAt      DateTime        @updatedAt
   isIA           Boolean         @default(false)
 }
+model BlogCategory {
+  id    String     @id @default(cuid())
+  name  String     @unique
+  posts BlogPost[]
+}
 
 model BlogComment {
   id        String   @id @default(cuid())
@@ -167,11 +172,6 @@ model BlogComment {
   createdAt DateTime @default(now())
 }
 
-model BlogCategory {
-  id    String     @id @default(cuid())
-  name  String     @unique
-  posts BlogPost[]
-}
 
 model BlogTag {
   id    String          @id @default(cuid())

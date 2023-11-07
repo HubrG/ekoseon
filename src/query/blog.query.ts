@@ -6,7 +6,11 @@ import { BlogPost, Prisma } from "@prisma/client";
 export const getBlogPosts = async () => {
   const blogPosts = await prisma.blogPost.findMany({
     include: {
-      category: true,
+      category: {
+        select: {
+          name: true,
+        },
+      },
       tags: {
         select: {
           tag: {
@@ -30,7 +34,12 @@ export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
         id: id,
       },
       include: {
-        category: true,
+        category: 
+          {
+            select: {
+              name: true,
+            },
+          },
         tags: {
           select: {
             tag: {

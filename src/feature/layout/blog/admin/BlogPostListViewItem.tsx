@@ -1,0 +1,134 @@
+"use client";
+import Image from "next/image";
+import React, { useTransition, useState } from "react";
+import { BlogPost, BlogCategory } from "@prisma/client";
+import { TableCell, TableRow } from "@/components/ui/table";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileEdit, faTrash } from "@fortawesome/pro-solid-svg-icons";
+import { deletePost, publishPost } from "./utils.server";
+import { Toastify } from "../../toastify/Toastify";
+import { useRouter } from "next/navigation";
+import { Switch } from "@/components/ui/switch";
+import { Loader } from "@/components/ui/loader";
+
+interface CustomBlogPost extends BlogPost {
+  category?: {
+    name: string;
+  } | null;
+}
+
+// Maintenant, vous définissez les props pour votre composant qui devraient inclure un seul post
+interface BlogPostProps {
+  post: CustomBlogPost;
+}
+
+const BlogPostListViewItem: React.FC<BlogPostProps> = ({ post }) => {
+  const router = useRouter();
+  const [isUpdating, setIsUpdating] = useState<string | null>(null);
+  const [isTrashing, setIsTrashing] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [isPublished, setIsPublished] = useState<boolean>(post.published ? true : false);
+  const [isTrashed, setIsTrashed] = useState<boolean>(false)
+
+  const handleTrashBlogPost = async (id: string) => {
+    startTransition(() => {
+      setIsTrashing(id);
+      const trashPost = deletePost(id);
+      if (!trashPost) {
+        Toastify({ value: "Une erreur est survenue", type: "error" });
+      }
+      // router.refresh();
+      Toastify({ value: "Article supprimé", type: "success" });
+      setIsTrashing(null);
+      setIsTrashed(true);
+    });
+  };
+
+  const handlePublishChange = async (postId: string, newValue: boolean) => {
+    startTransition(() => {
+      setIsUpdating(postId);
+      publishPost(postId, newValue);
+      setIsUpdating(null);
+      // router.refresh();
+    });
+  };
+
+  return (
+    <TableRow className={`${isTrashed && "hidden"}`}>
+      <TableCell className="text-right">
+        <Link
+          href={`/admin/blog/edit/${post.id}/${
+            post.title ? post.title : "article"
+          }`}>
+          <FontAwesomeIcon
+            className="hover:text-app-500 hover:cursor-pointer"
+            icon={faFileEdit}
+          />
+        </Link>
+      </TableCell>
+      <TableCell className="text-right">
+        {post.image && (
+          <div className="relative w-12 h-12 mx-auto rounded-full overflow-hidden">
+            <Image
+              src={post.image}
+              alt={post.title ? post.title : ""}
+              fill
+              sizes="(max-width: 100) 10vw, (max-width: 100) 10vw, 13vw"
+              className="object-cover"
+            />
+          </div>
+        )}
+      </TableCell>
+      <TableCell className="font-medium">
+        <span className={!post.title ? "italic opacity-50" : ""}>
+          {post.title ? post.title : `Sans titre`}
+        </span>
+      </TableCell>
+      <TableCell>
+        <Switch
+          checked={isPublished}
+          onCheckedChange={(newValue) => {
+            handlePublishChange(post.id, newValue)
+            setIsPublished(newValue);
+            }
+          }
+          disabled={isPending && isUpdating === post.id} // Désactive le Switch si une mise à jour est en cours sur ce post
+          onClick={(e) => {
+            setIsUpdating(post.id);
+          }}
+          className={`${isPending && isUpdating === post.id ? "hidden" : ""}`}
+        />
+        {isPending && isUpdating === post.id && <Loader className="ml-2" />}
+      </TableCell>
+      <TableCell>{post.category?.name}</TableCell>
+      <TableCell className="text-center  text-xs">
+        {post.createdAt.toLocaleString()}
+      </TableCell>
+      <TableCell className="text-center  text-xs">
+        {post.publishedAt ? post.publishedAt.toLocaleString() : ""}
+      </TableCell>
+      <TableCell className="text-center text-xs">
+        {post.updatedAt.toLocaleString()}
+      </TableCell>
+      <TableCell className="text-center">
+        <div className={`${
+            isPending && isTrashing === post.id && "hidden"}`}>
+        <FontAwesomeIcon
+          onClick={() => {
+            handleTrashBlogPost(post.id);
+            setIsTrashing(post.id);
+          }}
+          className={`${
+            isPending && isTrashing === post.id && "hidden"
+          } hover:text-red-500 hover:cursor-pointer`}
+          icon={faTrash}
+        />
+        </div>
+        {isPending && isTrashing === post.id && <Loader className="mx-auto"  size={16} />}
+      </TableCell>
+    </TableRow>
+  );
+};
+
+export default BlogPostListViewItem;
