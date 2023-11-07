@@ -106,7 +106,7 @@ const BlogPostListViewItem: React.FC<BlogPostProps> = ({ post }) => {
           {post.title ? post.title : `Sans titre`}
         </span>
       </TableCell>
-      <TableCell>
+      <TableCell className="text-center">
         <Switch
           checked={isPublished}
           onCheckedChange={(newValue) => {
@@ -120,7 +120,7 @@ const BlogPostListViewItem: React.FC<BlogPostProps> = ({ post }) => {
           }}
           className={`${isPending && isUpdating === post.id ? "hidden" : ""}`}
         />
-        {isPending && isUpdating === post.id && <Loader className="ml-2" />}
+        {isPending && isUpdating === post.id && <Loader className="mx-auto" />}
       </TableCell>
       <TableCell>{post.category?.name}</TableCell>
       <TableCell className="text-center  text-xs">

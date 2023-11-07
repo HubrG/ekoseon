@@ -87,7 +87,7 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
       </div>
       <div className="grid w-full  items-center gap-1.5">
           <Button
-            variant="ghost"
+            variant="outline"
           className={`rounded-t-none-imp shadow ${
             isPending ? " disabled opacity-50 cursor-default" : null
           }`}

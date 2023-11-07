@@ -590,5 +590,5 @@ article .task-list-item {
   @apply rounded-b-none  !important;
 }
 .rounded-t-none-imp {
-  @apply rounded-t-none  !important; 
+  @apply rounded-t-none border-t-0 bg-app-100 hover:bg-app-50  !important; 
 }
