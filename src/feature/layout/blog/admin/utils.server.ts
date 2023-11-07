@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { getUserLog } from "@/src/query/user.query";
+import slugify from 'slugify';
 
 export const createNewPost = async () => {
   // On créé un nouvel article
@@ -108,57 +109,78 @@ export const getBlogTagOnPost = async (id: string) => {
   }
   return false;
 };
+
+
 export const saveTagsForPost = async (id: string, tagNames: string[]) => {
   const user = await getUserLog();
   if (!user) {
     throw new Error("User not logged in");
   }
 
-  // 1. Recherchez les tags existants
-  const existingTags = await prisma.blogTag.findMany({
-    where: {
-      name: {
-        in: tagNames,
+  // Démarrez une transaction Prisma
+  return await prisma.$transaction(async (prisma) => {
+    // 1. Recherchez les tags existants
+    const existingTags = await prisma.blogTag.findMany({
+      where: {
+        name: {
+          in: tagNames,
+        },
       },
-    },
-  });
+    });
 
-  // 2. Créez les nouveaux tags
-  const existingTagNames = existingTags.map((tag) => tag.name);
-  const newTagNames = tagNames.filter(
-    (tagName) => !existingTagNames.includes(tagName)
-  );
-  const newTags = newTagNames.map((tagName) => ({ name: tagName }));
-  await prisma.blogTag.createMany({
-    data: newTags,
-  });
+    // 2. Créez les nouveaux tags
+    const existingTagNames = existingTags.map((tag) => tag.name);
+    const newTagNames = tagNames.filter(
+      (tagName) => !existingTagNames.includes(tagName)
+    );
 
-  // 3. Obtenez les IDs des tags
-  const allTags = await prisma.blogTag.findMany({
-    where: {
-      name: {
-        in: tagNames,
+    for (const tagName of newTagNames) {
+      let slug = slugify(tagName, { lower: true, remove: /[*+~.()'"!:@]/g });
+      let uniqueSlug = slug;
+      let counter = 0;
+
+      // Assurez-vous que le slug est unique
+      while (await prisma.blogTag.findUnique({ where: { slug: uniqueSlug } })) {
+        uniqueSlug = `${slug}-${++counter}`;
+      }
+
+      // Créez le tag avec un slug unique
+      await prisma.blogTag.create({
+        data: {
+          name: tagName,
+          slug: uniqueSlug,
+        },
+      });
+    }
+
+    // 3. Obtenez les IDs des tags à nouveau pour inclure les nouveaux tags
+    const allTags = await prisma.blogTag.findMany({
+      where: {
+        name: {
+          in: tagNames,
+        },
       },
-    },
-  });
+    });
 
-  // 4. Supprimez les anciennes associations
-  await prisma.blogTagOnPost.deleteMany({
-    where: {
+    // 4. Supprimez les anciennes associations
+    await prisma.blogTagOnPost.deleteMany({
+      where: {
+        postId: id,
+      },
+    });
+
+    // 5. Créez les nouvelles associations
+    const tagPostAssociations = allTags.map((tag) => ({
+      tagId: tag.id,
       postId: id,
-    },
-  });
+    }));
+    await prisma.blogTagOnPost.createMany({
+      data: tagPostAssociations,
+      skipDuplicates: true, // Cette option saute les doublons si jamais ils existent
+    });
 
-  // 5. Créez les nouvelles associations
-  const tagPostAssociations = allTags.map((tag) => ({
-    tagId: tag.id,
-    postId: id,
-  }));
-  await prisma.blogTagOnPost.createMany({
-    data: tagPostAssociations,
+    return true;
   });
-
-  return true;
 };
 
 // Suppression d'un post
@@ -186,6 +208,8 @@ export const deletePost = async (id: string) => {
   }
   return false;
 };
+
+
 
 // Modificatio ndu status de publication d'un post (published)
 export const publishPost = async (id: string, isPublished: boolean) => {

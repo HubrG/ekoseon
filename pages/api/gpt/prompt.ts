@@ -20,7 +20,6 @@ const strip_tags = (str: string) => {
 
 const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-  
     // Configuring Showdown
     Showdown.extension("tasklists", function () {
       return [
@@ -130,48 +129,76 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     const tags = responseTag.choices[0].message.content;
     if (tags) {
       console.log("⚙️  Création des tags...");
+
       // Ils sont séparés par des ; donc on les split
       const tagsArray = tags
         .split(";")
         .map((tag) => tag.trim()[0].toUpperCase() + tag.trim().slice(1));
-      // 1. Recherchez les tags existants
-      const existingTags = await prisma.blogTag.findMany({
-        where: {
-          name: {
-            in: tagsArray,
-          },
-        },
-      });
-      // 2. Créez les nouveaux tags qui n'existent pas à partir de la liste
-      const newTags = tagsArray.filter((tag: string) => {
-        return !existingTags.some((existingTag) => existingTag.name === tag);
-      });
-      // On les ajoute à la base de données
-      for (const tag of newTags) {
-        await prisma.blogTag.create({
-          data: {
-            name: tag,
-          },
-        });
-      }
 
-      // On récupère les IDs des tags
-      const allTags = await prisma.blogTag.findMany({
-        where: {
-          name: {
-            in: tagsArray,
-          },
-        },
-      });
-      // On ajoute tous les tags au post dans blogTagOnPost
-      for (const tag of allTags) {
-        await prisma.blogTagOnPost.create({
-          data: {
-            postId: postId,
-            tagId: tag.id,
+      // Démarrez une transaction Prisma
+      await prisma.$transaction(async (prisma) => {
+        // 1. Recherchez les tags existants
+        const existingTags = await prisma.blogTag.findMany({
+          where: {
+            name: {
+              in: tagsArray,
+            },
           },
         });
-      }
+
+        // 2. Créez les nouveaux tags qui n'existent pas à partir de la liste
+        for (const tagName of tagsArray) {
+          if (!existingTags.some((tag) => tag.name === tagName)) {
+            let slug = slugify(tagName, {
+              lower: true,
+              remove: /[*+~.()'"!:@]/g,
+            });
+            let uniqueSlug = slug;
+            let counter = 0;
+
+            // Vérifiez l'unicité du slug et ajustez si nécessaire
+            while (
+              await prisma.blogTag.findUnique({ where: { slug: uniqueSlug } })
+            ) {
+              uniqueSlug = `${slug}-${++counter}`;
+            }
+
+            // Créer le tag avec le slug unique
+            await prisma.blogTag.create({
+              data: {
+                name: tagName,
+                slug: uniqueSlug,
+              },
+            });
+          }
+        }
+
+        // 3. Obtenez les IDs des tags à nouveau pour inclure les nouveaux tags
+        const allTags = await prisma.blogTag.findMany({
+          where: {
+            name: {
+              in: tagsArray,
+            },
+          },
+        });
+
+        // 4. Associez tous les tags au post dans blogTagOnPost
+        await prisma.blogTagOnPost.deleteMany({
+          where: {
+            postId: postId,
+          },
+        });
+
+        const tagPostAssociations = allTags.map((tag) => ({
+          postId: postId,
+          tagId: tag.id,
+        }));
+
+        await prisma.blogTagOnPost.createMany({
+          data: tagPostAssociations,
+          skipDuplicates: true, // Cette option saute les doublons
+        });
+      });
 
       console.log("✅ Tags ajoutés au post");
     }
