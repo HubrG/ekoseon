@@ -32,27 +32,48 @@ const BlogPostListViewItem: React.FC<BlogPostProps> = ({ post }) => {
   const [isTrashed, setIsTrashed] = useState<boolean>(false)
 
   const handleTrashBlogPost = async (id: string) => {
-    startTransition(() => {
-      setIsTrashing(id);
-      const trashPost = deletePost(id);
+    setIsTrashing(id); // Active le loader immédiatement
+
+    try {
+      const trashPost = await deletePost(id);
       if (!trashPost) {
-        Toastify({ value: "Une erreur est survenue", type: "error" });
+        Toastify({ value: "Une erreur est survenue lors de la suppression", type: "error" });
+      } else {
+        Toastify({ value: "Article supprimé", type: "success" });
+        setIsTrashed(true);
       }
-      // router.refresh();
-      Toastify({ value: "Article supprimé", type: "success" });
-      setIsTrashing(null);
-      setIsTrashed(true);
-    });
-  };
+    } catch (error) {
+      // Gère toute exception qui pourrait survenir lors de l'appel de suppression
+      Toastify({ value: "Échec de la suppression de l'article", type: "error" });
+    } finally {
+      setIsTrashing(null); // Désactive le loader que la suppression ait réussi ou échoué
+    }
+};
+
+  
 
   const handlePublishChange = async (postId: string, newValue: boolean) => {
-    startTransition(() => {
-      setIsUpdating(postId);
-      publishPost(postId, newValue);
-      setIsUpdating(null);
-      // router.refresh();
+    setIsUpdating(postId);
+  
+    startTransition(async () => {
+      try {
+        const response = await publishPost(postId, newValue);
+        if (response) { // Supposons que `response` indique le succès de l'opération
+          Toastify({ value: `Article ${newValue ? "publié" : "dépublié"}`, type: "success" });
+          // Mettre à jour l'état ici si nécessaire, par exemple rafraîchir la liste des posts ou l'état du post
+        } else {
+          // Gérer le cas où `response` indique un échec
+          Toastify({ value: "Une erreur est survenue lors de la modification", type: "error" });
+        }
+      } catch (error) {
+        // Gérer les erreurs potentielles du réseau ou autres exceptions
+        Toastify({ value: "Une erreur est survenue lors de la communication avec le serveur", type: "error" });
+      } finally {
+        setIsUpdating(null); // Désactive le loader après le traitement
+      }
     });
   };
+  
 
   return (
     <TableRow className={`${isTrashed && "hidden"}`}>
@@ -113,19 +134,19 @@ const BlogPostListViewItem: React.FC<BlogPostProps> = ({ post }) => {
       </TableCell>
       <TableCell className="text-center">
         <div className={`${
-            isPending && isTrashing === post.id && "hidden"}`}>
+            isTrashing === post.id && "hidden"}`}>
         <FontAwesomeIcon
           onClick={() => {
             handleTrashBlogPost(post.id);
             setIsTrashing(post.id);
           }}
           className={`${
-            isPending && isTrashing === post.id && "hidden"
+            isTrashing === post.id && "hidden"
           } hover:text-red-500 hover:cursor-pointer`}
           icon={faTrash}
         />
         </div>
-        {isPending && isTrashing === post.id && <Loader className="mx-auto"  size={16} />}
+        {isTrashing === post.id && <Loader className="mx-auto"  size={16} />}
       </TableCell>
     </TableRow>
   );

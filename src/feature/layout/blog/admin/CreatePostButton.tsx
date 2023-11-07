@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React, { useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import { createNewPost } from "./utils.server";
 import { Toastify } from "../../toastify/Toastify";
 import { faSquarePlus } from "@fortawesome/pro-solid-svg-icons";
@@ -10,31 +10,43 @@ import { Loader } from "@/components/ui/loader";
 
 export const CreatePost = () => {
   const [isPending, startTransition] = useTransition();
-
+  const [isCreating, setIsCreating] = useState<boolean>(false);
   const router = useRouter();
 
   const handleClick = async () => {
-    const res = await createNewPost();
-    startTransition(() => {
+    setIsCreating(true); // Supposons que vous avez un état pour gérer l'affichage du loader
+  
+    try {
+      const res = await createNewPost();
       if (res && res.id) {
-        router.refresh();
+        // Vous pouvez omettre startTransition ici si vous voulez naviguer immédiatement
         router.push(`/admin/blog/edit/${res.id}/article`);
+        router.refresh();
       } else {
         Toastify({
-          value: "Une erreur est survenue",
+          value: "Impossible de créer un nouvel article",
           type: "error",
         });
       }
-    });
+    } catch (error) {
+      // En cas d'erreur dans la requête, notifier l'utilisateur
+      Toastify({
+        value: "Une erreur est survenue lors de la création de l'article",
+        type: "error",
+      });
+    } finally {
+      setIsCreating(false); // Désactiver le loader après la création ou en cas d'erreur
+    }
   };
+  
   return (
     <>
       <Button
         variant="ghost"
-        disabled={isPending}
+        disabled={isCreating}
         className="flex flex-col shadow gap-y-2 h-auto py-2"
         onClick={handleClick}>
-        {isPending ? <Loader className="mr-2 h-4 w-4" /> :
+        {isCreating ? <Loader className="mr-2 h-4 w-4" /> :
           <FontAwesomeIcon icon={faSquarePlus} className="mx-4" />
         }
         Créer un nouveau billet de blog
