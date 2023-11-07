@@ -7,10 +7,16 @@ interface ExtendedBlogPost extends BlogPost {
   category?: {
     id: string;
     name: string;
+    slug: string;
   };
   tags?: Array<{
     tagId: string;
     postId: string;
+    tag: {
+      id: string;
+      name: string;
+      slug: string;
+    };
   }>;
 }
 interface BlogPostProps {

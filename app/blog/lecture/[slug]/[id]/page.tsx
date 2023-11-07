@@ -14,7 +14,6 @@ export async function generateMetadata(
   // read route params
   const title = await getBlogPost(params.id); // Assurez-vous que cela renvoie bien un BlogPost
  
- 
   return {
     title: Meta("title", title?.title ? title?.title + " | Blog " : "Aucun article"),
     // openGraph: {
@@ -29,7 +28,7 @@ export default async function ReadBlogPost({
   params: { method: string; slug: string, id: string };
 }) {
   const blogPost = await getBlogPost(params.id); // Assurez-vous que cela renvoie bien un BlogPost
- 
+ console.log(params)
 
   return (
     <div className="content">

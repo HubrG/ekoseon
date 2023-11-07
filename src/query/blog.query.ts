@@ -119,6 +119,7 @@ export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
         },
       },
     });
+    return post;
   } catch (error) {
     console.log(error);
   }
