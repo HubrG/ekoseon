@@ -21,12 +21,12 @@ export default async function Blog() {
       <PageTransition>
         <div className="content">
           <h1>Gestion des billets de blog</h1>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-3">
             <CreatePost />
 
             {session.user.id ? <CreatePostIA userId={session.user.id} /> : null}
           </div>
-          <Separator className="my-6" />
+          <Separator className="mt-12 mb-0" />
           <div>{session.user.id ? <BlogPostList /> : null}</div>
         </div>
       </PageTransition>

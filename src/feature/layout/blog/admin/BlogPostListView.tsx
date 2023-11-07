@@ -20,7 +20,7 @@ interface CustomBlogPost extends BlogPost {
 const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
 
   return (
-    <Table>
+    <Table className="">
       <TableCaption>Liste des articles</TableCaption>
       <TableHeader>
         <TableRow className="bg-app-50 text-app-500">
