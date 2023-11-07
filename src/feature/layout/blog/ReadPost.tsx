@@ -72,7 +72,9 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
                       <span className="cursor-default ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
                         {displayedTitle}
                       </span>
-                      <Tooltip place="bottom" id="ttTitle" className="tooltip" />
+                      {displayedTitle.length < blogPost.title.length && (
+                        <Tooltip place="bottom" id="ttTitle" className="tooltip" />
+                      )}
                     </div>
                   </div>
                 </li>
