@@ -22,7 +22,7 @@ interface CustomBlogPost extends BlogPost {
 }
 const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div className="flex flex-col gap-10 w-full">
       {blogPosts
         .slice()
         .sort(
@@ -34,11 +34,25 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
             {post.published && (
               <MotionShow animation="bounceIn" key={post.id}>
                 <MotionHover scale={1.02} type={"grow"}>
-                  <Link
-                    className="nunderline"
-                    href={`/blog/lecture/${post.canonicalSlug}/${post.id}`}>
-                    <div className="flex md:flex-row flex-col gap-5 rounded-lg  p-3 items-start cursor-pointer ">
-                      <div className="md:w-1/3 w-full relative">
+                  <div className="flex flex-col gap-5 rounded-lg  p-3 items-start ">
+                  <div>
+                      <p>
+                        <small>
+                          Le{" "}
+                          {post.publishedAt
+                            ?.toLocaleString("fr-FR", {
+                              day: "2-digit",
+                              month: "2-digit",
+                              year: "numeric",
+                            })
+                            .replace(",", " à")}
+                        </small>
+                      </p>
+                    </div>
+                    <Link
+                      className="nunderline flex flex-col gap-2 -mt-7"
+                      href={`/blog/lecture/${post.canonicalSlug}/${post.id}`}>
+                      <div className="w-full relative">
                         <div className="relative w-full h-24 mx-auto rounded-lg overflow-hidden">
                           {post.image ? (
                             <Image
@@ -52,37 +66,19 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                           )}
                         </div>
                       </div>
-                      <div className="flex flex-col">
-                        <div>
-                          <p>
-                            <small>
-                              Le{" "}
-                              {post.publishedAt
-                                ?.toLocaleString("fr-FR", {
-                                  day: "2-digit",
-                                  month: "2-digit",
-                                  year: "numeric",
-                                })
-                                .replace(",", " à")}
-                            </small>
-                          </p>
-                        </div>
-
-                        <h2>{post.title}</h2>
-
-                        <p>{post.excerpt ? post.excerpt : ""}</p>
-                        <div className="flex flex-row gap-2">
-                          {post.tags &&
-                            post.tags.map((tag: any) => (
-                              <span key={tag.tag.id} className="tag-label">
-                                {tag.tag.name}
-                              </span>
-                            ))}
-                        </div>
-                      </div>
-                      <div></div>
+                      <h2 className="mt-2">{post.title}</h2>
+                      <p className="-mt-2 font-normal">{post.excerpt ? post.excerpt : ""}</p>
+                    </Link>
+                    <div className="flex flex-row gap-2 text-sm -mt-5 italic opacity-80">
+                      {post.tags &&
+                        post.tags.map((tag: any) => (
+                          <span key={tag.tag.id} className="tag-label">
+                            {tag.tag.name}
+                          </span>
+                        ))}
                     </div>
-                  </Link>
+                  </div>
+                  <div></div>
                 </MotionHover>
               </MotionShow>
             )}
