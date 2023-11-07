@@ -57,7 +57,7 @@ export const Footer = async () => {
                   <li>
                     <Link
                       href="/blog"
-                      // prefetch={false}
+                      prefetch={false}
                       className="hover:underline">
                       Blog
                     </Link>
