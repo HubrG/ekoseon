@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 import { NextApiRequest, NextApiResponse } from "next";
 import Showdown from "showdown";
 import slugify from "slugify";
@@ -9,7 +9,7 @@ const openai = new OpenAI({
   apiKey: process.env.API_KEY_GPT,
 });
 export const config = {
-    maxDuration: 300,  // Durée maximale de 5 minutes
+  maxDuration: 300, // Durée maximale de 5 minutes
 };
 const strip_tags = (str: string) => {
   if (typeof str === "string") {
@@ -20,6 +20,7 @@ const strip_tags = (str: string) => {
 
 const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+  
     // Configuring Showdown
     Showdown.extension("tasklists", function () {
       return [
@@ -60,8 +61,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log("✅ Réponse de GPT");
 
     const resp = response.choices[0].message.content;
-   
-      
+
     if (!resp) throw new Error("Réponse vide de GPT");
 
     console.log("⚙️  Création du post...");
@@ -108,7 +108,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     const postId = newBlogPost.id;
     // On fait un nouvel appel à GPT pour récupérer les tags
     const responseTag = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
@@ -182,7 +182,10 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
         `⚙️  Image en cours de génération pour le titre « ${title} »...`
       );
       image = await openai.images.generate({
-        prompt: `Génère une image dans le style Steampunk et vectorisée\n\n je ne veux pas que tu écrives quelque chose.\n\n Je veux des paysages ou des personnes, des concepts, des idées, mais pas d'écriture\n\nVoici le thème : ${title}`,
+        model: "dall-e-3",
+        n: 1,
+        prompt: `Génère une image dans le style Modern Art\n\n je ne veux pas que tu écrives quelque chose.\n\n Je veux des paysages ou des personnes, des concepts, des idées, mais pas d'écriture\n\nVoici le thème : ${req.body.prompt}`,
+        size: "1792x1024",
       });
       console.log("✅ Image générée");
     }
