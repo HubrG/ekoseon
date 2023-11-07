@@ -60,10 +60,9 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
         });
         return;
       } else {
-        const data = await response.json();  // Ajoutez cette ligne
         Toastify({ type: "success", value: "Post créé avec succès" });
         setSubjectIA("");
-        router.refresh();  // Modifiez cette ligne
+        router.refresh();  
       }
       
     });
@@ -75,6 +74,12 @@ export const CreatePostIA = ({ userId }: { userId: string }) => {
         <Input
           onChange={(e) => setSubjectIA(e.currentTarget.value)}
           type="text"
+          // Quand on appuie sur entrée, on lance la création du post
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleCreatePostWithAI();
+            }
+          }}
           id="subjectIA"
           placeholder="Entrez un sujet d'article à générer avec l'IA"
           className="rounded-b-none-imp text-center"

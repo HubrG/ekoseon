@@ -76,12 +76,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       ? post.canonicalSlug
       : slugify(title, { lower: true }) || ""
   );
-  const debouncedSavePost = useCallback(
-    debounce(async (newValue) => {
-      // Votre logique de sauvegarde ici...
-    }, 500),
-    [], // Dépendances de useCallback, laissez vide si rien ne change la fonction de sauvegarde
-  );
+ 
   // Showdown
   useEffect(() => {
     if (post.categoryId) {
@@ -118,10 +113,10 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
     setDelta(markdown);
   }, [markdown]);
 
-  const handleSavePost = async() => {
+  function handleSavePost() {
     const tagIds = selectedTags.map((tag) => tag.value); // Assumant que 'value' contient l'ID du tag
 
-    const save = await saveEditPost({
+    const save = saveEditPost({
       id: post.id,
       image: image,
       title: title,
@@ -131,7 +126,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
       published: published,
       category: selectedCategory ? selectedCategory : null,
     });
-    await saveTagsForPost(post.id, tagIds);
+    saveTagsForPost(post.id, tagIds);
 
     if (!save) {
       Toastify({ type: "error", value: "Une erreur est survenue"});
@@ -196,10 +191,14 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
   // Les dépendances de l'effet
   const handlePublishChange = async (newValue: boolean) => {
     setPublished(newValue);
+    setTimeout(() => {
+      handleSavePost();
+    })
+   
     
-    debouncedSavePost(newValue);
-    router.refresh();
   };
+
+
 
 
   return (

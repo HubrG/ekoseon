@@ -4,39 +4,54 @@ import { BlogPost, Prisma } from "@prisma/client";
 
 
 export const getBlogPosts = async () => {
-
   const blogPosts = await prisma.blogPost.findMany({
     include: {
       category: true,
-      tags: true,
+      tags: {
+        select: {
+          tag: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
     },
   });
 
   return blogPosts;
-  };
+};
 
-  export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
-    try {
-      const post = await prisma.blogPost.findUnique({
-        where: {
-          id: id,
+
+export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
+  try {
+    const post = await prisma.blogPost.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        category: true,
+        tags: {
+          select: {
+            tag: {
+              select: {
+                name: true,
+              },
+            },
+          },
         },
-        include: {
-          category: true,
-          tags: true,
-        },
-      });
-    
-      if (!post) return null;
-    
-      // Assurez-vous que les champs category et tags ne sont pas null ici,
-      // sinon vous devrez ajuster le type ExtendedBlogPost pour qu'il accepte null.
-      return post;
-    } catch (error) {
-      console.error("Erreur lors de la récupération du post : ", error);
-      return null;
-    }
-  };
+      },
+    });
+
+    if (!post) return null;
+
+    return post;
+  } catch (error) {
+    console.error("Erreur lors de la récupération du post : ", error);
+    return null;
+  }
+};
+
   
 
   
