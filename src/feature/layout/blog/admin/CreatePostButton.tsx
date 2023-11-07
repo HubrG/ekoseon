@@ -34,8 +34,9 @@ export const CreatePost = () => {
         value: "Une erreur est survenue lors de la création de l'article",
         type: "error",
       });
+      setIsCreating(false);
     } finally {
-      setIsCreating(false); // Désactiver le loader après la création ou en cas d'erreur
+       // Désactiver le loader après la création ou en cas d'erreur
     }
   };
   
