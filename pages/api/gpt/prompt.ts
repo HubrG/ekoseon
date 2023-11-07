@@ -116,7 +116,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         {
           role: "user",
-          content: `Donne 3 mots-clés génériques pour cet article, séparés par des points-virgules. Aucun autre commentaire : ${newContent}`,
+          content: `Donne 3 mots-clés génériques pour cet article, séparés par des points-virgules. Aucun autre commentaire, uniquement les mots clés séparés par des virgules ! : ${newContent}`,
         },
       ],
       temperature: req.body.temperature,
