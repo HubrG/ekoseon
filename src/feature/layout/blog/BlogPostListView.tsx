@@ -34,8 +34,8 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
             {post.published && (
               <MotionShow animation="bounceIn" key={post.id}>
                 <MotionHover scale={1.02} type={"grow"}>
-                  <div className="flex flex-col gap-5 rounded-lg  p-3 items-start ">
-                  <div>
+                  <div className="flex flex-col gap-5 rounded-lg p-4 items-start ">
+                    <div className="flex w-full flex-row items-center justify-between">
                       <p>
                         <small>
                           Le{" "}
@@ -48,12 +48,15 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                             .replace(",", " à")}
                         </small>
                       </p>
+                      <Link href="/" className="text-sm">
+                        {post.category?.name}
+                      </Link>
                     </div>
                     <Link
-                      className="nunderline flex flex-col gap-2 -mt-7"
+                      className="nunderline flex flex-col gap-2 -mt-6"
                       href={`/blog/lecture/${post.canonicalSlug}/${post.id}`}>
                       <div className="w-full relative">
-                        <div className="relative w-full h-24 mx-auto rounded-lg overflow-hidden">
+                        <div className="relative w-full h-32 mx-auto rounded-lg overflow-hidden">
                           {post.image ? (
                             <Image
                               src={post.image}
@@ -67,9 +70,11 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                         </div>
                       </div>
                       <h2 className="mt-2">{post.title}</h2>
-                      <p className="-mt-2 font-normal">{post.excerpt ? post.excerpt : ""}</p>
+                      <p className="-mt-2 font-normal">
+                        {post.excerpt ? post.excerpt : ""}
+                      </p>
                     </Link>
-                    <div className="flex flex-row gap-2 text-sm -mt-5 italic opacity-80">
+                    <div className="flex flex-row flex-wrap gap-2 text-sm -mt-5 italic opacity-80">
                       {post.tags &&
                         post.tags.map((tag: any) => (
                           <span key={tag.tag.id} className="tag-label">

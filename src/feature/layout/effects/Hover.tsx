@@ -36,6 +36,7 @@ interface AnimatedWrapperProps {
   y?: number;
   rotate?: number;
   shadow?: string;
+  rounded?: string;
 }
 
 const MotionHover: React.FC<AnimatedWrapperProps> = ({
@@ -45,7 +46,8 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
   y = -10,
   rotate = 5,
   duration = 0.3,
-  shadow = "none",
+  shadow = "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+  rounded = "0.5rem"
 }) => {
   const hoverAnimations: Record<
     AnimationType,
@@ -55,26 +57,35 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
       scale: scale,
       transition: { duration: duration },
       boxShadow: shadow,
+      borderRadius: rounded
     },
     lift: {
       y: y,
       boxShadow: shadow,
       transition: { duration: duration },
+      borderRadius: rounded
+
     },
     liftWithoutShadow: {
       y: y,
       transition: { duration: duration },
       boxShadow: shadow,
+            borderRadius: rounded
+
     },
     rotate: {
       rotate: rotate,
       transition: { duration: duration },
       boxShadow: shadow,
+            borderRadius: rounded
+
     },
     color: {
       backgroundColor: "var(--color-app1)",
       transition: { duration: duration },
       boxShadow: shadow,
+            borderRadius: rounded
+
     },
     bounce: {
       y: [0, -8, 0],
@@ -83,6 +94,8 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
         repeat: Infinity,
         repeatType: "mirror" as const,
         boxShadow: shadow,
+              borderRadius: rounded
+
       },
     },
     pulse: {
@@ -92,6 +105,8 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
         repeat: Infinity,
         repeatType: "mirror" as const,
         boxShadow: shadow,
+              borderRadius: rounded
+
       },
     },
     swing: {
@@ -101,12 +116,16 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
         repeat: Infinity,
         repeatType: "mirror" as const,
         boxShadow: shadow,
+              borderRadius: rounded
+
       },
     },
     grow: {
       scale: scale,
       transition: { duration: duration },
       boxShadow: shadow,
+            borderRadius: rounded
+
     },
   };
 
