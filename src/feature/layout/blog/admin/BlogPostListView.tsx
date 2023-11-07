@@ -37,7 +37,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
     if (!trashPost) {
       Toastify({ value: "Une erreur est survenue", type: "error" });
     }
-    router.refresh();
+    router.replace("/admin/blog");
     Toastify({ value: "Article supprimé", type: "success" });
     // On refresh
   };
