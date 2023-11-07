@@ -1,6 +1,5 @@
 // /pages/api/webhook.js
 import { prisma } from "@/lib/prisma";
-import Decimal from "decimal.js";
 import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
@@ -104,7 +103,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           
           
-          if (totalAmount._sum.amount && totalAmount._sum.amount >= new Decimal(order.amount.toNumber()))
+          if (totalAmount._sum.amount && totalAmount._sum.amount >= order.amount)
           {
               cancelSubscriptionAtPeriodEnd(subId);
           }
