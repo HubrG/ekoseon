@@ -11,12 +11,8 @@ export const getProduct = async (id?:string) => {
 
   if (!rawProduct) return null;
 
-  const product = {
-    ...rawProduct,
-    price: rawProduct.price.toString() // Convertit le champ price en chaîne
-  };
 
-  return product;
+  return rawProduct;
   };
 
   export const getProducts = async (categoryId?:string) => {
@@ -27,12 +23,9 @@ export const getProduct = async (id?:string) => {
       },
     });
 
-    const products = rawProducts?.map(product => ({
-      ...product,
-      price: product.price.toString() // Convertit le champ price en chaîne
-    }));
+    if (!rawProducts) return null;
 
-    return products;
+    return rawProducts;
     };
   
     export type Product = NonNullable<Prisma.PromiseReturnType<typeof getProduct>>;

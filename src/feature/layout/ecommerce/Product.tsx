@@ -50,7 +50,7 @@ type FetchedProduct = Omit<
   },
   "price"
 > & {
-  price: string;
+  price: number;
   // ajoutez d'autres propriétés ici si nécessaire
 };
 
