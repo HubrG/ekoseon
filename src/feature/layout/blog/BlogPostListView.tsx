@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MotionHover from "../effects/Hover";
 import MotionShow from "../effects/Show";
-import { getTagsOnPost } from "./admin/utils.server";
 
 interface BlogPostListProps {
   blogPosts: BlogPost[];
