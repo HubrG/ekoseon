@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-
 import { BlogPost } from "@prisma/client";
 import Link from "next/link";
 import MotionHover from "../effects/Hover";
@@ -12,11 +11,13 @@ interface BlogPostListProps {
 interface CustomBlogPost extends BlogPost {
   category?: {
     name: string;
+    slug: string;
   } | null;
   tags?:
     | {
         id: string;
         name: string;
+        slug: string;
       }[]
     | null;
 }
@@ -48,7 +49,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                             .replace(",", " à")}
                         </small>
                       </p>
-                      <Link href="/" className="text-sm">
+                      <Link href={`/blog/categorie/${post.category?.slug}`} className="text-sm">
                         {post.category?.name}
                       </Link>
                     </div>
@@ -77,8 +78,12 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                     <div className="flex flex-row flex-wrap gap-2 text-sm -mt-5 italic opacity-80">
                       {post.tags &&
                         post.tags.map((tag: any) => (
-                          <span key={tag.tag.id} className="tag-label">
-                            {tag.tag.name}
+                          <span key={tag.id} className="tag-label">
+                            <Link
+                              className="cursor-pointer"
+                              href={`/blog/tag/${tag.tag.slug}`}>
+                              {tag.tag.name}
+                            </Link>
                           </span>
                         ))}
                     </div>

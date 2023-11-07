@@ -9,6 +9,7 @@ export const getBlogPosts = async () => {
       category: {
         select: {
           name: true,
+          slug: true,
         },
       },
       tags: {
@@ -16,6 +17,7 @@ export const getBlogPosts = async () => {
           tag: {
             select: {
               name: true,
+              slug: true,
             },
           },
         },
@@ -26,6 +28,70 @@ export const getBlogPosts = async () => {
   return blogPosts;
 };
 
+export const getBlogPostsByTagSlug = async (slug: string) => {
+  const posts = await prisma.blogPost.findMany({
+    where: {
+      tags: {
+        some: {
+          tag: {
+            slug: slug,
+          },
+        },
+      },
+    },
+    include: {
+      category: {
+        select: {
+          name: true,
+          slug: true,
+        },
+      },
+      tags: {
+        select: {
+          tag: {
+            select: {
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return posts;
+};
+
+export const getBlogPostsByCategorySlug = async (slug: string) => {
+  const posts = await prisma.blogPost.findMany({
+    where: {
+      category: {
+        slug: slug,
+      },
+    },
+    include: {
+      category: {
+        select: {
+          name: true,
+          slug: true,
+        },
+      },
+      tags: {
+        select: {
+          tag: {
+            select: {
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return posts;
+};
+
 
 export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
   try {
@@ -34,34 +100,32 @@ export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
         id: id,
       },
       include: {
-        category: 
-          {
-            select: {
-              name: true,
-            },
+        category:
+        {
+          select: {
+            name: true,
+            slug: true,
           },
+        },
         tags: {
           select: {
             tag: {
               select: {
                 name: true,
+                slug: true,
               },
             },
           },
         },
       },
     });
-
-    if (!post) return null;
-
-    return post;
   } catch (error) {
-    console.error("Erreur lors de la récupération du post : ", error);
-    return null;
+    console.log(error);
   }
-};
+  return null;
+}
 
-  
+   
 
   
   export type BlogPosts = NonNullable<Prisma.PromiseReturnType<typeof getBlogPosts>>;
