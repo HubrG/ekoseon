@@ -44,7 +44,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
 
   const handlePublishChange = async (postId: string, newValue: boolean) => {
     publishPost(postId, newValue);
-    router.refresh();
+    router.replace("/admin/blog");
   };
 
   return (
