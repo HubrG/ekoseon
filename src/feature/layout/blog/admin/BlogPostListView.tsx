@@ -37,14 +37,14 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
     if (!trashPost) {
       Toastify({ value: "Une erreur est survenue", type: "error" });
     }
-    router.replace("/admin/blog");
+    router.refresh();
     Toastify({ value: "Article supprimé", type: "success" });
     // On refresh
   };
 
   const handlePublishChange = async (postId: string, newValue: boolean) => {
     publishPost(postId, newValue);
-    router.replace("/admin/blog");
+    router.refresh();
   };
 
   return (
