@@ -17,7 +17,7 @@ interface BlogPostProps {
   blogPost: ExtendedBlogPost;
 }
 
-export const ReadPost: React.FC<BlogPostProps> = async ({ blogPost }) => {
+export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
   return (
     <>
       {blogPost.content && blogPost.title ? (
