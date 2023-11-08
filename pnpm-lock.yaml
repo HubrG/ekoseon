@@ -119,6 +119,9 @@ dependencies:
   '@t3-oss/env-nextjs':
     specifier: ^0.7.1
     version: 0.7.1(typescript@5.2.2)(zod@3.22.4)
+  '@vercel/speed-insights':
+    specifier: ^0.0.4
+    version: 0.0.4
   bcrypt:
     specifier: ^5.1.1
     version: 5.1.1
@@ -2207,6 +2210,11 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
+
+  /@vercel/speed-insights@0.0.4:
+    resolution: {integrity: sha512-ZKjaAKvMmiKqz2PmwnLO/Ma6ckM6f6R3yAlfBw8JWeoCf0zj8UdiV2eTrDQtKnXrBeNTasH/D0CN/mO6qD1XNg==}
+    requiresBuild: true
+    dev: false
 
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}

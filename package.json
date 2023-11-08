@@ -47,6 +47,7 @@
     "@stripe/stripe-js": "^2.1.11",
     "@t3-oss/env-core": "^0.7.1",
     "@t3-oss/env-nextjs": "^0.7.1",
+    "@vercel/speed-insights": "^0.0.4",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",

@@ -15,6 +15,7 @@ const ToastProvider = dynamic(
   () => import("@/src/feature/layout/toastify/ToastProvider")
 );
 import Script from "next/script";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const sans = Nunito({
   subsets: ["latin"],
@@ -106,7 +107,10 @@ export default function RootLayout(props: {
             </ToastProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Header />
-              <div>{children}</div>
+              <div>
+                {children}
+                <SpeedInsights />
+              </div>
               <Footer />
             </ThemeProvider>
           </body>
