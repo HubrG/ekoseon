@@ -592,3 +592,35 @@ article .task-list-item {
 .rounded-t-none-imp {
   @apply rounded-t-none border-t-0 bg-app-100 hover:bg-app-50  !important; 
 }
+.force-xs {
+  @apply text-xs !important;
+}.force-sm {
+  @apply text-sm !important;
+}
+.force-base {
+  @apply text-base !important;
+}
+.force-lg {
+  @apply text-lg !important;
+}
+.force-xl {
+  @apply text-xl !important;
+}
+.force-2xl {
+  @apply text-2xl !important;
+}
+.force-3xl {
+  @apply text-3xl !important;
+}
+.force-4xl {
+  @apply text-4xl !important;
+}
+.force-5xl {
+  @apply text-5xl !important;
+}
+.force-6xl {
+  @apply text-6xl !important;
+}
+.force-7xl {
+  @apply text-7xl !important;
+}

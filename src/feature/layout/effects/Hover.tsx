@@ -70,21 +70,21 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
       y: y,
       transition: { duration: duration },
       boxShadow: shadow,
-            borderRadius: rounded
+      borderRadius: rounded
 
     },
     rotate: {
       rotate: rotate,
       transition: { duration: duration },
       boxShadow: shadow,
-            borderRadius: rounded
+      borderRadius: rounded
 
     },
     color: {
       backgroundColor: "var(--color-app1)",
       transition: { duration: duration },
       boxShadow: shadow,
-            borderRadius: rounded
+      borderRadius: rounded
 
     },
     bounce: {
@@ -94,7 +94,7 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
         repeat: Infinity,
         repeatType: "mirror" as const,
         boxShadow: shadow,
-              borderRadius: rounded
+        borderRadius: rounded
 
       },
     },
@@ -105,7 +105,7 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
         repeat: Infinity,
         repeatType: "mirror" as const,
         boxShadow: shadow,
-              borderRadius: rounded
+        borderRadius: rounded
 
       },
     },
@@ -116,7 +116,7 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
         repeat: Infinity,
         repeatType: "mirror" as const,
         boxShadow: shadow,
-              borderRadius: rounded
+        borderRadius: rounded
 
       },
     },
@@ -124,7 +124,7 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
       scale: scale,
       transition: { duration: duration },
       boxShadow: shadow,
-            borderRadius: rounded
+      borderRadius: rounded
 
     },
   };

@@ -126,7 +126,31 @@ export const getBlogPost = async (id?: string): Promise<BlogPost | null> => {
   return null;
 }
 
-   
+export const getBlogCategory = async (slug?:string) => {
+
+  const rawCategory = await prisma.blogCategory.findUnique({
+    where: {
+      slug: slug,
+    },
+  });
+
+  if (!rawCategory) return null;
+
+
+  return rawCategory;
+  };
+
+export const getBlogCategories = async () => {
+  const rawCategories = await prisma.blogCategory.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+  if (!rawCategories) return null;
+
+
+  return rawCategories;
+}
 
   
   export type BlogPosts = NonNullable<Prisma.PromiseReturnType<typeof getBlogPosts>>;
