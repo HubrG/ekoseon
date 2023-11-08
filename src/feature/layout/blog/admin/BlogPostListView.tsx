@@ -8,6 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import BlogPostListViewItem from "./BlogPostListViewItem";
+import React from "react";
+import { v4 } from 'uuid';
 
 interface BlogPostListProps {
   blogPosts: BlogPost[];
@@ -18,14 +20,13 @@ interface CustomBlogPost extends BlogPost {
   } | null;
 }
 const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
-
   return (
     <Table className="">
       <TableCaption>Liste des articles</TableCaption>
       <TableHeader>
         <TableRow className="bg-app-50 text-app-500">
-        <TableHead></TableHead>
-        <TableHead></TableHead>
+          <TableHead></TableHead>
+          <TableHead></TableHead>
           <TableHead className="w-[100px] text-app-500"></TableHead>
           <TableHead className="text-left text-app-500">Titre</TableHead>
           <TableHead className="text-center text-app-500">Statut</TableHead>
@@ -44,7 +45,9 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .map((post: CustomBlogPost) => (
-              <BlogPostListViewItem key={post.id} post={post} />
+            <React.Fragment key={v4() + post.id}>
+              <BlogPostListViewItem post={post} />
+            </React.Fragment>
           ))}
       </TableBody>
     </Table>

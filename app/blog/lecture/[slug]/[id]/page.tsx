@@ -48,6 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title
     ),
     description: description,
+    alternates:
+      {
+       canonical: process.env.NEXT_PUBLIC_RELATIVE_URI + "/blog/lecture/" + blogPost?.canonicalSlug + "/" + blogPost?.id,
+      },
     openGraph: {
       title: Meta(
         "title",

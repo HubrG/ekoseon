@@ -7,6 +7,8 @@ import Link from "next/link";
 import { faFolderBookmark, faTag } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { v4 } from "uuid";
+
 
 export default async function SideBar() {
   const categories = await getCategoriesForPublishedPosts();
@@ -22,7 +24,7 @@ export default async function SideBar() {
           <ScrollArea className="h-full w-full p-3  border-app-200 bg-app-50 rounded-md border">
             {categories && categories.length > 0 ? (
               categories.map((category) => (
-                <li key={category.id}>
+                <li key={v4()+category.id}>
                   <Link href={`/blog/categorie/${category.slug}`}>
                     {category.name}
                   </Link>
@@ -42,7 +44,7 @@ export default async function SideBar() {
           <ScrollArea className="h-full p-3 w-full border-app-200 bg-app-50 rounded-md border">
             {tags && tags.length > 0 ? (
               tags.map((tag) => (
-                <li key={tag.id}>
+                <li key={v4()+tag.id}>
                   <Link href={`/blog/tag/${tag.slug}`} className="font-normal italic" style={{"fontWeight" : "light"}}><span className="font-normal">{tag.name}</span></Link>
                 </li>
               ))

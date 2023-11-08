@@ -13,7 +13,7 @@ export default async function BlogPostList({ tagSlug, categorySlug }: Props) {
   } else if (categorySlug) {
     blogPosts = await getBlogPostsByCategorySlug(categorySlug);
   } else {
-    blogPosts = await getBlogPosts();
+    blogPosts = await getBlogPosts({ publishedOnly: true });
   }
   return (
     <div>

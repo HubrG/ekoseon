@@ -5,6 +5,7 @@ import { BlogBreadCrumb } from "./Breadcrumb";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderBookmark, faTags } from "@fortawesome/pro-solid-svg-icons";
+import { v4 } from 'uuid';
 
 interface ExtendedBlogPost extends BlogPost {
   category?: {
@@ -66,9 +67,11 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
               <div className="inline-flex gap-3 items-center flex-wrap ">
                 <FontAwesomeIcon icon={faTags} className="text-2xl" />
                 {blogPost.tags.map((tag) => (
-                  <Link href={`/blog/tag/${tag.tag.slug}`} key={tag.tag.id}>
+                   <React.Fragment key={v4()+tag.tag.id}>
+                  <Link href={`/blog/tag/${tag.tag.slug}`}>
                     {tag.tag.name}
                   </Link>
+                  </React.Fragment>
                 ))}
               </div>
             )}

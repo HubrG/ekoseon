@@ -3,8 +3,10 @@ import { BlogPost, Prisma } from "@prisma/client";
 
 
 
-export const getBlogPosts = async () => {
+export const getBlogPosts = async ({ publishedOnly = false }: { publishedOnly?: boolean } = {}) => {
   const blogPosts = await prisma.blogPost.findMany({
+    // Si params == "all", on récupère tous les posts, sinon on récupère seulement les posts publiés
+    where: publishedOnly ? { published: true } : {},
     include: {
       category: {
         select: {
@@ -216,7 +218,17 @@ export const getBlogTag = async (slug?:string) => {
 
 
   return rawSlug;
-  };
+};
+  
+export const getBlogTags = async () => {
+  const rawTags = await prisma.blogTag.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+  if (!rawTags) return null;
+  else return rawTags;
+};
 
   
     export type Tag = NonNullable<Prisma.PromiseReturnType<typeof getBlogTag>>;

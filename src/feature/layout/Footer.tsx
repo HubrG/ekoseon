@@ -22,6 +22,7 @@ export const Footer = async () => {
 						</span>
 					</Link>
             </div>
+            <div className="grid gap-3 grid-cols-2">
             <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-1">
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-app-900 uppercase dark:text-white">
@@ -72,6 +73,28 @@ export const Footer = async () => {
                 </ul>
               </div>
               
+            </div>
+            <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-1">
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-app-900 uppercase dark:text-white">
+                  ACTIONS
+                </h2>
+                <ul className="text-app-500 dark:text-app-400 flex flex-col gap-y-3 font-normal">
+                  <li>
+                    <Link href="/raconter-ses-memoires/tarifs" className="hover:underline">
+                      Acheter
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/connexion"
+                      className="hover:underline">
+                      Connexion
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              </div>
             </div>
           </div>
           {/* <hr className="my-6 border-app-200 rounded-lg sm:mx-auto dark:border-app-700 lg:my-8" /> */}

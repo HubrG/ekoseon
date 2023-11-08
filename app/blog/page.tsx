@@ -4,10 +4,15 @@ import React from "react";
 import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import { Metadata } from "next";
 import SideBar from "../../src/feature/layout/blog/SideBar";
-export const metadata: Metadata = {
+
+import createMetadata from "@/lib/metadatas";
+export const metadata = createMetadata({
+  // Voir la configuration des métadonnées dans metadatas.ts
+  // file://@/lib/metadatas
   title: Meta("title", "Blog"),
-  description: "Ekoseon",
-};
+  url: `${process.env.NEXT_PUBLIC_RELATIVE_URI}/blog`,
+});
+
 export default async function faq() {
   return (
     <PageTransition>
