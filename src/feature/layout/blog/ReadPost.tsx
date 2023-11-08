@@ -4,7 +4,7 @@ import Image from "next/image";
 import { BlogBreadCrumb } from "./Breadcrumb";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTags } from "@fortawesome/pro-solid-svg-icons";
+import { faFolderBookmark, faTags } from "@fortawesome/pro-solid-svg-icons";
 
 interface ExtendedBlogPost extends BlogPost {
   category?: {
@@ -27,6 +27,7 @@ interface BlogPostProps {
 }
 
 export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
+  console.log(blogPost.tags)
   return (
     <>
       {blogPost.content && blogPost.title ? (
@@ -52,8 +53,17 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
               className="mt-14"
               dangerouslySetInnerHTML={{ __html: blogPost.content }}
             />
-             {blogPost.tags && (
-              <div className="inline-flex gap-3 items-center flex-wrap my-10 ">
+            <div className="flex flex-col gap-5  my-10">
+            {blogPost.category && (
+              <div className="inline-flex gap-3 items-center flex-wrap ">
+                <FontAwesomeIcon icon={faFolderBookmark} className="text-2xl" />
+                <Link href={`/blog/tag/${blogPost.category.slug}`}>
+                  {blogPost.category.name}
+                </Link>
+              </div>
+            )}
+            {blogPost.tags && blogPost.tags.length > 0 && (
+              <div className="inline-flex gap-3 items-center flex-wrap ">
                 <FontAwesomeIcon icon={faTags} className="text-2xl" />
                 {blogPost.tags.map((tag) => (
                   <Link href={`/blog/tag/${tag.tag.slug}`} key={tag.tag.id}>
@@ -62,6 +72,7 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
                 ))}
               </div>
             )}
+            </div>
           </article>
         </>
       ) : (

@@ -38,7 +38,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                   scale={1.01}
                   shadow={"0 25px 50px -12px var(--color-app3)"}
                   type={"grow"}>
-                  <div className="flex flex-col gap-5 rounded-lg p-5 items-start border-b-2">
+                  <div className="flex flex-col gap-5 rounded-lg p-5 items-start border-b-2 border-b-app-200">
                     <div className="flex w-full flex-row items-center mb-1 justify-between">
                       <p>
                         <small>
@@ -81,6 +81,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                         {post.excerpt ? post.excerpt : ""}
                       </p>
                     </Link>
+                   
                     <div className="flex flex-row flex-wrap gap-2 text-sm italic opacity-80">
                       {post.tags &&
                         post.tags.map((tag: any) => (

@@ -5,7 +5,7 @@ import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import { Metadata } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFolder,
+  faFolderBookmark,
 } from "@fortawesome/pro-solid-svg-icons";
 import Link from "next/link";
 import { getBlogCategory } from "@/src/query/blog.query";
@@ -33,7 +33,7 @@ export default async function BlogPostsByCategory({
               {category?.name &&
                 <small className="flex flex-row items-baseline mt-1">
                 <div className="flex flex-row text-lg  items-baseline pt-1">
-                  <FontAwesomeIcon icon={faFolder} className="mx-2 force-lg" />{" "}
+                  <FontAwesomeIcon icon={faFolderBookmark} className="mx-2 force-lg" />{" "}
                 {category.name}
                 </div>
               </small>
@@ -41,7 +41,9 @@ export default async function BlogPostsByCategory({
             </h1>
             <div className="flex md:flex-row flex-col gap-5">
               <div className="w-full">
-              <BlogPostList categorySlug={category?.slug} />
+                {category?.slug &&
+                  <BlogPostList categorySlug={category?.slug} />
+                }
               </div>
             </div>
           </div>

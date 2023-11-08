@@ -34,7 +34,7 @@ export const GetStartButton = () => {
         onClick={handleScrollButton("appFirstPage")}
         size="lg"
         variant="link"
-        className="getStartedButton">
+        className="getStartedButton text-white">
         C&apos;est-à-dire
         <FontAwesomeIcon
           className="text-white"

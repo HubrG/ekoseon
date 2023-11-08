@@ -151,7 +151,7 @@
   }
 }
 .faqContent h3 {
-  @apply text-2xl my-0 font-bold text-app-800 !important;
+  @apply text-2xl my-0 text-app-800 font-medium italic !important;
 }
 .background-hero {
   animation: animateBackground 10s infinite;

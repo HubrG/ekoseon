@@ -39,7 +39,9 @@ export default async function BlogPostsByTag({
             </h1>
             <div className="flex md:flex-row flex-col gap-5">
               <div className="w-full">
+              {tag?.slug &&
                 <BlogPostList tagSlug={tag?.slug} />
+              }
               </div>
             </div>
           </div>
