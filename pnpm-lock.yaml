@@ -271,6 +271,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.2.14
     version: 18.2.14
+  '@types/react-lazyload':
+    specifier: ^3.2.3
+    version: 3.2.3
   '@types/react-lottie':
     specifier: ^1.2.8
     version: 1.2.8
@@ -2080,6 +2083,12 @@ packages:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
     dependencies:
       '@types/react': 18.2.34
+
+  /@types/react-lazyload@3.2.3:
+    resolution: {integrity: sha512-s03gWlHXiFqZr7TEFDTx8Lkl+ZEYrwTkXP9MNZ3Z3blzsPrnkYjgeSK2tjfzVv/TYVCnDk6TZwNRDHQlHy/1Ug==}
+    dependencies:
+      '@types/react': 18.2.34
+    dev: true
 
   /@types/react-lottie@1.2.8:
     resolution: {integrity: sha512-GGFz5FdO4iMrz6lewCQViCjqnLt5wSa6AHjIa8Z85cEKnjdaEMIvhwnSlxeU1Hvj/8ycxvC8cM0Gp8v/nGs4YA==}

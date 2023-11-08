@@ -143,7 +143,7 @@ h6 {
 }
 
 p {
-  @apply md:text-base text-sm leading-5 mb-[0.696rem];
+  @apply text-base leading-5 mb-[0.696rem];
 }
 
 
@@ -480,7 +480,7 @@ article h6 {
 }
 */
 article p {
-  @apply  md:text-lg md:pl-2 text-base mt-4 mb-4 !important;
+  @apply  text-lg md:pl-2 mt-4 mb-4 !important;
 } 
 article em,
 article i {

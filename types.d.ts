@@ -19,3 +19,4 @@ declare module 'cookie';
 declare module 'showdown';
 declare module 'react-resizable';
 declare module 'lodash'
+declare module 'react-lazyload'

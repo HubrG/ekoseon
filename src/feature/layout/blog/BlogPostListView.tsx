@@ -33,6 +33,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
         .map((post: CustomBlogPost) => (
           <>
             {post.published && (
+              
               <MotionShow animation="bounceIn" key={post.id}>
                 <MotionHover scale={1.01} shadow={"0 25px 50px -12px var(--color-app3)"} type={"grow"}>
                   <div className="flex flex-col gap-5 rounded-lg p-4 items-start ">
@@ -64,6 +65,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                               alt={post.title ? post.title : ""}
                               layout="fill"
                               objectFit="cover"
+                              loading="lazy"
                             />
                           ) : (
                             ""

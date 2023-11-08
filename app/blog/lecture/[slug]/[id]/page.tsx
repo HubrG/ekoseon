@@ -33,7 +33,7 @@ export default async function ReadBlogPost({
 
   return (
     <div className="content">
-      {blogPost ? (
+      {blogPost && blogPost.publish ? (
         <ReadPost blogPost={blogPost} />
       ) : (
         <>
