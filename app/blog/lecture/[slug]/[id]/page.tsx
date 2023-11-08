@@ -78,6 +78,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: ["Ekoseon"], // Assurez-vous que ceci est conforme à votre structure de données
       // tags: post?.tags ? post?.tags : [],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      creator: "@ekoseon",
+      images: [
+        {
+          url: blogPost?.image ? blogPost?.image : "/img/header-home.webp",
+          width: 1200,
+          height: 630,
+          alt: blogPost?.title ? blogPost?.title : "Aucun titre",
+        },
+      ],
+    },
   };
 }
 
