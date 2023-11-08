@@ -46,7 +46,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log("⚙️  Réponse de GPT en cours de génération...");
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-1106-preview",
       messages: [
         { role: "system", content: req.body.promptSystem },
         { role: "user", content: req.body.prompt },
@@ -107,7 +107,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     const postId = newBlogPost.id;
     // On fait un nouvel appel à GPT pour récupérer les tags
     const responseTag = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4-1106-preview",
       messages: [
         {
           role: "system",
