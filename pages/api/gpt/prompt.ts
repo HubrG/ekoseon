@@ -221,20 +221,24 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!image) throw new Error("Image manquante");
     const imageToUpload = image.data[0].url;
     //
-    const uploadedResponse = await cloudinary.uploader.upload(
-      imageToUpload ? imageToUpload : "",
-      {
-        resource_type: "image",
-        // Spécifiez le ratio d'aspect en 16:9
-        aspect_ratio: "16:9",
-        // Crop l'image en utilisant le mode 'fill' tout en se centrant sur le visage
-        crop: "fill",
-        gravity: "face",
-        // Convertit l'image en format WebP
-        format: "webp",
+
+    
+    const uploadedResponse = await uploadAndRenameImage( imageToUpload ? imageToUpload : "", slugify(title, {
+      lower: true,
+      strict: true,
+      remove: /[*+~.()'"!:@]/g,
+    }))
+      .then(result => {
+        console.log("✅ Image envoyée sur Cloudinary");
+        console.log(`⚙️  Ajout de l'image au post...`);
+        return result;
       }
-    );
-    const imageToPost = uploadedResponse.secure_url;
+      )
+    .catch(error => console.error('Rename failed:', error));
+
+
+    const imageToPost = uploadedResponse;
+   
     // On ajoute l'image dans le post par un update via postId
 
     console.log("✅ Image envoyée sur Cloudinary");
@@ -261,3 +265,37 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default retrievePrompt;
+
+
+async function uploadAndRenameImage(imageToUpload:string, newName:string) {
+  try {
+    // Téléverse l'image
+    const uploadedResponse = await cloudinary.uploader.upload(
+      imageToUpload || "", {
+        resource_type: "image",
+        aspect_ratio: "16:9",
+        crop: "fill",
+        gravity: "face",
+        format: "webp",
+      }
+    );
+
+    // Vérifie si l'image a bien été téléversée
+    if (uploadedResponse.public_id) {
+      // Renomme l'image téléversée
+      const renameResponse = await cloudinary.uploader.rename(
+        uploadedResponse.public_id, 
+        newName,
+        { overwrite: false } // Changez cette option selon vos besoins
+      );
+
+      // Retourne la réponse du renommage
+      return renameResponse.secure_url;
+    } else {
+      throw new Error("Image upload failed");
+    }
+  } catch (error) {
+    console.error("Error during image upload or rename:", error);
+    throw error;
+  }
+}
