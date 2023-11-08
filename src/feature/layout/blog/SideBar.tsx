@@ -19,7 +19,7 @@ export default async function SideBar() {
           Categories
         </h3>
         <ul>
-          <ScrollArea className="h-full w-full p-2   border-app-200 bg-app-50 rounded-md border">
+          <ScrollArea className="h-full w-full p-3  border-app-200 bg-app-50 rounded-md border">
             {categories && categories.length > 0 ? (
               categories.map((category) => (
                 <li key={category.id}>
@@ -39,11 +39,11 @@ export default async function SideBar() {
           <FontAwesomeIcon icon={faTag} className="mr-2" /> Mots-clés
         </h3>
         <ul className="flex flex-col h-full gap-y-2 text-base">
-          <ScrollArea className="h-full p-2 w-full border-app-200 bg-app-50 rounded-md border">
+          <ScrollArea className="h-full p-3 w-full border-app-200 bg-app-50 rounded-md border">
             {tags && tags.length > 0 ? (
               tags.map((tag) => (
                 <li key={tag.id}>
-                  <Link href={`/blog/tag/${tag.slug}`}>{tag.name}</Link>
+                  <Link href={`/blog/tag/${tag.slug}`} className="font-normal italic" style={{"fontWeight" : "light"}}><span className="font-normal">{tag.name}</span></Link>
                 </li>
               ))
             ) : (
