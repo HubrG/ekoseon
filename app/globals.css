@@ -5,17 +5,17 @@
 
 @layer base {
   :root {
-    --color-app1: theme('colors.app.50'); 
-    --color-app2: theme('colors.app.100'); 
-    --color-app3: theme('colors.app.200'); 
-    --color-app4: theme('colors.app.300'); 
-    --color-app5: theme('colors.app.400'); 
-    --color-app6: theme('colors.app.500'); 
-    --color-app7: theme('colors.app.600'); 
-    --color-app8: theme('colors.app.700'); 
-    --color-app9: theme('colors.app.800');
-    --color-app10: theme('colors.app.900');
-    --color-app11: theme('colors.app.950');
+    --color-app1: theme("colors.app.50");
+    --color-app2: theme("colors.app.100");
+    --color-app3: theme("colors.app.200");
+    --color-app4: theme("colors.app.300");
+    --color-app5: theme("colors.app.400");
+    --color-app6: theme("colors.app.500");
+    --color-app7: theme("colors.app.600");
+    --color-app8: theme("colors.app.700");
+    --color-app9: theme("colors.app.800");
+    --color-app10: theme("colors.app.900");
+    --color-app11: theme("colors.app.950");
     --background: 0 0% 100%;
     --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
@@ -66,14 +66,12 @@
     @apply bg-app-500 dark:bg-app-900 text-app-50;
   }
   * {
-    @apply border-border font-sans p-0 m-0;
+    @apply border-border font-sans p-0 m-0 text-app-800;
   }
   body {
     @apply bg-white dark:bg-slate-900 bg-opacity-50 text-app-900 !important;
   }
-  p {
-    @apply text-app-900 dark:text-app-50;
-  }
+
   main {
     @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
@@ -113,44 +111,47 @@
   h6 svg {
     @apply dark:text-app-200 text-app-600 text-3xl !important;
   }
- 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply my-[1.63rem];
+  }
   h1.title-page {
-    @apply text-center  mb-14;
+    @apply text-center  mb-14 !important;
+  }
+  h1 {
+    @apply md:text-4xl text-3xl font-bold text-app-900 dark:text-app-400;
   }
 
-  h1 {
-    @apply md:text-4xl text-3xl font-bold text-app-900 dark:text-app-400 mb-[1.545rem];
+  h2 {
+    @apply md:text-2xl text-xl font-bold text-app-900 dark:text-app-300;
+  }
+
+  h3 {
+    @apply md:text-xl text-lg font-bold text-app-800;
+  }
+
+  h4 {
+    @apply md:text-lg text-base font-bold text-app-800;
+  }
+
+  h5 {
+    @apply md:text-base text-sm font-bold text-app-800;
+  }
+
+  h6 {
+    @apply md:text-sm text-sm font-bold text-app-800;
+  }
+
+  p {
+    @apply md:text-[1.05rem]  text-base  my-1;
+  }
 }
-
-h2 {
-    @apply md:text-2xl text-xl font-bold text-app-900 dark:text-app-300 mb-[0.955rem];
-}
-
-h3 {
-    @apply md:text-xl text-lg font-bold text-app-800 mb-[0.59rem];
-}
-
-h4 {
-    @apply md:text-lg text-base font-bold text-app-800 mb-[0.364rem];
-}
-
-h5 {
-    @apply md:text-base text-sm font-bold text-app-800 mb-[0.225rem];
-}
-
-h6 {
-    @apply md:text-sm text-sm font-bold text-app-800 mb-[0.139rem];
-}
-
-p {
-  @apply text-base leading-5 mb-[0.696rem];
-}
-
-
-
-
-
-
+.faqContent h3 {
+  @apply text-2xl my-0 font-bold text-app-800 !important;
 }
 .background-hero {
   animation: animateBackground 10s infinite;
@@ -480,8 +481,8 @@ article h6 {
 }
 */
 article p {
-  @apply  text-lg md:pl-2 mt-4 mb-4 !important;
-} 
+  @apply text-lg md:pl-2 mt-4 mb-4 !important;
+}
 article em,
 article i {
   @apply italic;
@@ -504,7 +505,7 @@ article ol {
 }
 
 article a {
-  @apply text-blue-500 underline;
+  @apply text-app-700;
 }
 article img {
   @apply max-w-full h-auto my-4;
@@ -544,15 +545,24 @@ article .task-list-item {
   @apply border-0 w-full bg-transparent focus:border-0 focus:ring-0;
 }
 
-.react-select-container .react-select__control .react-select__control--is-focused {
+.react-select-container
+  .react-select__control
+  .react-select__control--is-focused {
   @apply border-0 w-full bg-transparent shadow-none focus:border-0 focus:ring-0;
 }
 
-.react-select-container .react-select__control .react-select__control--is-focused .react-select__control--menu-is-open {
+.react-select-container
+  .react-select__control
+  .react-select__control--is-focused
+  .react-select__control--menu-is-open {
   @apply border-0 w-full bg-transparent focus:border-0 focus:ring-0;
 }
 
-.react-select-container .react-select__control .react-select__control--is-focused .react-select__control--menu-is-open .react-select__value-container {
+.react-select-container
+  .react-select__control
+  .react-select__control--is-focused
+  .react-select__control--menu-is-open
+  .react-select__value-container {
   @apply border-0 bg-transparent focus:border-0 focus:ring-0;
 }
 
@@ -564,7 +574,9 @@ article .task-list-item {
   @apply hover:bg-app-100 text-app-900 focus:bg-app-100 active:bg-app-100;
 }
 
-.react-select-container .react-select__menu-list .react-select__option--is-focused {
+.react-select-container
+  .react-select__menu-list
+  .react-select__option--is-focused {
   @apply bg-app-100 text-app-900 !important;
 }
 
@@ -581,20 +593,20 @@ article .task-list-item {
 }
 
 .textareaBlogPostEditor {
-  @apply border-[1px] outline-0 border-app-300 max-h-[92vh] shadow-t-lg  md:h-[50vh] h-[30vh] p-5 rounded-t-lg border-l-0 border-r-0 text-base border-t-[5px] border-t-app-500 z-10 bg-white ;
+  @apply border-[1px] outline-0 border-app-300 max-h-[92vh] shadow-t-lg  md:h-[50vh] h-[30vh] p-5 rounded-t-lg border-l-0 border-r-0 text-base border-t-[5px] border-t-app-500 z-10 bg-white;
   /* no outline on focus */
-
 }
 
 .rounded-b-none-imp {
   @apply rounded-b-none  !important;
 }
 .rounded-t-none-imp {
-  @apply rounded-t-none border-t-0 bg-app-100 hover:bg-app-50  !important; 
+  @apply rounded-t-none border-t-0 bg-app-100 hover:bg-app-50  !important;
 }
 .force-xs {
   @apply text-xs !important;
-}.force-sm {
+}
+.force-sm {
   @apply text-sm !important;
 }
 .force-base {

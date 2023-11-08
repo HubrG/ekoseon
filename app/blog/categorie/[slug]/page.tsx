@@ -41,7 +41,7 @@ export default async function BlogPostsByCategory({
             </h1>
             <div className="flex md:flex-row flex-col gap-5">
               <div className="w-full">
-                <BlogPostList />
+              <BlogPostList categorySlug={category?.slug} />
               </div>
             </div>
           </div>

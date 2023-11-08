@@ -16,7 +16,6 @@ import {
 // };
 
 export default function FAQ() {
-  const [activeTrigger, setActiveTrigger] = useState<string | null>(null);
   const [activeTriggers, setActiveTriggers] = useState<Set<string>>(new Set());
 
   const handleTriggerClick = (id: string) => {
@@ -213,30 +212,37 @@ export default function FAQ() {
     <PageTransition>
       <div className="content">
         <h1 className="title-page">Foire aux questions</h1>
-        {faqSections.map((section, sectionIndex) => (
-          <section key={sectionIndex}>
-            <h2 className="mt-10">{section.title}</h2>
-            <Accordion type="multiple"  className="w-full">
-              {section.items.map((item, itemIndex) => {
-                const triggerId = `section-${sectionIndex}-item-${itemIndex}`;
-                return (
-                  <AccordionItem key={triggerId} value={triggerId} className="my-0 py-0 mt-0">
-                    <AccordionTrigger
-                      className={`w-full rounded-lg mb-0 text-left text-lg py-2 mt-2 hover:bg-app-100 px-2 font-bold flex items-center ${
-                        activeTriggers.has(triggerId)
-                          ? "bg-app-100 "
-                          : ""
-                      }`}
-                      onClick={() => handleTriggerClick(triggerId)}>
-                      <h3 className="py-0 font-semibold text-lg mb-0">{item.question}</h3>
-                    </AccordionTrigger>
-                    <AccordionContent ><p className="pl-5 pb-0 mb-0" dangerouslySetInnerHTML={{ __html: item.answer }}></p></AccordionContent>
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          </section>
-        ))}
+        <div className="faqContent">
+          {faqSections.map((section, sectionIndex) => (
+            <section key={sectionIndex}>
+              <h2 className="mt-10">{section.title}</h2>
+              <Accordion type="multiple" className="w-full my-0 py-0">
+                {section.items.map((item, itemIndex) => {
+                  const triggerId = `section-${sectionIndex}-item-${itemIndex}`;
+                  return (
+                    <AccordionItem
+                      key={triggerId}
+                      value={triggerId}
+                      className="my-0 py-0">
+                      <AccordionTrigger
+                        className={`w-full text-left text-lg flex items-center hover:bg-app-100 px-2 font-bold  ${
+                          activeTriggers.has(triggerId) ? "bg-app-100 " : ""
+                        }`}
+                        onClick={() => handleTriggerClick(triggerId)}>
+                        {item.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="">
+                        <p
+                          className="pl-5 my-2 mt-4"
+                          dangerouslySetInnerHTML={{ __html: item.answer }}></p>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </section>
+          ))}
+        </div>
       </div>
     </PageTransition>
   );

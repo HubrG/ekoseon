@@ -1,13 +1,4 @@
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
-import { getUser } from "@/src/query/user.query";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faScaleBalanced } from "@fortawesome/pro-duotone-svg-icons";
 import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -15,7 +6,7 @@ export const metadata: Metadata = {
   description: "Ekoseon",
 };
 
-export default async function legal() {
+export default async function Legal() {
   return (
     <PageTransition>
       <section>
@@ -30,41 +21,56 @@ export default async function legal() {
           <h2>
             1. Identification de l’éditeur et du responsable de la publication
           </h2>
-          <p>
-            <ul className="flex flex-col gap-y-1">
-              <li>
+
+          <ul className="flex flex-col gap-y-1">
+            <li>
+              <p>
                 <strong>Nom de la société</strong> : Ekoseon
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
                 <strong>Adresse</strong> : 32 boulevard Jules Verne
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
                 <strong>Téléphone</strong> : +33 6 12 75 82 61
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
                 <strong>E-mail</strong> :{" "}
                 <a href="mailto:contact@ekoseon.fr">contact@ekoseon.fr</a>
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
                 <strong>Numéro de SIRET</strong> : 50751843900033
-              </li>
-            </ul>
-          </p>
+              </p>
+            </li>
+          </ul>
+
           <h2>2. Hébergement et site internet</h2>
-          <p>
-            <ul className="flex flex-col gap-y-1">
-              <li>
+          <ul className="flex flex-col gap-y-1">
+            <li>
+              <p>
+                {" "}
                 <strong>Développeur du site internet</strong> :{" "}
                 <a href="mailto:contact@ekoseon.fr">Hubert Giorgi</a>
-              </li>
-              <li>
+              </p>
+            </li>
+            <li>
+              <p>
+                {" "}
                 <strong>Nom de l’hébergeur</strong> :{" "}
                 <a href="https://vercel.com" target="_blank">
                   Vercel
                 </a>
-              </li>
-            </ul>
-          </p>
+              </p>
+            </li>
+          </ul>
+
           <h2>3. Propriété intellectuelle</h2>
           <p>
             Les contenus présents sur le site, notamment les textes, images,

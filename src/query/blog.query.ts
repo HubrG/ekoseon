@@ -178,6 +178,32 @@ export const getTagsForPublishedPosts = async (slug?: string) => {
   return tags;
 };
 
+export const getCategoriesForPublishedPosts = async (slug?: string) => {
+  const posts = await prisma.blogCategory.findMany({
+    where: {
+      slug: slug,
+      // Ici, vous accédez à la relation de jointure et utilisez la propriété 'post'
+      // pour filtrer les tags associés aux posts publiés
+      posts: {
+        some: {
+          published: true,
+        },
+      },
+    },
+    // Ici, vous pouvez sélectionner les champs spécifiques que vous voulez récupérer pour le tag
+    // Par exemple, inclure les champs 'id' et 'name' du tag
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      // Et tout autre champ que vous souhaiteriez sélectionner
+    },
+  });
+
+  return posts;
+};
+
+
 export const getBlogTag = async (slug?:string) => {
 
   const rawSlug = await prisma.blogTag.findUnique({

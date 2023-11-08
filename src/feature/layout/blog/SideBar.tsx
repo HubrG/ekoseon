@@ -1,5 +1,5 @@
 import {
-  getBlogCategories,
+  getCategoriesForPublishedPosts,
   getTagsForPublishedPosts,
 } from "@/src/query/blog.query";
 import React from "react";
@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default async function SideBar() {
-  const categories = await getBlogCategories();
+  const categories = await getCategoriesForPublishedPosts();
   const tags = await getTagsForPublishedPosts();
   return (
     <div className="flex flex-col h-[85vh] md:pl-4">

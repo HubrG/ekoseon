@@ -17,6 +17,8 @@ export default async function BlogPostsByTag({
 }: {
   params: { method: string; slug: string; id: string };
 }) {
+
+
   const tag = await getBlogTag(params.slug);
 
   return (
@@ -37,7 +39,7 @@ export default async function BlogPostsByTag({
             </h1>
             <div className="flex md:flex-row flex-col gap-5">
               <div className="w-full">
-                <BlogPostList />
+                <BlogPostList tagSlug={tag?.slug} />
               </div>
             </div>
           </div>

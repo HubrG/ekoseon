@@ -2,6 +2,9 @@ import React, { Suspense } from "react";
 import { BlogPost } from "@prisma/client";
 import Image from "next/image";
 import { BlogBreadCrumb } from "./Breadcrumb";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTags } from "@fortawesome/pro-solid-svg-icons";
 
 interface ExtendedBlogPost extends BlogPost {
   category?: {
@@ -49,6 +52,16 @@ export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
               className="mt-14"
               dangerouslySetInnerHTML={{ __html: blogPost.content }}
             />
+             {blogPost.tags && (
+              <div className="inline-flex gap-3 items-center flex-wrap my-10 ">
+                <FontAwesomeIcon icon={faTags} className="text-2xl" />
+                {blogPost.tags.map((tag) => (
+                  <Link href={`/blog/tag/${tag.tag.slug}`} key={tag.tag.id}>
+                    {tag.tag.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </article>
         </>
       ) : (

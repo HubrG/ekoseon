@@ -2,15 +2,16 @@ import { getBlogPosts, getBlogPostsByTagSlug, getBlogPostsByCategorySlug } from 
 import React from "react";
 import BlogPostListView from "./BlogPostListView";
 type Props = {
-  tagName?: string;
-  categoryName?: string;
+  tagSlug?: string;
+  categorySlug?: string;
 };
-export default async function BlogPostList({ tagName, categoryName }: Props) {
+export default async function BlogPostList({ tagSlug, categorySlug }: Props) {
+
   let blogPosts = [];
-  if (tagName) {
-    blogPosts = await getBlogPostsByTagSlug(tagName);
-  } else if (categoryName) {
-    blogPosts = await getBlogPostsByCategorySlug(categoryName);
+  if (tagSlug) {
+    blogPosts = await getBlogPostsByTagSlug(tagSlug);
+  } else if (categorySlug) {
+    blogPosts = await getBlogPostsByCategorySlug(categorySlug);
   } else {
     blogPosts = await getBlogPosts();
   }

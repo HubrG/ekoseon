@@ -33,11 +33,13 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
         .map((post: CustomBlogPost) => (
           <>
             {post.published && (
-              
               <MotionShow animation="bounceIn" key={post.id}>
-                <MotionHover scale={1.01} shadow={"0 25px 50px -12px var(--color-app3)"} type={"grow"}>
-                  <div className="flex flex-col gap-5 rounded-lg p-4 items-start ">
-                    <div className="flex w-full flex-row items-center justify-between">
+                <MotionHover
+                  scale={1.01}
+                  shadow={"0 25px 50px -12px var(--color-app3)"}
+                  type={"grow"}>
+                  <div className="flex flex-col gap-5 rounded-lg p-5 items-start border-b-2">
+                    <div className="flex w-full flex-row items-center mb-1 justify-between">
                       <p>
                         <small>
                           Le{" "}
@@ -50,7 +52,9 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                             .replace(",", " à")}
                         </small>
                       </p>
-                      <Link href={`/blog/categorie/${post.category?.slug}`} className="text-sm">
+                      <Link
+                        href={`/blog/categorie/${post.category?.slug}`}
+                        className="text-sm">
                         {post.category?.name}
                       </Link>
                     </div>
@@ -77,7 +81,7 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                         {post.excerpt ? post.excerpt : ""}
                       </p>
                     </Link>
-                    <div className="flex flex-row flex-wrap gap-2 text-sm -mt-5 italic opacity-80">
+                    <div className="flex flex-row flex-wrap gap-2 text-sm italic opacity-80">
                       {post.tags &&
                         post.tags.map((tag: any) => (
                           <span key={tag.id} className="tag-label">
@@ -90,7 +94,6 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
                         ))}
                     </div>
                   </div>
-                  <div></div>
                 </MotionHover>
               </MotionShow>
             )}
