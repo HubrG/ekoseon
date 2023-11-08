@@ -135,7 +135,7 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
     );
 
     for (const tagName of newTagNames) {
-      let slug = slugify(tagName, { lower: true, remove: /[*+~.()'"!:@]/g });
+      let slug = slugify(tagName, { lower: true,  strict: true, remove: /[*+~.()'"!:@]/g });
       let uniqueSlug = slug;
       let counter = 0;
 

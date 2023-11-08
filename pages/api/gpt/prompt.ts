@@ -92,6 +92,7 @@ const retrievePrompt = async (req: NextApiRequest, res: NextApiResponse) => {
         title: title,
         canonicalSlug: slugify(title, {
           lower: true,
+          strict: true,
           remove: /[*+~.()'"!:@]/g,
         }),
         content: contentHTML,
