@@ -303,7 +303,7 @@ export function InnerCheckoutForm() {
         <Card>
           <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 pb-0 rounded-b-none shadow shadow-app-200">
             <CardTitle className="py-0 mb-5">
-              <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row justify-between items-center -mt-6">
                 <div>Paiement</div>
                 <div className="flex flex-row items-center gap-x-5 justify-center">
                   <FontAwesomeIcon icon={faCcVisa} />

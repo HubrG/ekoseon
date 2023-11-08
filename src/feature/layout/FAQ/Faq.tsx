@@ -24,6 +24,41 @@ export default function FAQComponent() {
     });
   };
   const faqSections = [
+    
+    {
+      title: "Informations Générales",
+      items: [
+        {
+          question: "Qu'est-ce qu'Ekoseon ?",
+          answer:
+            "Ekoseon transforme vos dialogues en podcasts et livres biographiques mémorables via des entretiens personnalisés.",
+        },
+        {
+          question:
+            "Comment fonctionne le processus de création d'un podcast biographique ?",
+          answer:
+            "Le processus inclut des entretiens personnalisés, l'édition audio et, si choisi, la transcription en livre biographique.",
+        },
+        {
+          question:
+            "Qu'est-ce qu'un entretien personnalisé chez Ekoseon et comment se déroule-t-il ?",
+          answer:
+            "Un entretien personnalisé est une interview adaptée à votre histoire, enregistrée pour créer votre podcast ou livre biographique.",
+        },
+        {
+          question:
+            "Quels équipements dois-je avoir pour enregistrer mon entretien avec Ekoseon ?",
+          answer:
+            "Un ordinateur avec une connexion internet stable et une webcam sont nécessaires pour l'entretien en visioconférence.",
+        },
+        {
+          question:
+            "Puis-je acheter un micro-cravate directement chez Ekoseon ?",
+          answer:
+            "Ekoseon propose des micro-cravates à la vente pour améliorer la qualité de l'entretien.",
+        },
+      ],
+    },
     {
       title: "Le Processus d'Entretien",
       items: [
@@ -113,40 +148,6 @@ export default function FAQComponent() {
       ],
     },
     {
-      title: "Informations Générales",
-      items: [
-        {
-          question: "Qu'est-ce qu'Ekoseon ?",
-          answer:
-            "Ekoseon transforme vos dialogues en podcasts et livres biographiques mémorables via des entretiens personnalisés.",
-        },
-        {
-          question:
-            "Comment fonctionne le processus de création d'un podcast biographique ?",
-          answer:
-            "Le processus inclut des entretiens personnalisés, l'édition audio et, si choisi, la transcription en livre biographique.",
-        },
-        {
-          question:
-            "Qu'est-ce qu'un entretien personnalisé chez Ekoseon et comment se déroule-t-il ?",
-          answer:
-            "Un entretien personnalisé est une interview adaptée à votre histoire, enregistrée pour créer votre podcast ou livre biographique.",
-        },
-        {
-          question:
-            "Quels équipements dois-je avoir pour enregistrer mon entretien avec Ekoseon ?",
-          answer:
-            "Un ordinateur avec une connexion internet stable et une webcam sont nécessaires pour l'entretien en visioconférence.",
-        },
-        {
-          question:
-            "Puis-je acheter un micro-cravate directement chez Ekoseon ?",
-          answer:
-            "Ekoseon propose des micro-cravates à la vente pour améliorer la qualité de l'entretien.",
-        },
-      ],
-    },
-    {
       title: "Commande, Paiement et Livraison",
       items: [
         {
@@ -207,14 +208,13 @@ export default function FAQComponent() {
       {faqSections.map((section, sectionIndex) => (
         <section className="relative" key={sectionIndex}>
           <h2 className="py-5 sticky top-[4.63rem] bg-white z-10">{section.title}</h2>
-          <Accordion type="multiple" className="w-full my-0 py-0">
+          <Accordion type="multiple" className="w-full">
             {section.items.map((item, itemIndex) => {
               const triggerId = `section-${sectionIndex}-item-${itemIndex}`;
               return (
                 <AccordionItem
                   key={triggerId}
-                  value={triggerId}
-                  className="my-0 py-0">
+                  value={triggerId}>
                   <AccordionTrigger
                     className={`w-full text-left text-lg flex items-center hover:bg-app-100 italic font-semibold  px-2 ${
                       activeTriggers.has(triggerId) ? "bg-app-100 " : ""
@@ -222,8 +222,8 @@ export default function FAQComponent() {
                     onClick={() => handleTriggerClick(triggerId)}>
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="flex flex-row items-center">
-                    <p className="my-2 mt-4 flex flex-row items-baseline pl-4 gap-x-2">
+                  <AccordionContent>
+                    <p className="py-2 pt-4 flex flex-row items-baseline pl-4 gap-x-2">
                       <FontAwesomeIcon icon={faCommentDots} flip="horizontal" />
                       <span
                         dangerouslySetInnerHTML={{

@@ -27,7 +27,7 @@ interface BlogPostProps {
 }
 
 export const ReadPost: React.FC<BlogPostProps> = ({ blogPost }) => {
-  console.log(blogPost.tags)
+
   return (
     <>
       {blogPost.content && blogPost.title ? (

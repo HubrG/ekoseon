@@ -76,7 +76,7 @@ export default async function Success({
             <>
               <Card>
                 <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 rounded-b-none shadow shadow-app-200">
-                  <CardTitle>
+                  <CardTitle className=" -mt-5">
                     <div className="w-1/5 flex justify-center mx-auto">
                       <LottieDisplayOnSSR animation="validation" />
                     </div>

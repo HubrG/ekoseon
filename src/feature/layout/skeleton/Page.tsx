@@ -4,11 +4,10 @@ import { Progress } from "@/components/ui/progress";
 import { LottieDisplayOnSSR } from '@/src/feature/layout/lottie/LottieDisplayOnSSR'
 
 const Loading = (props: any) => {
-
  
   return (
     <div className="w-full mt-20 min-h-[70vh] px-5 items-center flex justify-center">
-      <div role="status" className="space-y-2.5 animate-pulse max-w-lg">
+      <div role="status" className="space-y-2.5 animate-pulse max-w-xl">
         <LottieDisplayOnSSR animation="loader" />
         <span className="sr-only">Loading...</span>
       </div>
