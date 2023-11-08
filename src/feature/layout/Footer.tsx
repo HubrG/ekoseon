@@ -58,7 +58,7 @@ export const Footer = async () => {
                   <li>
                     <Link
                       href="/blog"
-                      prefetech={true}
+                      prefetch={true}
                       className="hover:underline">
                       Blog
                     </Link>
@@ -104,11 +104,11 @@ export const Footer = async () => {
               réservés
             </span>
             <div className="flex mt-4 space-x-5 sm:justify-center md:mt-0 text-sm">
-              <Link href="/mentions-legales" prefetech={true} className="subFooterLink">Mentions légale</Link>
-              <Link href="/politique-de-confidentialite"  prefetech={true} className="subFooterLink">
+              <Link href="/mentions-legales" prefetch={true} className="subFooterLink">Mentions légale</Link>
+              <Link href="/politique-de-confidentialite"  prefetch={true} className="subFooterLink">
                 Politique de confidentialité
               </Link>
-              <Link href="/conditions-generales-de-vente"  prefetech={true} className=" subFooterLink">CGV</Link>
+              <Link href="/conditions-generales-de-vente"  prefetch={true} className=" subFooterLink">CGV</Link>
             </div>
             <div className="flex mt-4 space-x-5  sm:justify-center md:mt-0">
               <ul className="mt-8 flex justify-center gap-6 sm:mt-0 lg:justify-end">
