@@ -43,11 +43,12 @@ export const Basket = () => {
   };
 
   return (
+    
     <div className="w-full p-5 rounded-xl border border-app-300 shadow items-start flex flex-col gap-y-5 mt-1">
       {cartItems.map((product) => (
         <div
           key={product.id}
-          className="flex flex-row justify-between w-full gap-x-4">
+          className="flex flex-row justify-between   w-full gap-x-4">
           <div className="flex flex-row  gap-x-4">
             {product.img && (
               <div>
@@ -61,8 +62,9 @@ export const Basket = () => {
               </div>
             )}
             <div>
-              <div className="font-semibold">{product.name}</div>
-              <div className="text-sm">{product.price}€</div>
+            <div className="font-semibold">{product.name}</div>
+            <div className="font-semibold md:block hidden"><p className="text-sm italic font-normal">{product.description}</p></div>
+              <div className="text-sm font-bold">{product.price}€</div>
             </div>
           </div>
           <div>
@@ -82,7 +84,7 @@ export const Basket = () => {
         onClick={handleUpdateBasket}
         variant={"outline"}
         className="w-full">
-       Modifier mon panier
+        Modifier mon panier
       </Button>
     </div>
   );
