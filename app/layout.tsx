@@ -83,7 +83,7 @@ export default function RootLayout(props: {
               <Header />
               <div>
                 {children}
-                <SpeedInsights />
+                {/* <SpeedInsights /> */}
               </div>
               <Footer />
             </ThemeProvider>

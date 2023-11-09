@@ -114,7 +114,7 @@ export default async function ReadBlogPost({
     headline: blogPost.title,
     image: blogPost.image,
     author: {
-      "@type": "Person",
+      "@type": "Organization",
       name: process.env.NEXT_PUBLIC_APP_NAME,
       url: process.env.NEXT_PUBLIC_RELATIVE_URI,
     },
