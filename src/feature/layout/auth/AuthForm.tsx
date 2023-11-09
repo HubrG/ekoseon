@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Toastify } from "@/src/feature/layout/toastify/Toastify";
 import { useRouter } from "next/navigation";
-
+import { RetrievePwd } from "./RetrievePwd";
 const LoginPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -44,7 +44,10 @@ const LoginPage = () => {
         callbackUrl: "/profil/mes-commandes",
       });
       const session = await getSession();
-      Toastify({ type: "default", value: `Heureux de vous revoir  ${session?.user.name} !` });
+      Toastify({
+        type: "default",
+        value: `Heureux de vous revoir  ${session?.user.name} !`,
+      });
       router.refresh();
       router.push("/profil/mes-commandes");
     } else {
@@ -53,12 +56,12 @@ const LoginPage = () => {
     }
   };
 
-  const onGithubSignIn = async () => {
-    // Ajouté async
-    setIsLoading(true);
-    await signIn("github", { callbackUrl: "/" });
-    setIsLoading(false);
-  };
+  // const onGithubSignIn = async () => {
+  //   // Ajouté async
+  //   setIsLoading(true);
+  //   await signIn("github", { callbackUrl: "/" });
+  //   setIsLoading(false);
+  // };
 
   return (
     <>
@@ -92,16 +95,19 @@ const LoginPage = () => {
           )}
           Connexion
         </Button>
-        <div className="separatorWithText">
+        {/* <div className="separatorWithText">
           <div>
             <span />
           </div>
           <div>
             <span>Ou</span>
           </div>
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter>
+       <RetrievePwd />
+      </CardFooter>
+      {/* <CardFooter>
         <Button
           variant="ghost"
           onClick={onGithubSignIn}
@@ -146,7 +152,7 @@ const LoginPage = () => {
           )}{" "}
           Connexion avec Google
         </Button>
-      </CardFooter>
+      </CardFooter> */}
     </>
   );
 };

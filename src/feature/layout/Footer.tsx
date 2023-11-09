@@ -114,7 +114,7 @@ export const Footer = async () => {
               <ul className="mt-8 flex justify-center gap-6 sm:mt-0 lg:justify-end">
                 <li>
                   <a
-                    href="/"
+                    href="https://www.facebook.com/ekoseon/"
                     rel="noreferrer"
                     target="_blank"
                     className="text-slate-700 hover:text-app-700 dark:hover:text-app-600 transition hover:opacity-75">
@@ -125,7 +125,7 @@ export const Footer = async () => {
 
                 <li>
                   <a
-                    href="/"
+                    href="https://www.instagram.com/ekos.eon/"
                     rel="noreferrer"
                     target="_blank"
                     className="text-slate-700 hover:text-app-700 dark:hover:text-app-600 transition hover:opacity-75">
@@ -136,17 +136,16 @@ export const Footer = async () => {
 
                 <li>
                   <a
-                    href="/"
+                    href="https://twitter.com/ekoseon"
                     rel="noreferrer"
                     target="_blank"
                     className="text-slate-700 hover:text-app-700 dark:hover:text-app-600 transition hover:opacity-75">
                     <span className="sr-only">Twitter</span>
-
                     <FontAwesomeIcon icon={faTwitter} />
                   </a>
                 </li>
 
-                <li>
+                {/* <li>
                   <a
                     href="/"
                     rel="noreferrer"
@@ -156,7 +155,7 @@ export const Footer = async () => {
 
                     <FontAwesomeIcon icon={faYoutube} />
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

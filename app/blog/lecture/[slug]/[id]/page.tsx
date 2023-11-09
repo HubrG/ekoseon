@@ -1,10 +1,10 @@
 import { ReadPost } from "@/src/feature/layout/blog/ReadPost";
 import React from "react";
 import { getBlogPost } from "@/src/query/blog.query";
-import type { Metadata } from "next";
-import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import NotFound from "@/app/not-found";
 import { BlogPost } from "@prisma/client";
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import { Metadata } from "next";
 
 interface Props {
   params: { id: string };

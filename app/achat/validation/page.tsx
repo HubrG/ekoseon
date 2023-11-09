@@ -5,7 +5,6 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: Meta("title", "Votre panier"),
-  description: "Ekoseon",
 };
 
 export default function Achat() {

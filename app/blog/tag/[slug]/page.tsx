@@ -1,17 +1,17 @@
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
 import BlogPostList from "@/src/feature/layout/blog/BlogPostList";
 import React from "react";
-import { Meta } from "@/src/feature/layout/metadata/Metadata";
-import { Metadata } from "next";
 import { getBlogTag } from "@/src/query/blog.query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import Link from "next/link";
 import SideBar from "@/src/feature/layout/blog/SideBar";
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import { Metadata } from "next";
 export const metadata: Metadata = {
   title: Meta("title", "Blog"),
-  description: "Ekoseon",
 };
+
 export default async function BlogPostsByTag({
   params,
 }: {

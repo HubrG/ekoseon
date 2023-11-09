@@ -1,8 +1,6 @@
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
 import BlogPostList from "@/src/feature/layout/blog/BlogPostList";
 import React from "react";
-import { Meta } from "@/src/feature/layout/metadata/Metadata";
-import { Metadata } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFolderBookmark,
@@ -10,10 +8,11 @@ import {
 import Link from "next/link";
 import { getBlogCategory } from "@/src/query/blog.query";
 import SideBar from "@/src/feature/layout/blog/SideBar";
-export const metadata: Metadata = {
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
+import createMetadata from "@/lib/metadatas";
+export const metadata = createMetadata({
   title: Meta("title", "Blog"),
-  description: "Ekoseon",
-};
+});
 export default async function BlogPostsByCategory({
   params,
 }: {

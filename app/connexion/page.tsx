@@ -12,7 +12,6 @@ import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: Meta("title", "Connexion"),
-  description: "Ekoseon",
 };
 
 const Auth = async () => {

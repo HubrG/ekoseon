@@ -4,7 +4,6 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: Meta("title", "Merci !"),
-  description: "Ekoseon",
 };
 
 export default async function Success() {

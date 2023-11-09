@@ -1,10 +1,9 @@
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
 import BlogPostList from "@/src/feature/layout/blog/BlogPostList";
 import React from "react";
-import { Meta } from "@/src/feature/layout/metadata/Metadata";
-import { Metadata } from "next";
 import SideBar from "../../src/feature/layout/blog/SideBar";
 
+import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import createMetadata from "@/lib/metadatas";
 export const metadata = createMetadata({
   // Voir la configuration des métadonnées dans metadatas.ts

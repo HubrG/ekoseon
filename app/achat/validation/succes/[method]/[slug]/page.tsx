@@ -21,7 +21,6 @@ import { Separator } from "@/components/ui/separator";
 
 export const metadata: Metadata = {
   title: Meta("title", "Merci !"),
-  description: "Ekoseon",
 };
 
 export default async function Success({

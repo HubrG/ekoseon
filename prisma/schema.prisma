@@ -189,6 +189,13 @@ model BlogTagOnPost {
 
   @@id([tagId, postId])
 }
+model userToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
 // USER:
 // Représente un utilisateur ou un client sur la plateforme.
