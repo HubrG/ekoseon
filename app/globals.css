@@ -299,7 +299,7 @@ div.burger-menu ul li a {
 /* Product */
 
 .product-alt {
-  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 hover:shadow hover:shadow-app-200 rounded-xl pb-16;
+  @apply flex flex-col  relative cursor-pointer  md:w-1/2 w-full items-center space-x-2 gap-y-5 p-5 hover:bg-app-200/50 hover:shadow hover:shadow-app-200 rounded-xl ;
 }
 div product-alt:first-child {
   @apply border-2 border-r-2;

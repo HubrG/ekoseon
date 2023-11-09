@@ -27,6 +27,7 @@ import {
   faBookUser,
 } from "@fortawesome/pro-duotone-svg-icons";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type ProductProps = {
   product: FetchedProduct;
@@ -251,7 +252,8 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
     },
     offers: {
       "@type": "Offer",
-      url: process.env.NEXT_PUBLIC_RELATIVE_URI + "/raconter-ses-memoires/tarifs",
+      url:
+        process.env.NEXT_PUBLIC_RELATIVE_URI + "/raconter-ses-memoires/tarifs",
       priceCurrency: "EUR",
       price: product.price,
       priceValidUntil: "2024-11-05",
@@ -302,7 +304,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex md:flex-row flex-col gap-y-2 gap-x-2  ">
+          <div className="flex sm:flex-row  flex-col gap-y-0 gap-x-4   ">
             <div
               onClick={handleBioClick}
               className={`product-alt ${
@@ -310,23 +312,30 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                   ? "border border-app-500 bg-app-200/50"
                   : "border border-transparent"
               }`}>
-              <Switch
-                id={`${key}-biography`}
-                aria-label="Ajouter une biographie"
-                onClick={handleBio}
-                className="absolute bottom-5"
-              />
+            
               <Label
                 htmlFor={`${key}-biography`}
-                className="text-center  select-none cursor-pointer  flex flex-col gap-y-5 ">
-                <FontAwesomeIcon
-                  icon={faBookUser}
-                  className="md:text-7xl text-4xl  text-app-900"
-                />
-                <span className="font-semibold">
+                className="text-center  select-none cursor-pointer  flex flex-col gap-y-4">
+                {productWithBio && productWithBio.imageUrl ? (
+                  <div className={`rounded-full h-28 w-28  border-4 ${bioChecked ? "border-2 border-app-700" : "border-transparent"} mx-auto  shadow-inner shadow-app-900`}>
+                    <Image
+                      className="object-cover rounded-full "
+                      src={productWithBio.imageUrl}
+                      alt={productWithBio.title}
+                      width="200"
+                      height="200"
+                    />
+                  </div>
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faBookUser}
+                    className=" md:text-7xl text-4xl text-app-900"
+                  />
+                )}
+                <p className="font-semibold  mt-0 pt-0">
                   Je souhaite faire écrire une jolie biographie à partir de cet
                   enregistrement.
-                </span>
+                </p>
                 <Badge
                   className={`${
                     bioChecked
@@ -349,8 +358,15 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                     </div>
                   )}
                 </Badge>
+                <Switch
+                id={`${key}-biography`}
+                aria-label="Ajouter une biographie"
+                onClick={handleBio}
+                className="mx-auto"
+              />
               </Label>
             </div>
+            <Separator className=" rounded-full my-5 sm:hidden block" />
             <div
               onClick={handleMicroClick}
               className={`product-alt ${
@@ -358,24 +374,30 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                   ? "border border-app-500  bg-app-200/50"
                   : "border border-transparent"
               }`}>
-              <Switch
-                id={`${key}-microphone`}
-                aria-label="Ajouter un micro"
-                onClick={handleMicro}
-                className="absolute bottom-5"
-              />
               <Label
                 htmlFor={`${key}-microphone`}
-                className="text-center select-none cursor-pointer flex flex-col gap-y-5">
-                <FontAwesomeIcon
-                  icon={faMicrophoneLines}
-                  className=" md:text-7xl text-4xl text-app-900"
-                />
+                className="text-center select-none cursor-pointer flex flex-col gap-y-4">
+                {productWithMicro && productWithMicro.imageUrl ? (
+                  <div className={`rounded-full  h-28 w-28 border-4 ${microChecked ? "border-2 border-app-700" : "border-transparent"}  mx-auto shadow-inner`}>
+                    <Image
+                      className="object-cover rounded-full  shadow-inner"
+                      src={productWithMicro.imageUrl}
+                      alt={productWithMicro.title}
+                      width="200"
+                      height="200"
+                    />
+                  </div>
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faMicrophoneLines}
+                    className=" md:text-7xl text-4xl text-app-900"
+                  />
+                )}
                 {/* {productWithMicro?.price} */}
-                <span className="font-semibold">
+                <p className="font-semibold mt-0 pt-0">
                   J&apos;ai besoin d&apos;un meilleur microphone pour assurer la
                   qualité de l&apos;enregistrement.
-                </span>
+                </p>
                 <Badge
                   className={`${
                     microChecked
@@ -391,6 +413,12 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                     €
                   </span>
                 </Badge>
+                <Switch
+                id={`${key}-microphone`}
+                aria-label="Ajouter un micro"
+                onClick={handleMicro}
+                className="mx-auto"
+              />
               </Label>
             </div>
           </div>

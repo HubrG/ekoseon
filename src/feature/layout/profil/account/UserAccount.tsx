@@ -24,8 +24,8 @@ export const UserAccount = ({ sessionUser }: AccountProps) => {
         <CardTitle className="shadcnCard-title">
           <FontAwesomeIcon icon={faUser} />
         </CardTitle>
-        <CardDescription className="shadcnCard-description -mt-5 font-bold">
-          <span className="text-2xl -mt-2">{sessionUser.name}</span>
+        <CardDescription className="shadcnCard-description h-auto font-bold">
+          <span className="text-2xl -mt-5">{sessionUser.name}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="text-base">
