@@ -37,8 +37,8 @@ const BlogPostListView: React.FC<BlogPostListProps> = ({ blogPosts }) => {
               <div key={v4() + post.id}>
                 <MotionShow animation="bounceIn">
                   <MotionHover
-                    scale={1.01}
-                    shadow={"0 25px 50px -12px var(--color-app3)"}
+                    scale={1.005}
+                    shadow={"0 15px 50px -12px var(--color-app3)"}
                     type={"grow"}>
                     <div className="flex flex-col gap-5 rounded-lg p-5 items-start border-b-2 border-b-app-200">
                       <div className="flex w-full flex-row items-center mb-1 justify-between">

@@ -319,11 +319,11 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                 {productWithBio && productWithBio.imageUrl ? (
                   <div className={`rounded-full h-28 w-28  border-4 ${bioChecked ? "border-2 border-app-700" : "border-transparent"} mx-auto  shadow-inner shadow-app-900`}>
                     <Image
-                      className="object-cover rounded-full "
+                      className="object-cover shadow-inner rounded-full "
                       src={productWithBio.imageUrl}
                       alt={productWithBio.title}
-                      width="200"
-                      height="200"
+                      width="110"
+                      height="110"
                     />
                   </div>
                 ) : (
@@ -383,8 +383,8 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                       className="object-cover rounded-full  shadow-inner"
                       src={productWithMicro.imageUrl}
                       alt={productWithMicro.title}
-                      width="200"
-                      height="200"
+                      width="110"
+                      height="110"
                     />
                   </div>
                 ) : (

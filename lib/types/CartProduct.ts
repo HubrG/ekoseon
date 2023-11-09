@@ -7,6 +7,7 @@ export interface CartProduct {
   description?: string;
   products?: CartProduct[]; // Si vous n'en avez pas besoin, vous pouvez l'omettre
   items?: CartItem[];
+  display?: boolean;
 }
 
 export interface CartItem {
@@ -17,4 +18,5 @@ export interface CartItem {
   img?: string;
   description?: string;
   products?: CartProduct[]; // Si vous n'en avez pas besoin, vous pouvez l'omettre
+  display?: boolean;
 }
