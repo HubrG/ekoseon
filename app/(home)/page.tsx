@@ -6,86 +6,87 @@ export default async function Home() {
     <>
       {/*  */}
       <Hero />
-      <section id="yourStory" className="story-section first-section">
+      <section id="appFirstPage" className="story-section first-section">
         <div className="content">
           <h2>
             Immortalisez Votre Histoire : Vos Souvenirs dans un Podcast ou un
             Livre
           </h2>
           <p>
-            Envisagez-vous de laisser un héritage vocal vibrant ou un témoignage
-            écrit indélébile ? Ekoseon transforme votre histoire personnelle en
-            expériences captivantes grâce à nos services de création de podcasts
-            et d’écriture de livres biographiques. Imprégnez ces formats de
-            votre essence pour offrir à vos proches un morceau de votre vie,
-            enrichi par une touche personnelle inoubliable.
-            <ul>
-              <li>
-                <strong>Authenticité de la Voix :</strong> Vos passions, vos
-                rires et vos réflexions prennent vie dans l&apos;authenticité de
-                l&apos;audio.
-              </li>
-              <li>
-                <strong>Connexion Émotionnelle :</strong> Provoquez une
-                résonance émotionnelle chez vos auditeurs, qui se sentiront
-                comme à vos côtés.
-              </li>
-              <li>
-                <strong>Accessibilité :</strong> Partagez votre récit avec
-                facilité, que ce soit à l&apos;écoute d&apos;un podcast ou à la
-                lecture d’un passage d&apos;un livre.
-              </li>
-              <li>
-                <strong>Conservation Durable :</strong> Chaque mot, chaque pause
-                en podcast, et chaque page écrite, deviennent des conservateurs
-                de votre histoire.
-              </li>
-              <li>
-                <strong>Expérience Personnalisée :</strong> Nous adaptons le
-                récit en fonction de vos préférences, pour que chaque souvenir
-                reflète fidèlement votre individualité.
-              </li>
-              <li>
-                <strong>Transmission des Valeurs :</strong> Partagez vos
-                expériences de vie et votre sagesse, fixées dans l&apos;oralité
-                ou dans les mots.
-              </li>
-              <li>
-                <strong>Votre Plateforme :</strong> Ekoseon est là pour célébrer
-                et pérenniser vos aventures, afin qu&apos;elles résonnent avec
-                profondeur et authenticité.
-              </li>
-            </ul>
+            Ekoseon transforme votre histoire personnelle en expériences
+            captivantes grâce à nos services de création de podcasts et
+            d’écriture de livres biographiques. Imprégnez ces formats de votre
+            essence pour offrir à vos proches un morceau de votre vie, enrichi
+            par une touche personnelle inoubliable.
           </p>
+          <ul>
+            <li>
+              <strong>Authenticité de la Voix :</strong> Vos passions, vos rires
+              et vos réflexions prennent vie dans l&apos;authenticité de
+              l&apos;audio.
+            </li>
+            <li>
+              <strong>Connexion Émotionnelle :</strong> Provoquez une résonance
+              émotionnelle chez vos auditeurs, qui se sentiront comme à vos
+              côtés.
+            </li>
+            <li>
+              <strong>Accessibilité :</strong> Partagez votre récit avec
+              facilité, que ce soit à l&apos;écoute d&apos;un podcast ou à la
+              lecture d’un passage d&apos;un livre.
+            </li>
+            <li>
+              <strong>Conservation Durable :</strong> Chaque mot, chaque pause
+              en podcast, et chaque page écrite, deviennent des conservateurs de
+              votre histoire.
+            </li>
+            <li>
+              <strong>Expérience Personnalisée :</strong> Nous adaptons le récit
+              en fonction de vos préférences, pour que chaque souvenir reflète
+              fidèlement votre individualité.
+            </li>
+            <li>
+              <strong>Transmission des Valeurs :</strong> Partagez vos
+              expériences de vie et votre sagesse, fixées dans l&apos;oralité ou
+              dans les mots.
+            </li>
+            <li>
+              <strong>Votre Plateforme :</strong> Ekoseon est là pour célébrer
+              et pérenniser vos aventures, afin qu&apos;elles résonnent avec
+              profondeur et authenticité.
+            </li>
+          </ul>
         </div>
       </section>
       <section className="podcast-section">
         <div className="content">
-          <h3>Podcast Biographique : Votre Vie en Sonorités Envoûtantes</h3>
+          <h2>Podcast Biographique : Votre Vie en Sonorités Envoûtantes</h2>
           <p>
             Opter pour un podcast biographique, c&apos;est choisir de vibrer au
-            rythme de votre propre voix, de partager l&apos;intimité de vos souvenirs
-            en tonalités. Chez Ekoseon, nous capturons la quintessence de vos
-            expériences dans un format audio riche, créant ainsi un véritable
-            feuilleton de votre vie. Vos anecdotes, vos rires, et les inflexions
-            de votre voix s&apos;entremêlent pour donner naissance à un tableau
-            sonore qui transcende le temps et touche les cœurs de façon unique.
+            rythme de votre propre voix, de partager l&apos;intimité de vos
+            souvenirs en tonalités. Chez Ekoseon, nous capturons la quintessence
+            de vos expériences dans un format audio riche, créant ainsi un
+            véritable feuilleton de votre vie. Vos anecdotes, vos rires, et les
+            inflexions de votre voix s&apos;entremêlent pour donner naissance à
+            un tableau sonore qui transcende le temps et touche les cœurs de
+            façon unique.
           </p>
           <p>
             Nous mettons en scène vos récits avec une authenticité inégalable,
-            orchestrant chaque détail sonore pour souligner l&apos;atmosphère de vos
-            souvenirs. Que vos descendants découvrent vos exploits ou que vos
-            amis se remémorent les moments partagés, chaque épisode podcasté est
-            une fenêtre ouverte sur votre univers, accessible d&apos;un simple clic.
+            orchestrant chaque détail sonore pour souligner l&apos;atmosphère de
+            vos souvenirs. Que vos descendants découvrent vos exploits ou que
+            vos amis se remémorent les moments partagés, chaque épisode podcasté
+            est une fenêtre ouverte sur votre univers, accessible d&apos;un
+            simple clic.
           </p>
           {/* Insérer ici des extraits audio et témoignages des podcasts réalisés, présentés avec une interface interactive */}
         </div>
       </section>
-      <section id="yourStory" className="story-section first-section">
+      <section id="yourStory" className="story-section">
         <div className="content">
           {/* Section optionnelle pour la biographie écrite */}
           <div className="written-biography-option">
-            <h3>Laisser une trace écrite: Un héritage indélébile</h3>
+            <h2>Laisser une trace écrite: Un héritage indélébile</h2>
             <p>
               Si vous optez pour une biographie écrite, Ekoseon vous accompagne
               dans la création d&apos;un livre-mémoire qui traversera les âges,
@@ -161,15 +162,12 @@ export default async function Home() {
             expériences aux moments marquants, vos récits enrichissent le tissu
             de notre mémoire collective.
           </p>
-
           {/* Suggestion UX/UI : Présenter des histoires visuelles sous forme de chronologie interactive montrant comment les expériences se construisent à travers différents âges de la vie. */}
-
           <p>
             Ces partages sont aussi une façon de se libérer, d&apos;offrir ses
             leçons apprises à autrui et même parfois d&apos;alléger son cœur en
             immortalisant des souvenirs qui nous tiennent à cœur.
           </p>
-
           {/* Image représentative de personnes variées racontant leur histoire - jeunes adultes, professionnels en plein essor - image disponible sur placeholder.com */}
         </div>
       </section>
