@@ -74,14 +74,14 @@ export default async function Success({
           {order && (
             <>
               <Card>
-                <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 rounded-b-none shadow shadow-app-200">
-                  <CardTitle className=" -mt-5">
+              <CardHeader className="shadcnCard-header">
+                  <CardTitle className="shadcnCard-title">
                     <div className="w-1/5 flex justify-center mx-auto">
                       <LottieDisplayOnSSR animation="validation" />
                     </div>
-                    Merci pour votre commande !
+                   <span> Merci pour votre commande !</span>
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="shadcnCard-description">
                     <small>ref</small>. #{order.orderRef}
                   </CardDescription>
                 </CardHeader>

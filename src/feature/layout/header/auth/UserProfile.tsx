@@ -8,8 +8,7 @@ import {
 import Link from "next/link";
 import { DropdownMenuItemLogout } from "./LogoutButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/pro-duotone-svg-icons";
-import { faTools,faBasketShopping } from "@fortawesome/pro-solid-svg-icons";
+import { faTools, faUser, faBasketShopping } from "@fortawesome/pro-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
 
 interface MenuProps {
@@ -27,12 +26,19 @@ export const UserProfile = (props: MenuProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
         <DropdownMenuItem className="w-full" asChild>
+          <Link href="/profil/mon-compte" className="nunderline">
+            <FontAwesomeIcon icon={faUser} className="mr-2 h-4 w-4" />
+            Mon compte
+          </Link>
+        </DropdownMenuItem>
+        <Separator className="my-2" />
+        <DropdownMenuItem className="w-full" asChild>
           <Link href="/profil/mes-commandes" className="nunderline">
             <FontAwesomeIcon icon={faBasketShopping} className="mr-2 h-4 w-4" />
             Mes commandes
           </Link>
         </DropdownMenuItem>
-        <Separator className="my-2" />
+        <Separator className="my-2" />        
         {props.role === "ADMIN" && (
           <>
             <DropdownMenuItem className="w-full" asChild>

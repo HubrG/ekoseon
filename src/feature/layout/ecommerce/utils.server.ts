@@ -71,7 +71,7 @@ export const createOrder = async (
       const newUser = await prisma.user.create({
         data: {
           email: customerData.email,
-          name: customerData.firstname,
+          name: `${customerData.firstname} ${customerData.name}`,
           hashedPassword: customerData.hashedPassword,
         },
       });

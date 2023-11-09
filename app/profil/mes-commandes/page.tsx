@@ -20,11 +20,7 @@ export default async function Profile() {
     orders = await getOrdersByUserId({ userId: session.user.id });
   } else {
     orders = null;
-  }
-
-  
-
-  
+  }  
   return (
     <>
       {session ? (

@@ -24,7 +24,7 @@ const Auth = async () => {
     <section>
       <div className="content  max-w-lg flex flex-col justify-center items-center">
         <h1 className="title-page">
-          <FontAwesomeIcon icon={faArrowRightToArc} /> Connexion sur Ekoseon
+          <FontAwesomeIcon icon={faArrowRightToArc} /> Connexion sur {process.env.NEXT_PUBLIC_APP_NAME}
         </h1>
         <Card>
           <Suspense fallback={<Skeleton />}>

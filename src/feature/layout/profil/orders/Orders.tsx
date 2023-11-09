@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/pro-solid-svg-icons";
 import { faSortDown, faSortUp } from "@fortawesome/pro-duotone-svg-icons";
 import { OrdersItem } from "./OrderItem";
-import { v4 } from "uuid";
 
 interface ConvertedProduct extends Product {
   price: number;
