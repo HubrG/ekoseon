@@ -51,13 +51,13 @@ export const Basket = () => {
           className="flex flex-row justify-between   w-full gap-x-4">
           <div className="flex flex-row  gap-x-4">
             {product.img && (
-              <div>
+              <div className="md:min-w-[3.75rem] min-w-[3rem] rounded-full">
                 <Image
                   src={product.img}
-                  width={50}
-                  height={50}
+                  width={60}
+                  height={60}
                   alt={product.name}
-                  className="rounded-full"
+                  className="rounded-full object-cover"
                 />
               </div>
             )}
