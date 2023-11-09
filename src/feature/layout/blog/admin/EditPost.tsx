@@ -289,6 +289,7 @@ const EditPost = ({ post, categories, tagsOnPost, tags }: EditPostProps) => {
             <Label htmlFor="canonicalSlug">URL Canonique</Label>
             <Input
               id="canonicalSlug"
+              disabled={canonicalSlugInitial ? true : false}
               onChange={(e) => {
                 setCanonicalSlug(e.currentTarget.value);
               }}

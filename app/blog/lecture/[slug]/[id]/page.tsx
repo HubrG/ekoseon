@@ -29,12 +29,9 @@ interface ExtendedBlogPost extends BlogPost {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // read route params
-  const blogPost = (await getBlogPost(params.id)) as ExtendedBlogPost; // Assurez-vous que cela renvoie bien un BlogPost
-  // Si blogPost est null, vous devriez traiter cette situation, soit en retournant des métadonnées par défaut, soit en gérant l'erreur.
+  const blogPost = (await getBlogPost(params.id)) as ExtendedBlogPost;
   if (!blogPost) {
     throw new Error("Article de blog non trouvé");
-    // Ou retournez des métadonnées par défaut si c'est approprié pour votre application
   }
   const description = blogPost?.excerpt ? blogPost?.excerpt : "Aucun extrait";
   let descriptionSliced;
@@ -72,14 +69,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         : process.env.NEXT_PUBLIC_RELATIVE_URI + "/img/header-home.webp",
       type: "article",
       siteName: process.env.NEXT_PUBLIC_SITE_NAME,
-      publishedTime: blogPost?.publishedAt?.toISOString(), // Assurez-vous que c'est une chaîne de caractères ISO
-      modifiedTime: blogPost?.updatedAt?.toISOString(), // Assurez-vous que c'est une chaîne de caractères ISO
+      publishedTime: blogPost?.publishedAt?.toISOString(),
+      modifiedTime: blogPost?.updatedAt?.toISOString(),
       section: blogPost.category?.name || "Blog",
       tags:
         blogPost.tags?.map((t) => t.tag?.name).filter((name) => name != null) ||
         [],
-      authors: ["Ekoseon"], // Assurez-vous que ceci est conforme à votre structure de données
-      // tags: post?.tags ? post?.tags : [],
+      authors: ["Ekoseon"],
     },
     twitter: {
       card: "summary_large_image",
@@ -103,17 +99,42 @@ export default async function ReadBlogPost({
 }: {
   params: { method: string; slug: string; id: string };
 }) {
-  const blogPost = await getBlogPost(params.id); // Assurez-vous que cela renvoie bien un BlogPost
-
+  const blogPost = await getBlogPost(params.id);
+  if (!blogPost || !blogPost.published) {
+    return (
+      <div className="content">
+        <NotFound />
+      </div>
+    );
+  }
+  // SCHEMA JSON-LD
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blogPost.title,
+    image: blogPost.image,
+    author: {
+      "@type": "Person",
+      name: process.env.NEXT_PUBLIC_APP_NAME,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: process.env.NEXT_PUBLIC_APP_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: process.env.NEXT_PUBLIC_RELATIVE_URI + "/img/logo.png",
+      },
+    },
+    datePublished: blogPost.publishedAt,
+    dateModified: blogPost.updatedAt,
+  };
   return (
     <div className="content">
-      {blogPost && blogPost.published ? (
-        <ReadPost blogPost={blogPost} />
-      ) : (
-        <>
-          <NotFound />
-        </>
-      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <ReadPost blogPost={blogPost} />
     </div>
   );
 }
