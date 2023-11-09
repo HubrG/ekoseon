@@ -64,7 +64,7 @@ export const Basket = () => {
             <div>
             <div className="font-semibold">{product.name}</div>
             <div className="font-semibold md:block hidden"><p className="text-sm italic font-normal">{product.description}</p></div>
-              <div className="text-sm font-bold">{product.price}€</div>
+              <div className="text-sm md:font-bold font-normal">{product.price}€</div>
             </div>
           </div>
           <div>
