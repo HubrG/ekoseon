@@ -1,7 +1,7 @@
 // metadata.ts
 const titleBase = "Ekoseon | Vos mémoires au format audio et papier";
 const descBase =
-  "Ekoseon transforme vos dialogues en podcasts et livres biographiques avec des entretiens personnalisés, capturant ainsi l'essence de vos souvenirs et histoires.";
+  "Ekoseon transforme vos dialogues en podcasts et livres biographiques par des entretiens personnalisés, capturant ainsi l'essence de vos souvenirs et histoires.";
 
 interface MetadataParams {
   title?: string;

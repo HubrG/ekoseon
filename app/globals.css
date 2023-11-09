@@ -82,7 +82,7 @@
     @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
   }
   .first-section {
-    @apply w-full relative  shadow-t-xl min-h-screen pt-10 z-10 bg-white rounded-t-2xl;
+    @apply w-full relative min-h-screen pt-10 z-10 bg-white rounded-t-2xl;
   }
   .dark .first-section {
     @apply bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
@@ -147,7 +147,10 @@
   }
 
   p {
-    @apply md:text-[1.05rem]  text-base  my-1;
+    @apply md:text-[1.05rem]  text-base  my-1 text-app-950;
+  }
+  ul.ul {
+    @apply list-disc list-inside mt-4 mb-4;
   }
 }
 .faqContent h3 {
