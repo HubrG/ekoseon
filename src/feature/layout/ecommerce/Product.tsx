@@ -265,10 +265,12 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
   };
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(Schema) }}
-      />
+      {product.title === "Entretien audio" && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(Schema) }}
+        />
+      )}
       <Card>
         <CardHeader className="bg-app-100/50 text-center rounded-xl mb-10 rounded-b-none shadow shadow-app-200">
           <CardTitle className="py-0 my-0 px-0 mx-0">
