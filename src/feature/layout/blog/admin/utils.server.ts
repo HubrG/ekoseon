@@ -1,37 +1,43 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { getUserLog } from "@/src/query/user.query";
-import slugify from 'slugify';
+import slugify from "slugify";
 
 export const createNewPost = async () => {
   // On créé un nouvel article
   const user = await getUserLog();
-  if (user) {
-    const newPost = await prisma.blogPost.create({
-      data: {
-        title: "",
-        content: "",
-        published: false,
-        authorId: user.id,
-      },
-    });
-    return newPost;
+  if (!user) {
+    throw new Error("User not logged in");
   }
-  return false;
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
+  const newPost = await prisma.blogPost.create({
+    data: {
+      title: "",
+      content: "",
+      published: false,
+      authorId: user.id,
+    },
+  });
+  return newPost;
 };
 
 export const getPost = async (id: string) => {
   // On récupère l'article
   const user = await getUserLog();
-  if (user) {
+  if (!user) {
+    throw new Error("User not logged in");
+  }
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
     const post = await prisma.blogPost.findUnique({
       where: {
         id: id,
       },
     });
     return post;
-  }
-  return false;
 };
 
 export const saveEditPost = async ({
@@ -55,66 +61,80 @@ export const saveEditPost = async ({
 }) => {
   // On sauvegarde l'article
   const user = await getUserLog();
-  if (user) {
-    const post = await prisma.blogPost.update({
-      where: {
-        id: id,
-      },
-      data: {
-        title: title,
-        content: content,
-        image: image,
-        canonicalSlug: canonicalSlug,
-        excerpt: excerpt,
-        published: published,
-        publishedAt: published ? new Date() : null,
-        categoryId: category ? category : null,
-      },
-    });
-    return post;
+  if (!user) {
+    throw new Error("User not logged in");
   }
-  return false;
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
+  const post = await prisma.blogPost.update({
+    where: {
+      id: id,
+    },
+    data: {
+      title: title,
+      content: content,
+      image: image,
+      canonicalSlug: canonicalSlug,
+      excerpt: excerpt,
+      published: published,
+      publishedAt: published ? new Date() : null,
+      categoryId: category ? category : null,
+    },
+  });
+  return post;
 };
 
 export const getBlogCategories = async () => {
   // On récupère les catégories
   const user = await getUserLog();
-  if (user) {
-    const categories = await prisma.blogCategory.findMany();
-    return categories;
+  if (!user) {
+    throw new Error("User not logged in");
   }
-  return false;
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
+  const categories = await prisma.blogCategory.findMany();
+  return categories;
 };
 
 export const getBlogTags = async () => {
   // On récupère les tags
   const user = await getUserLog();
-  if (user) {
-    const tags = await prisma.blogTag.findMany();
-    return tags;
+  if (!user) {
+    throw new Error("User not logged in");
   }
-  return false;
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
+  const tags = await prisma.blogTag.findMany();
+  return tags;
 };
 
 export const getBlogTagOnPost = async (id: string) => {
   // On récupère les tags
   const user = await getUserLog();
-  if (user) {
+  if (!user) {
+    throw new Error("User not logged in");
+  }
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
     const tags = await prisma.blogTagOnPost.findMany({
       where: {
         postId: id,
       },
     });
     return tags;
-  }
-  return false;
 };
-
 
 export const saveTagsForPost = async (id: string, tagNames: string[]) => {
   const user = await getUserLog();
   if (!user) {
     throw new Error("User not logged in");
+  }
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
   }
 
   // Démarrez une transaction Prisma
@@ -135,7 +155,11 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
     );
 
     for (const tagName of newTagNames) {
-      let slug = slugify(tagName, { lower: true,  strict: true, remove: /[*+~.()'"!:@]/g });
+      let slug = slugify(tagName, {
+        lower: true,
+        strict: true,
+        remove: /[*+~.()'"!:@]/g,
+      });
       let uniqueSlug = slug;
       let counter = 0;
 
@@ -178,7 +202,6 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
       data: tagPostAssociations,
       skipDuplicates: true, // Cette option saute les doublons si jamais ils existent
     });
-
     return true;
   });
 };
@@ -186,7 +209,12 @@ export const saveTagsForPost = async (id: string, tagNames: string[]) => {
 // Suppression d'un post
 export const deletePost = async (id: string) => {
   const user = await getUserLog();
-  if (user) {
+  if (!user) {
+    throw new Error("User not logged in");
+  }
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
     // Exécutez les deux opérations dans une transaction
     await prisma.$transaction(async (prisma) => {
       // Supprimez d'abord les BlogTagOnPost liés
@@ -195,7 +223,6 @@ export const deletePost = async (id: string) => {
           postId: id,
         },
       });
-
       // Ensuite, supprimez le post lui-même
       await prisma.blogPost.delete({
         where: {
@@ -203,18 +230,18 @@ export const deletePost = async (id: string) => {
         },
       });
     });
-
     return true;
-  }
-  return false;
 };
-
-
 
 // Modificatio ndu status de publication d'un post (published)
 export const publishPost = async (id: string, isPublished: boolean) => {
   const user = await getUserLog();
-  if (user) {
+  if (!user) {
+    throw new Error("User not logged in");
+  }
+  if (user.role !== "ADMIN") {
+    throw new Error("User not admin");
+  }
     const post = await prisma.blogPost.update({
       where: {
         id: id,
@@ -225,7 +252,4 @@ export const publishPost = async (id: string, isPublished: boolean) => {
       },
     });
     return post;
-  }
-  return false;
 };
-

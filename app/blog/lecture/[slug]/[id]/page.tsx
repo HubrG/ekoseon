@@ -37,27 +37,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Ou retournez des métadonnées par défaut si c'est approprié pour votre application
   }
   const description = blogPost?.excerpt ? blogPost?.excerpt : "Aucun extrait";
+  let descriptionSliced;
   // On réduit la taille de la description à 170 caractères maximum
   if (description && description.length > 170) {
-    blogPost.excerpt = description.slice(0, 166) + "...";
+    descriptionSliced = description.slice(0, 167) + "...";
+  } else {
+    descriptionSliced = description;
   }
-  const title = blogPost?.title ? blogPost?.title + " | Blog " : "Aucun article";
+  const title = blogPost?.title
+    ? blogPost?.title + " | Blog "
+    : "Aucun article";
   return {
-    title: Meta(
-      "title",
-      title
-    ),
-    description: description,
-    alternates:
-      {
-       canonical: process.env.NEXT_PUBLIC_RELATIVE_URI + "/blog/lecture/" + blogPost?.canonicalSlug + "/" + blogPost?.id,
-      },
+    title: Meta("title", title),
+    description: descriptionSliced,
+    alternates: {
+      canonical:
+        process.env.NEXT_PUBLIC_RELATIVE_URI +
+        "/blog/lecture/" +
+        blogPost?.canonicalSlug +
+        "/" +
+        blogPost?.id,
+    },
     openGraph: {
-      title: Meta(
-        "title",
-        title
-      ),
-      description: description,
+      title: Meta("title", title),
+      description: descriptionSliced,
       url:
         process.env.NEXT_PUBLIC_RELATIVE_URI +
         "/blog/lecture/" +
