@@ -116,6 +116,7 @@ export default async function ReadBlogPost({
     author: {
       "@type": "Person",
       name: process.env.NEXT_PUBLIC_APP_NAME,
+      url: process.env.NEXT_PUBLIC_RELATIVE_URI,
     },
     url:process.env.NEXT_PUBLIC_RELATIVE_URI + "/blog/lecture/" + blogPost.canonicalSlug + "/" + blogPost.id,
     publisher: {
