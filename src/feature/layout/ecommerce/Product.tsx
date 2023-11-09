@@ -251,7 +251,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
     },
     offers: {
       "@type": "Offer",
-      url: process.env.NEXT_PUBLIC_RELATIVE_URI,
+      url: process.env.NEXT_PUBLIC_RELATIVE_URI + "/raconter-ses-memoires/tarifs",
       priceCurrency: "EUR",
       price: product.price,
       priceValidUntil: "2024-11-05",
