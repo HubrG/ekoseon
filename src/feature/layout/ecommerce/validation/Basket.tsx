@@ -45,6 +45,7 @@ export const Basket = () => {
   return (
     
     <div className="w-full p-5 rounded-xl border border-app-300 shadow items-start flex flex-col gap-y-5 mt-1">
+      
       {cartItems.map((product) => (
         <div
           key={product.id}
@@ -74,18 +75,18 @@ export const Basket = () => {
           </div>
         </div>
       ))}
-      <Separator className="my-1" />
-      <div className="w-full font-bold flex flex-row items-center justify-between">
-        <span>Total :</span>
-        <span>{calculatedTotal}€</span>
-      </div>
-      <Separator className="my-1" />
-      <Button
+       <Button
         onClick={handleUpdateBasket}
         variant={"outline"}
         className="w-full">
         Modifier mon panier
       </Button>
+      <Separator className="my-1" />
+     
+      <div className="w-full font-bold flex flex-row items-center justify-between">
+        <span>Total :</span>
+        <span>{calculatedTotal}€</span>
+      </div>
     </div>
   );
 };
