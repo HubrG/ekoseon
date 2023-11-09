@@ -332,6 +332,9 @@ div product-alt:first-child {
 .shadcnInput {
   @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-light placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-60 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
 }
+.shadcnTextarea {
+  @apply shadcnInput h-32 !important;
+}
 .shadcnLabel-base {
   @apply md:text-base text-sm font-semibold leading-none peer-disabled:cursor-not-allowed text-app-900 dark:text-app-300 peer-disabled:opacity-70 mb-1 mt-2;
 }

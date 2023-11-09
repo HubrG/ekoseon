@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 export const createToken = async (email: string) => {
   // On recherche un utilisateur avec cet email
   const user = await prisma.user.findUnique({
@@ -17,7 +17,19 @@ export const createToken = async (email: string) => {
     });
     if (userToken) {
       // Si un token existe on le retourne par mail
-      // FIXME: send email
+      const subject = "Réinitialisation de votre mot de passe";
+      const message = `Bonjour,<br />vous avez demandé la réinitialisation de votre mot de passe. Veuillez cliquer sur ce lien afin de réinitialiser votre mot de passe : ${process.env.NEXT_RELATIVE_URI}/connexion/recuperation/${user.id}/${userToken.token}`;
+      const recipientEmail = user.email;
+      const response = await fetch(
+        `${process.env.NEXT_RELATIVE_URI}/api/mailer/mailer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ recipientEmail, subject, message }),
+        }
+      );
       return null;
     }
     // On génère un token
@@ -30,12 +42,23 @@ export const createToken = async (email: string) => {
       },
     });
     // On envoie un email avec le token
-    // FIXME: send email
+    const subject = "Réinitialisation de votre mot de passe";
+    const message = `Bonjour,<br />vous avez demandé la réinitialisation de votre mot de passe. Veuillez cliquer sur ce lien afin de réinitialiser votre mot de passe : ${process.env.NEXT_RELATIVE_URI}/connexion/recuperation/${user.id}/${newToken.token}`;
+    const recipientEmail = user.email;
+    const response = await fetch(
+      `${process.env.NEXT_RELATIVE_URI}/api/mailer/mailer`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ recipientEmail, subject, message  }),
+      }
+    );
     return true;
   }
   return false;
 };
-
 
 export const checkTokenAndUser = async (token: string, userId: string) => {
   // On recherche un token pour cet utilisateur
@@ -49,10 +72,13 @@ export const checkTokenAndUser = async (token: string, userId: string) => {
     return true;
   }
   return false;
-  
-}
+};
 
-export const updatePassword = async (token: string, userId: string, password: string) => {
+export const updatePassword = async (
+  token: string,
+  userId: string,
+  password: string
+) => {
   // On recherche un token pour cet utilisateur
   const userToken = await prisma.userToken.findFirst({
     where: {
@@ -67,7 +93,7 @@ export const updatePassword = async (token: string, userId: string, password: st
         id: userId,
       },
       data: {
-        hashedPassword: await bcrypt.hash(password, 10)
+        hashedPassword: await bcrypt.hash(password, 10),
       },
     });
     if (user) {
@@ -83,4 +109,4 @@ export const updatePassword = async (token: string, userId: string, password: st
     }
   }
   return false;
-}
+};

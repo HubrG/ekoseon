@@ -1,3 +1,4 @@
+import ContactForm from "@/src/feature/layout/contact/ContactForm";
 import PageTransition from "@/src/feature/layout/effects/PageTransition";
 import { Meta } from "@/src/feature/layout/metadata/Metadata";
 import { Metadata } from "next";
@@ -12,7 +13,7 @@ export default function contact() {
       <section className="contact-section">
         {/* Comment: Title for the Contact page */}
         <div className="content">
-        <h1>Contactez Ekoseon</h1>
+          <h1>Contactez Ekoseon</h1>
           {/* Comment: Brief description to encourage contact */}
           <p>
             Si vous êtes prêt à immortaliser les chapitres de votre vie ou si
@@ -24,15 +25,8 @@ export default function contact() {
 
           {/* Comment: Contact method: Email */}
           <div className="contact-method">
-            <h2>Email</h2>
-            <p>
-              Écrivez-nous directement en cliquant sur l&apos;adresse suivante :
-              <a href="mailto:contact@ekoseon.fr" className="email-link">
-                contact@ekoseon.fr
-              </a>
-              Nous nous ferons un plaisir de répondre à toutes vos demandes et
-              de discuter des possibilités de collaboration.
-            </p>
+            <h2>Écrivez-nous !</h2>
+            <ContactForm />
           </div>
 
           {/* Comment: Contact method: Phone */}
