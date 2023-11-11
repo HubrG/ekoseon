@@ -18,7 +18,8 @@ export default async function sendMail(
       from: senderEmail, // Ceci ne doit pas être 'undefined'
       subject: contactForm ? `[CONTACTFORM - ${recipientEmail}] ${subject}` : subject, // Assurez-vous que ceci est une chaîne valide
       // text: message, // Assurez-vous que ceci est une chaîne valide
-      html:message
+      html: message,
+      replyTo: contactForm ? recipientEmail : senderEmail,
     };
 
     try {

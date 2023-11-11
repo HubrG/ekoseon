@@ -1,7 +1,7 @@
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       {/*  */}

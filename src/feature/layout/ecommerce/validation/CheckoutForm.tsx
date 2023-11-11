@@ -83,7 +83,6 @@ export function InnerCheckoutForm() {
   // States Check
   const [isCGVChecked, setIsCGVChecked] = useState<boolean>(false); // Adresse de livraison
 
- 
   // Variable d'option
   const isDelivery = true; // NOTE Cet objet a-t-il besoin d'une livraison ?
   const activeMonthly = true; // NOTE Activation du paiement en plusieurs fois
@@ -285,14 +284,15 @@ export function InnerCheckoutForm() {
       },
     },
   };
- // 
- const MemoizedChildComponent = useMemo(() => {
-  return <CustomerInfoForm
-    setValidity={setAreFieldsValid}
-    isDelivery={isDelivery}
-  />
-}
-, [isDelivery]);
+  //
+  const MemoizedChildComponent = useMemo(() => {
+    return (
+      <CustomerInfoForm
+        setValidity={setAreFieldsValid}
+        isDelivery={isDelivery}
+      />
+    );
+  }, [isDelivery]);
 
   const enableCheckout =
     !areFieldsValid || !isCGVChecked || !stripe ? true : false;
@@ -415,8 +415,7 @@ export function InnerCheckoutForm() {
                             type="button"
                             variant="outline"
                             disabled={
-                              enableCheckout ||
-                              calculatedTotal < minMonthly
+                              enableCheckout || calculatedTotal < minMonthly
                             }>
                             Par mensualités
                           </Button>
