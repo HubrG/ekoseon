@@ -30,13 +30,10 @@ export default function Hero() {
                   <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
                     <small className="text-white flex flex-col gap-y-2">
                       <span className="gap-y-2 text-white">
-                          Nous faisons d&apos;une simple
+                          Transformez vos récits personnels en{" "}
+                         
                           <AnimatedGradientText>
-                          {" "}discussion
-                          </AnimatedGradientText>{" "}
-                          un objet 
-                          <AnimatedGradientText>
-                            {" "}éternel
+                            {" "}œuvres intemporelles
                           </AnimatedGradientText>
                         </span>
                     </small>

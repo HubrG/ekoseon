@@ -4,6 +4,7 @@ import Hero from "@/src/feature/layout/home/Hero";
 export default function Home() {
   return (
     <>
+      {/* !FIXME: M'INSPIRER DE ULYSSES */}
       {/*  */}
       <Hero />
       <section id="appFirstPage" className="story-section first-section">
