@@ -9,6 +9,7 @@ export default function Home() {
       <Hero />
       <section id="appFirstPage" className="story-section first-section">
         <div className="content">
+          {/* test */}
           <h2>
             Immortalisez Votre Histoire : Vos Souvenirs dans un Podcast ou un
             Livre
