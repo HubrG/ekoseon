@@ -40,6 +40,7 @@ export const hashPassword = async (password: string) => {
 export const isUserLog = async () => {
   return await getUserLog();
 };
+
 function generateOrderRef() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let result = '';
