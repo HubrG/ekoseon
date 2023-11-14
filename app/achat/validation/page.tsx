@@ -12,7 +12,6 @@ export default function Achat() {
   return (
     <>
       <div className="content">
-        {/*  */}
         <h1 className="title-page  mb-0 flex w-full md:justify-start justify-center md:mt-0 mt-0">
           C&apos;est bientôt fini !
         </h1>

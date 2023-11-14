@@ -5,12 +5,11 @@ export default function Home() {
   return (
     <>
       {/* !FIXME: M'INSPIRER DE ULYSSES */}
-      {/* ff */}
       <Hero />
       <section id="appFirstPage" className="story-section first-section">
         <div className="content">
-          {/* test */}
           <h2>
+            {/*  */}
             Immortalisez Votre Histoire : Vos Souvenirs dans un Podcast ou un
             Livre
           </h2>
