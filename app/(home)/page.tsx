@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       {/* !FIXME: M'INSPIRER DE ULYSSES */}
-      {/*  */}
+      {/* ff */}
       <Hero />
       <section id="appFirstPage" className="story-section first-section">
         <div className="content">
