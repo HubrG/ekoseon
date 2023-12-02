@@ -14,7 +14,6 @@ const ToastProvider = dynamic(
   () => import("@/src/feature/layout/toastify/ToastProvider")
 );
 import Script from "next/script";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import createMetadata from "@/lib/metadatas";
 export const metadata = createMetadata({
@@ -64,7 +63,6 @@ export default function RootLayout(props: {
           <body
             className={clsx("bg-background")}
             suppressHydrationWarning={true}>
-            <ToastProvider>
               <NextTopLoader
                 template='<div class="bar" role="bar"><div class="peg"></div></div> 
               <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
@@ -72,18 +70,17 @@ export default function RootLayout(props: {
                 initialPosition={0.08}
                 crawlSpeed={200}
                 height={2}
-                crawl={true}
-                showSpinner={true}
+               
                 easing="ease"
                 speed={200}
                 shadow={false}
               />
+            <ToastProvider>
             </ToastProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Header />
               <div>
                 {children}
-                {/* <SpeedInsights /> */}
               </div>
               <Footer />
             </ThemeProvider>
