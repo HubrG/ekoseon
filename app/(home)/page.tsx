@@ -6,7 +6,7 @@ export default function Home() {
     <>
       {/* !FIXME: M'INSPIRER DE ULYSSES */}
       <Hero />
-      <section id="appFirstPage" className="story-section first-section">
+      <section id="appFirstPage" className="story-section shadow-t-3xl first-section">
         <div className="content">
           <h2>
             {/*  */}
