@@ -70,13 +70,13 @@ export const ParticlesDiv = () => {
               default: "bounce",
             },
             random: false,
-            speed: 0.8,
+            speed: 0.7,
             straight: false,
           },
           number: {
             density: {
               enable: true,
-              area: 1500,
+              area: 500,
             },
             value: 80,
           },
@@ -87,7 +87,7 @@ export const ParticlesDiv = () => {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 0.5, max: 2 },
           },
         },
         detectRetina: true,
