@@ -6,14 +6,16 @@ type MotionParallaxProps = {
   children: React.ReactNode;
   speed?: number;
   type?: 0 | 1 | 2 | 3 | 4;
-  opacity?:number
+  opacity?: number
+  initial?: boolean;
 };
 
 const MotionParallax: React.FC<MotionParallaxProps> = ({
   children,
   speed = 0.2,
   type = 0,
-  opacity = 1
+  opacity = 1,
+  initial
 }) => {
   const [scrollY, setScrollY] = useState(0);
 
@@ -48,7 +50,7 @@ const MotionParallax: React.FC<MotionParallaxProps> = ({
     }
   }, [scrollY, speed, type, opacity]); // Les dépendances indiquent quand recalcule la valeur
 
-  return <motion.div style={transformValue}>{children}</motion.div>;
+  return <motion.div style={transformValue} initial={initial ? false : ""}>{children}</motion.div>;
 };
 
 export default MotionParallax;

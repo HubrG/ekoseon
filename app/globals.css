@@ -76,7 +76,7 @@
     @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
   nav {
-    @apply bg-app-50   fixed w-full z-20 top-0 left-0;
+    @apply bg-app-50  py-0.5 fixed w-full z-20 top-0 left-0;
   }
   nav.on-content {
     @apply   bg-opacity-25 backdrop-blur-md border-b border-dashed border-app-400;
@@ -89,7 +89,46 @@
     @apply bg-transparent border-b border-dashed border-app-950 backdrop-blur-sm  !important;
   }
   .first-section {
-    @apply w-full relative  pt-0 z-10 bg-white rounded-t-2xl;
+    @apply w-full relative -mt-10 bg-gradient-to-b from-app-100  via-app-50 to-white  z-0 pb-20  rounded-t-2xl;
+  }
+  .section-gradient {
+    @apply bg-gradient-to-b from-app-100 via-app-50 to-white;
+  }
+  .section-gradient-opposite {
+    @apply bg-gradient-to-t from-app-100 via-app-50 to-white;
+  }
+  .section-gradient-purple {
+    @apply bg-gradient-to-b from-purple-100 via-purple-50 to-white;
+  }
+  .section-gradient-blue {
+    @apply bg-gradient-to-b from-blue-100 via-blue-50 to-white;
+  }
+  .section-gradient-green {
+    @apply bg-gradient-to-b from-green-100 via-green-50 to-white;
+  }
+  .section-gradient-yellow {
+    @apply bg-gradient-to-b from-yellow-100 via-yellow-50 to-white;
+  }
+  .section-gradient-red {
+    @apply bg-gradient-to-b from-red-100 via-red-50 to-white;
+  }
+  .section-gradient-pink {
+    @apply bg-gradient-to-b from-pink-100 via-pink-50 to-white;
+  }
+  .section-gradient-indigo {
+    @apply bg-gradient-to-b from-indigo-100 via-indigo-50 to-white;
+  }
+  .section-gradient-gray {
+    @apply bg-gradient-to-b from-gray-100 via-gray-50 to-white;
+  }
+  .section-gradient-gray-dark {
+    @apply bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700;
+  }
+  .section-gradient-gray-light {
+    @apply bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200;
+  }
+  .section-gradient-rose {
+    @apply bg-gradient-to-b from-rose-100 via-rose-50 to-white;
   }
   .dark .first-section {
     @apply bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
@@ -104,7 +143,7 @@
 }
 @layer components {
   .content {
-    @apply max-w-5xl px-5 pt-20  mx-auto mt-10 min-h-[20vh] text-lg;
+    @apply max-w-5xl px-5 pt-20 relative  mx-auto mt-10 min-h-[20vh] text-lg;
   }
   .content-centered {
     @apply mx-auto min-h-screen  flex items-center justify-center;
@@ -453,7 +492,7 @@ label {
   @apply shadcnLabel-base;
 }
 .getStartedButton {
-  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mb-0 mt-20 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border border-app-100  hover:border-app-800 hover:border-solid hover:bg-app-900  text-white hover:text-app-100  bg-opacity-80 !important;
+  @apply mx-auto flex flex-row w-auto  hover:no-underline gap-x-5 items-center mb-0 mt-20 md:text-3xl text-2xl font-display py-8 justify-center   gap-y-1 hover:bg-opacity-60 border  border-app-800 border-solid bg-app-900  hover:text-white text-app-100  bg-opacity-80 !important;
 }
 a.subFooterLink {
   @apply font-normal !important;

@@ -27,7 +27,7 @@ interface MotionShowProps {
     | "flipX"
     | "flipY";
   slowNtw?: boolean;
-  clientOrServer?: "client" | "server";
+  initial?: boolean;
 }
 
 const variants: { [key: string]: Variants } = {
@@ -107,7 +107,7 @@ const MotionShow: React.FC<MotionShowProps> = ({
   triggerOnce = false,
   duration = 1,
   animation = "BottomToTop",
-  clientOrServer = "client",
+  initial,
 }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({
@@ -135,7 +135,7 @@ const MotionShow: React.FC<MotionShowProps> = ({
       <motion.div
         ref={ref}
         animate={controls}
-        initial={isMounted ? "hidden" : clientOrServer === "client" ? "hidden" :  "visible"}
+        initial={initial ? initial : "hidden"}
         transition={{ duration: duration, type: "spring", stiffness: 100 }}
         variants={variants[animation]}>
         {children}

@@ -47,7 +47,7 @@ export const GetStartButton = () => {
   ) : (
     <>
     <div className="flex justify-center mx-auto">
-      <a href="#appFirstPage" className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadcnButton-link h-10 rounded-md px-8 text-base  getStartedButton">
+      <a href="#appFirstPage" className="  getStartedButton">
        C&apos;est-à-dire ?
       </a>
       </div>
