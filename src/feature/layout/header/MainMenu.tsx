@@ -20,12 +20,10 @@ export default function MainMenu(props: MenuProps) {
     if (typeof window !== 'undefined' && pathname !== "/") {
       const deleteClassOnNavbar = document.querySelector("#navbar-menu");
       deleteClassOnNavbar?.classList.remove("on-hero");
-      deleteClassOnNavbar?.classList.remove("opacity-0");
       deleteClassOnNavbar?.classList.add("on-content");
     } else {
       const deleteClassOnNavbar = document.querySelector("#navbar-menu");
       deleteClassOnNavbar?.classList.remove("on-content");
-      deleteClassOnNavbar?.classList.remove("opacity-0");
       deleteClassOnNavbar?.classList.add("on-hero");
     }
   }, [pathname]);

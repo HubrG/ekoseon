@@ -26,7 +26,7 @@ export const Header = async () => {
   //
   return (
     <header className=" z-20 w-full">
-      <nav id="navbar-menu" className="on-content opacity-0">
+      <nav id="navbar-menu" className="on-content">
         <div>
           <Link href="/" className="logo mr-2">
             <span className="sm:text-xs">
