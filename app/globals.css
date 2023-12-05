@@ -267,7 +267,7 @@ a.special-uderline-active {
 }
 /* Main Menu */
 ul.main-menu {
-  @apply flex flex-col p-4 lg:p-0 mt-4 font-medium border  rounded-lg  md:flex-row md:space-x-8 md:mt-0  dark:bg-slate-800 md:dark:bg-slate-900 dark:border-slate-700 text-lg;
+  @apply flex flex-col p-4 lg:p-0 mt-4 font-medium  rounded-lg  md:flex-row md:space-x-8 md:mt-0  dark:bg-slate-800 md:dark:bg-slate-900 dark:border-slate-700 text-lg;
 }
 div.main-menu {
   @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1;
