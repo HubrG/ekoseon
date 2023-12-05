@@ -29,7 +29,7 @@ export default function Hero() {
           <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen bg-app-900 bg-opacity-50"></div>
           <div className="z-10 text-center text-neutral-content w-full">
             <MotionParallax speed={0.4} type={0}>
-              <MotionShow threshold={0.4} animation="bounceIn">
+              <MotionShow threshold={0.6} animation="bounceIn" clientOrServer="client">
                 <div className="max-w-3xl mx-auto">
                   <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
                     <small className="text-white flex flex-col gap-y-2">
