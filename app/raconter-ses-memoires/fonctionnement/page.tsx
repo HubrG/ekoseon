@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 
 export default async function working() {
   return (
-    <PageTransition>
       <section className="how-it-works-section">
         <div className="content">
           {/* Comment: Title for the How It Works section */}
@@ -75,6 +74,5 @@ export default async function working() {
           </ol>
         </div>
       </section>
-    </PageTransition>
   );
 }

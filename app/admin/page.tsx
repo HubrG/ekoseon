@@ -15,11 +15,9 @@ export default async function Admin() {
   
 
   return (
-    <PageTransition>
       <div className="content"><h1>Admin</h1>
         <div>
           <Link href="/admin/blog" >Gérer le blog</Link>
         </div></div>
-    </PageTransition>
   )
 }

@@ -14,7 +14,6 @@ export const metadata = createMetadata({
 
 export default async function faq() {
   return (
-    <PageTransition>
       <div className="content">
         <div className="flex md:flex-row flex-col items-start justify-between w-full gap-5">
           <div className="2/6">
@@ -30,6 +29,5 @@ export default async function faq() {
           </div>
         </div>
       </div>
-    </PageTransition>
   );
 }

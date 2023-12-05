@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 export default function contact() {
   return (
-    <PageTransition>
       <section className="contact-section">
         {/* Comment: Title for the Contact page */}
         <div className="content">
@@ -45,6 +44,5 @@ export default function contact() {
           </div>
         </div>
       </section>
-    </PageTransition>
   );
 }

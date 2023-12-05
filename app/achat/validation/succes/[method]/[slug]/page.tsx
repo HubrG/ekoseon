@@ -51,7 +51,6 @@ export default async function Success({
   //
   return (
     <>
-      <PageTransition>
         <div className="content  items-center justify-center flex flex-col max-w-lg">
           {!order && (
             <>
@@ -111,7 +110,6 @@ export default async function Success({
             </>
           )}
         </div>
-      </PageTransition>
     </>
   );
 }
