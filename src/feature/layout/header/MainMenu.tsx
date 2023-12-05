@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 interface Link {
   url: string;
@@ -12,14 +13,26 @@ interface MenuProps {
   links: Link[];
 }
 
-export default function MainMenu(props:MenuProps) {
+export default function MainMenu(props: MenuProps) {
   const pathname = usePathname();
   const { links } = props;
- 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && pathname !== "/") {
+      const deleteClassOnNavbar = document.querySelector("#navbar-menu");
+      deleteClassOnNavbar?.classList.remove("on-hero");
+      deleteClassOnNavbar?.classList.remove("opacity-0");
+      deleteClassOnNavbar?.classList.add("on-content");
+    } else {
+      const deleteClassOnNavbar = document.querySelector("#navbar-menu");
+      deleteClassOnNavbar?.classList.remove("on-content");
+      deleteClassOnNavbar?.classList.remove("opacity-0");
+      deleteClassOnNavbar?.classList.add("on-hero");
+    }
+  }, [pathname]);
+  
+
   return (
-    <div
-      className="main-menu"
-      id="navbar-sticky">
+    <div className="main-menu" id="navbar-sticky">
       <ul className="main-menu">
         {links.map((link, index) => (
           <li key={index}>

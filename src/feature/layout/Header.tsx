@@ -11,6 +11,7 @@ import { Suspense } from "react";
 
 export const Header = async () => {
   const session = await getAuthSession();
+
   //  Construction du menu
   const prefix = "/raconter-ses-memoires/";
   const links = [
@@ -21,10 +22,11 @@ export const Header = async () => {
     { url: prefix + "tarifs", name: "Tarifs" },
     { url: prefix + "contact", name: "Contact" },
   ];
+  // On regarde si nous sommes sur la page d'accueil
   //
   return (
     <header className=" z-20 w-full">
-      <nav>
+      <nav id="navbar-menu" className="on-content opacity-0">
         <div>
           <Link href="/" className="logo mr-2">
             <span className="sm:text-xs">

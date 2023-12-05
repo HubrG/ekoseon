@@ -1,11 +1,21 @@
+"use client";
 import Hero from "@/src/feature/layout/home/Hero";
+import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
 
-export default function Home() {
+export default  function Home() {
+ 
+
+  useNavbarObserver();
+ 
+  
+
   return (
     <>
       {/* !FIXME: M'INSPIRER DE ULYSSES */}
       <Hero />
-      <section id="appFirstPage" className="story-section shadow-t-3xl first-section">
+      <section
+        id="appFirstPage"
+        className="story-section shadow-t-3xl first-section">
         <div className="content">
           <h2>
             {/*  */}

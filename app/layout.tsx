@@ -81,8 +81,8 @@ export default function RootLayout(props: {
                 attribute="class"
                 defaultTheme="light"
                 enableSystem>
-                <Header />
                 <div>
+                <Header />
                   {children}
                   {/* <SpeedInsights /> */}
                 </div>

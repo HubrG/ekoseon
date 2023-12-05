@@ -76,10 +76,17 @@
     @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
   nav {
-    @apply bg-app-50 dark:bg-slate-900 fixed w-full z-20 top-0 left-0 shadow dark:shadow-slate-950  border border-app-200  dark:border-slate-800;
+    @apply bg-app-50   fixed w-full z-20 top-0 left-0;
+  }
+  nav.on-content {
+    @apply   bg-opacity-25 backdrop-blur-md border-b border-dashed border-app-400;
   }
   nav div:first-child {
-    @apply max-w-screen-xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
+    @apply max-w-screen-2xl flex flex-wrap items-center  justify-between mx-auto p-4 py-[0.5rem];
+  }
+  /* NOTE --> On hero */
+  nav.on-hero {
+    @apply bg-transparent border-b border-dashed border-app-950 backdrop-blur-sm  !important;
   }
   .first-section {
     @apply w-full relative  pt-0 z-10 bg-white rounded-t-2xl;
@@ -268,6 +275,9 @@ div.main-menu {
 ul.main-menu li a {
   @apply nunderline block py-2 pl-3 md:text-[1.105rem] pr-4 rounded hover:bg-slate-100 md:hover:bg-transparent md:hover:text-app md:p-0 md:dark:hover:text-app-500 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700;
 }
+nav.on-hero ul.main-menu li a {
+  @apply text-app-100  !important;
+}
 
 /* Burger Menu */
 div.burger-menu {
@@ -292,7 +302,18 @@ div.burger-menu ul li a {
 .logo span span {
   @apply text-app-950  dark:text-app-50;
 }
-
+nav.on-hero .logo span  {
+  @apply self-center text-3xl font-semibold whitespace-nowrap text-app-100  !important;
+}
+nav.on-hero .logo span span:first-child {
+  @apply text-app-500  !important;
+}
+nav.on-hero button {
+  @apply bg-app-100 bg-opacity-10 text-app-100  !important;
+}
+nav.on-hero button:hover {
+  @apply bg-app-100 bg-opacity-20 text-app-100  !important;
+}
 /* CARD */
 
 .no-card-header {
@@ -648,3 +669,6 @@ article .task-list-item {
 .force-7xl {
   @apply text-7xl !important;
 }
+
+
+
