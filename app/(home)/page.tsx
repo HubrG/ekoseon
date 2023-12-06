@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <div className="z-50 home-page">
+      <div className="z-50 home-page" >
         {/* SECTION : First sec. */}
-        <section id="appFirstPage" className="story-section shadow-t-3xl first-section -mt-1">
+        <section className="story-section shadow-t-3xl first-section -mt-1">
           <div>
             <div className="w-full">
               <MotionShow
@@ -23,7 +23,7 @@ export default function Home() {
                 animation="BottomToTop"
                 triggerOnce={true}
                 duration={0.5}>
-                <h2>
+                <h2 className="max-md:-mt-8">
                   Immortalisez vos souvenirs dans un podcast, et dans un livre !
                 </h2>
                 <p className="pt-0">

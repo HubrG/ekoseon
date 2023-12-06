@@ -45,6 +45,7 @@ export default function Hero() {
               </MotionShow>
             </MotionParallax>
           </div>
+          <div  id="appFirstPage" className="bottom-[2.35rem] absolute" ></div>
         </div>
       </MotionParallax>
     </section>
