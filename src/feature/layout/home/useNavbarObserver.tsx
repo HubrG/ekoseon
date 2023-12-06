@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export const useNavbarObserver = () => {
   useEffect(() => {
     const navbar = document.querySelector("#navbar-menu");
-
+    const DropdownUser = document.querySelector(".user-profile");
     const observer = new IntersectionObserver(
       (entries) => {
         if (navbar) {
@@ -17,14 +17,16 @@ export const useNavbarObserver = () => {
             navbar.classList.add("on-hero");
             navbar.classList.remove("opacity-0");
             navbar.classList.remove("on-content");
+            DropdownUser?.classList.add("on-hero");
           } else {
             navbar.classList.add("on-content");
             navbar.classList.remove("opacity-0");
             navbar.classList.remove("on-hero");
+            DropdownUser?.classList.remove("on-hero");
           }
         }
       },
-      { threshold: 0.01 }
+      { threshold: 0 }
     );
 
     const heroSection = document.getElementById("hero-section");

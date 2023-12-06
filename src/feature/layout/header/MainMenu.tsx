@@ -19,12 +19,16 @@ export default function MainMenu(props: MenuProps) {
   useEffect(() => {
     if (typeof window !== 'undefined' && pathname !== "/") {
       const deleteClassOnNavbar = document.querySelector("#navbar-menu");
+      const deleteClassOnDropdownUser = document.querySelector(".user-profile");
       deleteClassOnNavbar?.classList.remove("on-hero");
       deleteClassOnNavbar?.classList.add("on-content");
+      deleteClassOnDropdownUser?.classList.remove("on-hero");
     } else {
       const deleteClassOnNavbar = document.querySelector("#navbar-menu");
+      const deleteClassOnDropdownUser = document.querySelector(".user-profile");
       deleteClassOnNavbar?.classList.remove("on-content");
       deleteClassOnNavbar?.classList.add("on-hero");
+      deleteClassOnDropdownUser?.classList.add("on-hero");
     }
   }, [pathname]);
   

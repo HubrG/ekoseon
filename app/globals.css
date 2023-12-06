@@ -76,7 +76,7 @@
     @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
   nav {
-    @apply bg-app-50  py-0.5 fixed w-full z-20 top-0 left-0;
+    @apply bg-app-50  fixed w-full z-20 top-0 left-0;
   }
   nav.on-content {
     @apply   bg-opacity-25 backdrop-blur-md border-b border-dashed border-app-400;
@@ -88,6 +88,7 @@
   nav.on-hero {
     @apply bg-transparent border-b border-dashed border-app-950 backdrop-blur-sm  !important;
   }
+
   .first-section {
     @apply w-full relative -mt-10 bg-gradient-to-b from-app-100  via-app-50 to-white  z-0 pb-20  rounded-t-2xl;
   }
@@ -134,7 +135,7 @@
     @apply bg-gradient-to-t from-slate-800 via-slate-900 to-slate-900 rounded-t-2xl;
   }
   section {
-    @apply border-opacity-50 bg-white  bg-opacity-50  text-app-950 dark:text-app-50;
+    @apply border-opacity-50 bg-white  bg-opacity-50 shadow-t-xl pb-24 shadow-app-50  text-app-950 dark:text-app-50;
   }
 
   .dark section {
@@ -163,7 +164,7 @@
   h4,
   h5,
   h6 {
-    @apply my-[1.63rem];
+    @apply my-[1.63rem]  font-serif font-medium;
   }
   h1.title-page {
     @apply text-center  mb-14 !important;
@@ -711,3 +712,37 @@ article .task-list-item {
 
 
 
+.user-profile.on-hero {
+  @apply bg-app-500 bg-opacity-50  p-1 !important;
+}
+
+div.home-page section>div  {
+  @apply content ;
+}
+div.home-page section>div div h2 {
+  @apply lg:text-5xl md:text-4xl text-3xl font-medium   text-app-900 dark:text-app-50 font-serif;
+}
+div.home-page section>div div p:not(ul) {
+  @apply lg:text-2xl md:text-xl text-lg pt-5  text-app-900 dark:text-app-50;
+}
+div.home-page ul.no-home {
+  @apply flex flex-col md:flex-row gap-5;
+}
+div.home-page ul.no-home li {
+  @apply mb-5 flex md:flex-row flex-col md:text-left text-center md:justify-start justify-center w-full gap-x-4 items-start;
+}
+div.home-page ul.no-home li div:first-child {
+  @apply max-md:w-full;
+}
+div.home-page ul.no-home h2, div.home-page ul.no-home h3  {
+  @apply sm:text-3xl text-2xl text-app-900 my-0 py-0 font-display !important;
+}
+div.home-page ul.no-home p  {
+  @apply text-lg my-0 py-0 !important;
+}
+div.home-page ul.no-home p  {
+  @apply text-lg my-0 py-0 !important;
+}
+div.home-page ul.no-home svg {
+  @apply sm:text-3xl text-2xl
+ }

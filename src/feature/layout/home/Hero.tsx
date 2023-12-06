@@ -11,20 +11,19 @@ const AnimatedGradientText = ({ children }: { children: any }) => (
 );
 export default function Hero() {
   return (
-    <section className=" -z-20" id="hero-section">
+    <section className=" -z-20 pb-0 mb-0" id="hero-section" >
       <MotionParallax speed={0.3} type={1}>
-        <div className="flex items-center box-border h-screen bg-cover relative bg-center z-0">
+        <div className="flex items-center box-border h-[97vh] bg-cover relative bg-center z-0">
           <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen">
-            <Image
-              priority={true}
-              src="/img/header-home.webp"
-              alt="Interview"
-              fill
-              className="object-center object-cover brightness-150"
-            />
+              <Image
+                priority={true}
+                src="/img/header-home.webp"
+                alt="Interview"
+                fill
+                className="object-center object-cover brightness-150"
+              />
           </div>
           <ParticlesDiv />
-
           <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen bg-app-900 bg-opacity-50"></div>
           <div className="z-10 text-center text-neutral-content w-full">
             <MotionParallax speed={0.4} type={0} initial={false}>
@@ -33,12 +32,12 @@ export default function Hero() {
                   <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
                     <small className="text-white flex flex-col gap-y-2">
                       <span className="gap-y-2 text-white">
-                          Transformez vos récits personnels en{" "}
-                         
-                          <AnimatedGradientText>
-                            {" "}œuvres intemporelles
-                          </AnimatedGradientText>
-                        </span>
+                        Transformez vos récits personnels en{" "}
+                        <AnimatedGradientText>
+                          {" "}
+                          œuvres intemporelles
+                        </AnimatedGradientText>
+                      </span>
                     </small>
                   </h1>
                   <GetStartButton />

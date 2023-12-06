@@ -10,7 +10,7 @@ import MotionShow from "@/src/feature/layout/effects/Show";
 
 export const Footer = async () => {
   return (
-    <footer className="bg-app-50 dark:bg-slate-900 mt-20  shadow-t-sm border-t-4 border-app-200 dark:border-app-800 ">
+    <footer className="bg-app-50 dark:bg-slate-900  shadow-t-sm border-t-4 border-app-200 dark:border-app-800 ">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">

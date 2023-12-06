@@ -7,7 +7,7 @@ import { Header } from "@/src/feature/layout/Header";
 import { ThemeProvider } from "@/src/theme/ThemeProvider";
 import { clsx } from "clsx";
 import { Session } from "next-auth";
-import { Bitter, Caveat, Nunito } from "next/font/google";
+import { Caveat, Nunito, Newsreader, Cormorant } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import dynamic from "next/dynamic";
 const ToastProvider = dynamic(
@@ -26,7 +26,7 @@ const sans = Nunito({
   display: "swap",
   variable: "--font-sans",
 });
-const serif = Bitter({
+const serif = Newsreader({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-serif",

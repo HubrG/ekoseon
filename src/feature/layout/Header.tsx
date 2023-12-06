@@ -26,8 +26,13 @@ export const Header = async () => {
   // On regarde si nous sommes sur la page d'accueil
   //
   return (
-    <MotionShow  threshold={1} animation="BottomToTop" duration={0.5} triggerOnce={true} initial={false}>
-      <header className=" z-20 w-full">
+    <header className=" z-20 w-full">
+      <MotionShow
+        threshold={0}
+        animation="bounceIn"
+        duration={0.5}
+        triggerOnce={true}
+        initial={false}>
         <nav id="navbar-menu" className="on-content">
           <div>
             <Link href="/" className="logo mr-2">
@@ -63,7 +68,7 @@ export const Header = async () => {
             <MainMenu links={links} />
           </div>
         </nav>
-      </header>
-    </MotionShow>
+      </MotionShow>
+    </header>
   );
 };

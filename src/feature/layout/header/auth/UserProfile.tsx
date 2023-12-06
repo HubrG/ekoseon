@@ -24,7 +24,7 @@ export const UserProfile = (props: MenuProps) => {
           <span className="lg:block md:hidden block">{props.user}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full">
+      <DropdownMenuContent className="w-full mt-[0.8rem] border-t-0 rounded-t-none user-profile">
         <DropdownMenuItem className="w-full" asChild>
           <Link href="/profil/mon-compte" className="nunderline">
             <FontAwesomeIcon icon={faUser} className="mr-2 h-4 w-4" />

@@ -1,73 +1,124 @@
 "use client";
+import { Separator } from "@/components/ui/separator";
+import MotionParallax from "@/src/feature/layout/effects/Parallax";
+import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
+import { faPeople, faVoicemail } from "@fortawesome/pro-duotone-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Home() {
   useNavbarObserver();
 
   return (
     <>
-      {/* !FIXME: M'INSPIRER DE ULYSSES */}
-      <div>
-        <Hero />
-      </div>
-      <div className="z-50">
-        <section
-          id="appFirstPage"
-          className="story-section shadow-t-3xl first-section ">
-          <div className="content">
-            <h2>
-              {/*  */}
-              Immortalisez Votre Histoire : Vos Souvenirs dans un Podcast ou un
-              Livre
-            </h2>
-            <p>
-              Ekoseon transforme votre histoire personnelle en expériences
-              captivantes grâce à nos services de création de podcasts et
-              d’écriture de livres biographiques. Imprégnez ces formats de votre
-              essence pour offrir à vos proches un morceau de votre vie, enrichi
-              par une touche personnelle inoubliable.
-            </p>
-            <ul>
-              <li>
-                <strong>Authenticité de la Voix :</strong> Vos passions, vos
-                rires et vos réflexions prennent vie dans l&apos;authenticité de
-                l&apos;audio.
-              </li>
-              <li>
-                <strong>Connexion Émotionnelle :</strong> Provoquez une
-                résonance émotionnelle chez vos auditeurs, qui se sentiront
-                comme à vos côtés.
-              </li>
-              <li>
-                <strong>Accessibilité :</strong> Partagez votre récit avec
-                facilité, que ce soit à l&apos;écoute d&apos;un podcast ou à la
-                lecture d’un passage d&apos;un livre.
-              </li>
-              <li>
-                <strong>Conservation Durable :</strong> Chaque mot, chaque pause
-                en podcast, et chaque page écrite, deviennent des conservateurs
-                de votre histoire.
-              </li>
-              <li>
-                <strong>Expérience Personnalisée :</strong> Nous adaptons le
-                récit en fonction de vos préférences, pour que chaque souvenir
-                reflète fidèlement votre individualité.
-              </li>
-              <li>
-                <strong>Transmission des Valeurs :</strong> Partagez vos
-                expériences de vie et votre sagesse, fixées dans l&apos;oralité
-                ou dans les mots.
-              </li>
-              <li>
-                <strong>Votre Plateforme :</strong> Ekoseon est là pour célébrer
-                et pérenniser vos aventures, afin qu&apos;elles résonnent avec
-                profondeur et authenticité.
-              </li>
-            </ul>
+      <Hero />
+      <div className="z-50 home-page">
+        {/* SECTION : First sec. */}
+        <section id="appFirstPage" className="story-section shadow-t-3xl first-section -mt-1">
+          <div>
+            <div className="w-full">
+              <MotionShow
+                threshold={0}
+                animation="BottomToTop"
+                triggerOnce={true}
+                duration={0.5}>
+                <h2>
+                  Immortalisez vos souvenirs dans un podcast, et dans un livre !
+                </h2>
+                <p className="pt-0">
+                  Ekoseon transforme votre histoire personnelle en{" "}
+                  <strong>expériences captivantes</strong> grâce à nos services
+                  de création de podcasts et d’écriture de livres biographiques.
+                  Imprégnez ces formats de votre essence pour offrir à vos
+                  proches un morceau de votre vie, enrichi par une touche
+                  personnelle inoubliable.
+                </p>
+              </MotionShow>
+            </div>
+            <Separator className="bg-transparent border border-dashed rounded-full my-10" />
+            <div className="w-full">
+              <div className="flex flex-col gap-5 mt-5">
+                <div className="w-full">
+                  <MotionShow
+                    threshold={0.3}
+                    animation="scaleUp"
+                    triggerOnce={true}
+                    duration={0.5}>
+                    <ul className="no-home">
+                      <li>
+                        <div>
+                          <FontAwesomeIcon icon={faVoicemail} />
+                        </div>
+                        <div>
+                          <h3>Authenticité de la voix</h3>
+                          <p>
+                            Vos passions, vos rires et vos réflexions entrent
+                            dans une nouvelle dimension en s&apos;encrant dans
+                            un enregistrement audio de grande qualité,{" "}
+                            <span className="font-semibold">
+                              même à distance
+                            </span>{" "}
+                            !
+                          </p>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <FontAwesomeIcon icon={faPeople} />
+                        </div>
+                        <div>
+                          <h3>Connexion émotionnelle</h3>
+                          <p>
+                            Provoquez une résonance émotionnelle chez vos
+                            auditeurs, qui se sentiront comme à vos côtés.
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </MotionShow>
+                </div>
+                <div className="w-full">
+                  <MotionShow
+                    threshold={0.3}
+                    animation="scaleUp"
+                    triggerOnce={true}
+                    duration={0.5}>
+                    <ul className="no-home">
+                      <li>
+                        <div>
+                          <FontAwesomeIcon icon={faVoicemail} />
+                        </div>
+                        <div>
+                          <h3>Expérience Personnalisée :</h3>
+                          <p>
+                            Nous adaptons le récit en fonction de vos
+                            préférences, pour que chaque souvenir reflète
+                            fidèlement votre individualité.
+                          </p>
+                        </div>
+                      </li>
+                      <li>
+                        <div>
+                          <FontAwesomeIcon icon={faVoicemail} />
+                        </div>
+                        <div>
+                          <h3>Transmission des Valeurs :</h3>
+                          <p>
+                            Partagez vos expériences de vie et votre sagesse,
+                            fixées dans l&apos;oralité ou dans les mots.
+                          </p>
+                        </div>
+                      </li>
+                    </ul>
+                  </MotionShow>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-        <section className="podcast-section -mt-10 section-gradient-opposite pb-14">
+        {/* SECTION: Podcast */}
+        <section className="podcast-section -mt-10 section-gradient-opposite">
           <div className="content">
             <h2>Podcast Biographique : Votre Vie en Sonorités Envoûtantes</h2>
             <p>
@@ -88,9 +139,9 @@ export default function Home() {
               podcasté est une fenêtre ouverte sur votre univers, accessible
               d&apos;un simple clic.
             </p>
-            {/* Insérer ici des extraits audio et témoignages des podcasts réalisés, présentés avec une interface interactive */}
           </div>
         </section>
+        {/* SECTION: Biographie */}
         <section
           id="yourStory"
           className="story-section section-gradient -mt-10 ">
@@ -104,17 +155,13 @@ export default function Home() {
                 traversera les âges, tout comme les mythes et légendes ont
                 survécu grâce à leur transcription.
               </p>
-              {/* Insérer ici des images et devises des livres créés avec un effet parallaxe */}
             </div>
           </div>
         </section>
-
-        {/* Section coffret numérique : requête cible pourrait être "archivage numérique personnalisé". Mettre en avant sécurité et accessibilité.*/}
-        {/*
-     Utiliser ici des animations subtiles pour simuler le processus d&apos;accès au coffret (ouverture virtuelle),
-     afin de rendre tangible ce concept abstrait.
-   */}
-        <section id="digital-box" className="digital-box-section  -mt-10 section-gradient-opposite pb-14">
+        {/* SECTION: Coffret numérique et goodies */}
+        <section
+          id="digital-box"
+          className="digital-box-section  -mt-10 section-gradient-opposite ">
           <div className="content">
             <h2>
               Votre coffret numérique : Souvenirs préservés, accès facilité
@@ -123,13 +170,10 @@ export default function Home() {
               Toutes vos créations - podcasts & livres - soigneusement
               conservées dans votre espace privé sécurisé.
             </p>
-
-            {/* Ajouter image symbolique d&apos;un coffre-fort numérique ou capsule temporelle depuis placeholder.com*/}
           </div>
         </section>
-
-        {/* Commentaire UI/UX: Cette section devrait avoir une atmosphère chaleureuse et inspirante, avec des images de personnes offrant des cadeaux ou partageant des souvenirs. */}
-        <section className="perfect-gift-section  -mt-10 section-gradient pb-14">
+        {/* SECTION: Cadeau */}
+        <section className="perfect-gift-section  -mt-10 section-gradient ">
           <div className="content">
             <h2>Un cadeau parfait, pour soi ou pour un proche</h2>
             <p>
@@ -137,33 +181,20 @@ export default function Home() {
               les histoires qui vous tiennent à cœur dans un podcast unique et
               une biographie illustrée.
             </p>
-
-            {/* Suggestion d&apos;animation UI avec framer motion : Appliquer un effet doux sur le survol des images de cadeaux, comme une légère augmentation en taille pour souligner leur importance. */}
-
-            {/* Image symbolique d&apos;un échange de cadeau ou quelqu&apos;un lisant son livre biographique, souriant - image disponible sur placeholder.com */}
           </div>
         </section>
-
-        {/* Commentaire UI/UX: Mettre l&apos;accent sur l&apos;importance historique et personnelle de laisser des mémoires pour susciter une prise de conscience chez le visiteur. */}
-        <section className="memories-section  -mt-10 section-gradient-opposite pb-14">
+        {/* SECTION: Pourquoi consigner */}
+        <section className="memories-section  -mt-10 section-gradient-opposite ">
           <div className="content">
             <h2>Pourquoi consigner ses mémoires ?</h2>
             <p>
               La transmission de nos récits est un pont entre les générations,
               un moyen d&apos;apprendre, de partager et de se souvenir.
             </p>
-            {/*
-        Suggestion UX/UI: Illustrer cette section avec des photos d&apos;albums familiaux anciens ou d&apos;événements marquants,
-        en utilisant une galerie photo interactive qui se dévoile au survol.
-       */}
-
-            {/* Image représentative du concept de mémoire et transmission (par exemple, un arbre généalogique stylisé ou des mains tenant une photographie ancienne) depuis placeholder.com */}
           </div>
         </section>
-
-        {/* Commentaire UI/UX: Utiliser des visuels et témoignages de personnes jeunes et âgées pour montrer que le partage de mémoires concerne tout le monde. */}
-        {/* Commentaire UI/UX: Cette section doit évoquer la modernité et l&apos;universalité des histoires personnelles. Opter pour un design dynamique et inclusif. */}
-        <section className="timeless-memories-section  -mt-10 section-gradient pb-14">
+        {/* SECTION: Âge */}
+        <section className="timeless-memories-section  -mt-10 section-gradient ">
           <div className="content">
             <h2>
               Pourquoi partager ses mémoires n&apos;est pas une question
@@ -175,13 +206,11 @@ export default function Home() {
               premières expériences aux moments marquants, vos récits
               enrichissent le tissu de notre mémoire collective.
             </p>
-            {/* Suggestion UX/UI : Présenter des histoires visuelles sous forme de chronologie interactive montrant comment les expériences se construisent à travers différents âges de la vie. */}
             <p>
               Ces partages sont aussi une façon de se libérer, d&apos;offrir ses
               leçons apprises à autrui et même parfois d&apos;alléger son cœur
               en immortalisant des souvenirs qui nous tiennent à cœur.
             </p>
-            {/* Image représentative de personnes variées racontant leur histoire - jeunes adultes, professionnels en plein essor - image disponible sur placeholder.com */}
           </div>
         </section>
       </div>
