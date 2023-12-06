@@ -35,9 +35,9 @@ export const GetStartButton = () => {
         size="lg"
         variant="link"
         className="getStartedButton text-white">
-        C&apos;est-à-dire
+        Comment faire
         <FontAwesomeIcon
-          className="text-white"
+          className="text-white italic"
           size="sm"
           icon={faQuestion}
           {...(isBounce ? { bounce: true } : { beatFade: true })}
@@ -48,7 +48,7 @@ export const GetStartButton = () => {
     <>
     <div className="flex justify-center mx-auto">
       <a href="#appFirstPage" className="  getStartedButton">
-       C&apos;est-à-dire ?
+       Comment ça ?!
       </a>
       </div>
     </>

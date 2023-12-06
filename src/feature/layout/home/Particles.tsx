@@ -94,7 +94,7 @@ export const ParticlesDiv = () => {
             },
           },
           size: {
-            value: { min: 2, max: 14 },
+            value: { min: 8, max: 20 },
           },
         },
         detectRetina: true,

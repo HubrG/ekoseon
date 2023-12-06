@@ -32,7 +32,8 @@ const MotionParallax: React.FC<MotionParallaxProps> = ({
 
   const transformValue = useMemo(() => {
     const opacityValue = 1 - scrollY / 400; // Diminue l'opacité de 0.5 unité pour chaque 100 pixels défilés
-    const clampedOpacity = Math.max(opacity, Math.min(opacityValue, 1)); // Assure que l'opacité reste entre 0.5 et 1
+    // const clampedOpacity = Math.max(opacity, Math.min(opacityValue, 1)); // Assure que l'opacité reste entre 0.5 et 1
+    const clampedOpacity = 1; // Assure que l'opacité reste entre 0.5 et 1
 
     switch (type) {
       case 0: // MotionParallaxe verticale vers le haut
@@ -48,7 +49,7 @@ const MotionParallax: React.FC<MotionParallaxProps> = ({
       default:
         return { y: -scrollY * speed, opacity: clampedOpacity };
     }
-  }, [scrollY, speed, type, opacity]); // Les dépendances indiquent quand recalcule la valeur
+  }, [scrollY, speed, type]); // Les dépendances indiquent quand recalcule la valeur
 
   return <motion.div style={transformValue} initial={initial ? false : ""}>{children}</motion.div>;
 };

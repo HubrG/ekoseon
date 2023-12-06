@@ -1,45 +1,49 @@
 "use client";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import React, { useLayoutEffect, useState, useEffect } from "react";
 
 interface LevitatingWrapperProps {
   children: React.ReactNode;
   duration?: number;
   amp?: number;
+  className?: string;
 }
 
 const MotionLevitation: React.FC<LevitatingWrapperProps> = ({
   children,
-  duration = 0.5,
-  amp = 0.005,
+  duration = 5, // Durée en secondes
+  amp = 10, // Amplitude
+  className,
 }) => {
   const controls = useAnimation();
-  const [initialPhase, setInitialPhase] = useState(Math.random() * 2 * Math.PI);  // phase initiale aléatoire
+  const [initialPhase, setInitialPhase] = useState(Math.random() * 2 * Math.PI);
 
   useEffect(() => {
-    setInitialPhase(Math.random() * 2 * Math.PI);  // Réinitialise la phase initiale à chaque montage/remontage
+    setInitialPhase(Math.random() * 2 * Math.PI);
   }, []);
 
   useLayoutEffect(() => {
-    let animationFrameId: number;
+    let intervalId: number;
+    let time = 0; // Compteur de temps
 
     const updatePosition = () => {
-      const time = Date.now() * duration + initialPhase;  // Ajoute la phase initiale aux fonctions sinus et cosinus
-      const x = Math.sin(time) * amp;
-      const y = Math.cos(time) * amp;
+      const t = (time / duration) * 2 * Math.PI; // Normalisation du temps sur la durée
+      const x = Math.sin(t + initialPhase) * amp;
+      const y = Math.cos(t + initialPhase) * amp;
       controls.set({ x, y });
-      animationFrameId = requestAnimationFrame(updatePosition);
+
+      time += 0.05; // Incrémente le temps à un rythme contrôlé
+      if (time > duration) time = 0; // Réinitialise le temps pour un cycle continu
     };
 
-    updatePosition();
+    intervalId = window.setInterval(updatePosition, 50); // Met à jour toutes les 50ms
 
-    // Cleanup the animation frame request when the component unmounts
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      clearInterval(intervalId);
     };
-  }, [controls, duration, amp, initialPhase]);  // Ajoute initialPhase aux dépendances
+  }, [controls, duration, amp, initialPhase]);
 
-  return <motion.div animate={controls}>{children}</motion.div>;
+  return <motion.div className={className} animate={controls}>{children}</motion.div>;
 };
 
 export default MotionLevitation;
