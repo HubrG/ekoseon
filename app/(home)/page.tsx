@@ -33,8 +33,8 @@ export default function Home() {
               <MotionShow
                 threshold={0}
                 animation="BottomToTop"
-                triggerOnce={true}
-                duration={0.5}>
+                triggerOnce={false}
+                duration={0.3}>
                 <h2 className="max-md:-mt-8">
                   Immortalisez vos souvenirs dans un{" "}
                   <span className="rounded box-decoration-slice bg-gradient-to-r from-app-700 to-app-800 text-app-50 font-serif py-2 px-2">
@@ -65,8 +65,8 @@ export default function Home() {
                       <MotionShow
                         threshold={0.3}
                         animation="slideInFromBottom"
-                        triggerOnce={true}
-                        duration={0.5}>
+                        triggerOnce={false}
+                        duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faVoicemail} />
                         </div>
@@ -88,8 +88,8 @@ export default function Home() {
                       <MotionShow
                         threshold={0.2}
                         animation="slideInFromBottom"
-                        triggerOnce={true}
-                        duration={0.5}>
+                        triggerOnce={false}
+                        duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faPeople} />
                         </div>
@@ -110,8 +110,8 @@ export default function Home() {
                       <MotionShow
                         threshold={0.4}
                         animation="slideInFromBottom"
-                        triggerOnce={true}
-                        duration={0.5}>
+                        triggerOnce={false}
+                        duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faVoicemail} />
                         </div>
@@ -129,8 +129,8 @@ export default function Home() {
                       <MotionShow
                         threshold={0.5}
                         animation="slideInFromBottom"
-                        triggerOnce={true}
-                        duration={0.5}>
+                        triggerOnce={false}
+                        duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faVoicemail} />
                         </div>
@@ -163,7 +163,7 @@ export default function Home() {
         </section>
         {/* SECTION: Podcast */}
         <section className="podcast-section  home-section  shadow-sm shadow-app-100">
-          <div className="content  flex md:flex-row flex-col items-center">
+          <div className="content  flex md:flex-row gap-x-5 flex-col items-center">
             <div className="absolute md:opacity-40 opacity-60 box-border  bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
                 priority={false}
@@ -174,19 +174,37 @@ export default function Home() {
               />
             </div>
             <div className="md:w-1/2 w-full z-10">
-              <h2>Podcast biographique : donner voix à votre vie</h2>
-              <p>
-                Opter pour un podcast biographique, c&apos;est choisir de vibrer
-                au rythme de votre propre voix, de partager l&apos;intimité de
-                vos souvenirs en tonalités. Chez Ekoseon, nous capturons la
-                quintessence de vos expériences dans un format audio riche,
-                créant ainsi un véritable feuilleton de votre vie. Vos
-                anecdotes, vos rires, et les inflexions de votre voix
-                s&apos;entremêlent pour donner naissance à un tableau sonore qui
-                transcende le temps et touche les cœurs de façon unique.
-              </p>
+              <MotionShow
+                threshold={0}
+                animation="slideInFromLeft"
+                triggerOnce={false}
+                duration={0.3}>
+                <h2>Podcast biographique : donner voix à votre vie</h2>
+              </MotionShow>
+              <MotionShow
+                threshold={0}
+                animation="slideInFromLeft"
+                triggerOnce={false}
+                duration={0.3}>
+                <p>
+                  Opter pour un podcast biographique, c&apos;est choisir de
+                  vibrer au rythme de votre propre voix, de partager
+                  l&apos;intimité de vos souvenirs en tonalités. Chez Ekoseon,
+                  nous capturons la quintessence de vos expériences dans un
+                  format audio riche, créant ainsi un véritable feuilleton de
+                  votre vie. Vos anecdotes, vos rires, et les inflexions de
+                  votre voix s&apos;entremêlent pour donner naissance à un
+                  tableau sonore qui transcende le temps et touche les cœurs de
+                  façon unique.
+                </p>
+              </MotionShow>
             </div>
-            <div className="flex justify-center w-full md:w-1/2">
+            <MotionShow
+              className="flex justify-center w-full md:w-1/2"
+              threshold={0}
+              animation="BottomToTop"
+              triggerOnce={false}
+              duration={0.3}>
               <Suspense
                 fallback={
                   <Image
@@ -204,7 +222,7 @@ export default function Home() {
                   <source src="/img/home/podcast-photo.mp4" type="video/mp4" />
                 </video>
               </Suspense>
-            </div>
+            </MotionShow>
           </div>
         </section>
         {/* SECTION: Biographie */}
@@ -221,30 +239,65 @@ export default function Home() {
             </div>
             {/* Section optionnelle pour la biographie écrite */}
             <div className="md:w-1/2  w-full z-0  max-md:mt-20 md:pt-20 pt-10  relative flex justify-center items-center  ">
-            <Image 
-                src="/img/home/biographie-photo-3.webp"
-                alt="Biographie - décoration de plumes"
-                className="absolute -top-28 brightness-125"
-                width={600}
-                height={300}
-              />
-              <MotionHover type="shiftRight" scale={60} className="md:ml-24 ml-28 absolute" shadow="none">
-                <Image
-                  className="max-md:w-2/3 select-none"
-                  src={"/img/home/biographie-photo-2.webp"}
-                  alt="Biographie - Deuxième exemple de livre"
-                  width={200}
-                  height={300}
-                />
+              <MotionShow
+                className="absolute -top-20 "
+                threshold={0}
+                animation="bounceIn"
+                triggerOnce={false}
+                duration={0.3}>
+                <MotionLevitation amp={10} duration={7}>
+                  <Image
+                    src="/img/home/biographie-photo-3.webp"
+                    alt="Biographie - décoration de plumes"
+                    className="brightness-125"
+                    width={600}
+                    height={300}
+                  />
+                </MotionLevitation>
+              </MotionShow>
+              <MotionHover
+                type="shiftRight"
+                scale={60}
+                className="md:ml-24 ml-28 absolute"
+                shadow="none">
+                <MotionShow
+                  className="w-full"
+                  threshold={0}
+                  animation="scaleUp"
+                  triggerOnce={false}
+                  duration={0.3}>
+                  <MotionLevitation amp={2} duration={7}>
+                    <Image
+                      className="max-md:w-2/3 select-none"
+                      src={"/img/home/biographie-photo-2.webp"}
+                      alt="Biographie - Deuxième exemple de livre"
+                      width={200}
+                      height={300}
+                    />
+                  </MotionLevitation>
+                </MotionShow>
               </MotionHover>
-              <MotionHover type="grow" scale={1.1} className="md:-ml-24 " shadow="none">
-                <Image
-                  src={"/img/home/biographie-photo.webp"}
-                  alt="Biographie - Exemple de livre"
-                  className="max-md:w-2/3  select-none"
-                  width={250}
-                  height={300}
-                />
+              <MotionHover
+                type="grow"
+                scale={1.1}
+                className="md:-ml-24 "
+                shadow="none">
+                <MotionShow
+                  className="w-full"
+                  threshold={0}
+                  animation="scaleUp"
+                  triggerOnce={false}
+                  duration={0.3}>
+                  <MotionLevitation  amp={2} duration={5}>
+                    <Image
+                      src={"/img/home/biographie-photo.webp"}
+                      alt="Biographie - Exemple de livre"
+                      className="max-md:w-2/3  select-none"
+                      width={250}
+                      height={300}
+                    />
+                  </MotionLevitation>
+                </MotionShow>
               </MotionHover>
             </div>
             <div className="written-biography-option max-md:order-first max-md:mb-10 z-10 md:w-1/2 w-full">

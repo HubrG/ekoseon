@@ -28,6 +28,7 @@ interface MotionShowProps {
     | "flipY";
   slowNtw?: boolean;
   initial?: boolean;
+  className?: string;
 }
 
 const variants: { [key: string]: Variants } = {
@@ -53,7 +54,7 @@ const variants: { [key: string]: Variants } = {
   },
   bounceIn: {
     visible: { opacity: 1, scale: [1, 1.1, 1] },
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0.7 },
   },
   swingIn: {
     visible: { opacity: 1, rotate: [0, 10, -10, 0] },
@@ -108,6 +109,7 @@ const MotionShow: React.FC<MotionShowProps> = ({
   duration = 1,
   animation = "BottomToTop",
   initial,
+  className,
 }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({
@@ -134,9 +136,10 @@ const MotionShow: React.FC<MotionShowProps> = ({
     <>
       <motion.div
         ref={ref}
+        className={className}
         animate={controls}
         initial={initial ? initial : "hidden"}
-        transition={{ duration: duration, type: "spring", stiffness: 100 }}
+        transition={{ duration: duration, type: "tween", stiffness: 50 }}
         variants={variants[animation]}>
         {children}
       </motion.div>
