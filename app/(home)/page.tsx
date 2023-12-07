@@ -146,16 +146,16 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex justify-center mt-5 join">
+            <div className="flex max-md:flex-col justify-center  gap-5 mt-12 ">
               <Link
                 href="/raconter-ses-memoires/fonctionnement"
-                className="btn btn-outline  join-item">
+                className="btn btn-outline">
                 <FontAwesomeIcon spin icon={faSolarSystem} />
                 En savoir plus sur notre méthode
               </Link>
               <Link
                 href="/raconter-ses-memoires/tarifs"
-                className="btn  join-item">
+                className="btn ">
                 <FontAwesomeIcon icon={faRocket} />
                 Je commence mes mémoires
               </Link>
