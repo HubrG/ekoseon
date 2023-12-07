@@ -17,7 +17,7 @@ export const ParticlesDiv = () => {
 
   const particlesLoaded = useCallback(
     async (container: Container | undefined) => {
-      console.log(container);
+      // console.log(container);
     },
     []
   );

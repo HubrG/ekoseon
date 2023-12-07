@@ -168,10 +168,10 @@ export default function Home() {
             <div className="absolute md:opacity-40 opacity-60 box-border  bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
                 priority={false}
-                src="https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701942671/Ekoseon/Home/podcast_zpdsre.svg"
-                alt="Interview"
+                src="/img/home/podcast-bg.webp"
+                alt="Podcast - image de fond"
                 fill
-                className="object-center object-cover brightness-150"
+                className="object-center object-cover brightness-150 select-none"
               />
             </div>
             <div className="md:w-1/2 w-full z-10">
@@ -189,8 +189,13 @@ export default function Home() {
             </div>
             <div className="flex justify-center w-full md:w-1/2">
               <video autoPlay loop muted playsInline className="w-2/3">
-                <source src="https://res.cloudinary.com/dxdwu31ry/video/upload/v1701942278/Ekoseon/Home/ezgif-3-844257ce98_iajzga.webm" type="video/webm" />
-                Désolé, votre navigateur ne supporte pas les vidéos intégrées.
+                <source src="/img/home/podcast-photo.webm" type="video/webm" />
+                <Image
+                  src="/img/home/podcast-photo-no-video.webp"
+                  alt="Podcast - exemple"
+                  fill
+                  className="object-center object-cover brightness-150 select-none"
+                />
               </video>
             </div>
           </div>
@@ -201,8 +206,8 @@ export default function Home() {
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
                 priority={false}
-                src="https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701944340/Ekoseon/Home/biographie_cloje6.svg"
-                alt="Interview"
+                src="/img/home/biographie-bg.webp"
+                alt="Biographie - image de fond"
                 fill
                 className="object-top object-cover brightness-150"
               />
@@ -214,8 +219,8 @@ export default function Home() {
                 duration={10}
                 amp={5}>
                 <Image
-                  src={"https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701943187/Ekoseon/Home/Design_sans_titre_1_iettaf.png"}
-                  alt="Interview"
+                  src={"/img/home/biographie-photo.webp"}
+                  alt="Biographie - Exemple de livre"
                   className="max-md:w-1/2"
                   width={250}
                   height={300}
@@ -228,8 +233,8 @@ export default function Home() {
                   className=" flex justify-center ml-24 -mt-5">
                   <Image
                     className="max-md:w-1/2 grayscale contrast-125"
-                    src={"https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701943837/Ekoseon/Home/Design_sans_titre_4_o6uldz.png"}
-                    alt="Interview"
+                    src={"/img/home/biographie-photo-2.webp"}
+                    alt="Biographie - Deuxième exemple de livre"
                     width={200}
                     height={300}
                   />

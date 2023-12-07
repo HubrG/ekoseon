@@ -19,7 +19,7 @@ export const UserProfile = (props: MenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="lg" variant="ghost">
+        <Button size="lg" aria-label={"Profil de " + props.user} variant="ghost">
           <FontAwesomeIcon icon={faUser} className="mr-2 h-4 w-4" />
           <span className="lg:block md:hidden block">{props.user}</span>
         </Button>

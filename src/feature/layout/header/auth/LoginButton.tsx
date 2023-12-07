@@ -17,6 +17,7 @@ export const LoginButton = () => {
       onClick={() => {
         startTransition(() => router.push("/connexion"));
       }}
+      aria-label="Me connecter"
     >
       {isPending ? (
         <Loader className="mr-2 h-4 w-4" />
