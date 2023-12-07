@@ -268,7 +268,7 @@ export default function Home() {
                   duration={0.3}>
                   <MotionLevitation amp={2} duration={7}>
                     <Image
-                      className="max-md:w-2/3 select-none"
+                      className="max-md:w-2/3 max-md:ml-10 "
                       src={"/img/home/biographie-photo-2.webp"}
                       alt="Biographie - Deuxième exemple de livre"
                       width={200}
