@@ -22,15 +22,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: "connect-src 'self' vitals.vercel-insights.com;",
-          },
-        ],
-      },
-      {
         source: "/",
         headers: [
           {
