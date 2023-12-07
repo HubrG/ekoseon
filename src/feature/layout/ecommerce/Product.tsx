@@ -341,7 +341,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                     bioChecked
                       ? "hover:bg-app-600  bg-app-600"
                       : "hover:bg-app-500  bg-app-500"
-                  } rounded-lg rounded-tl-none rounded-br-none absolute text-base right-0 top-0 flex flex-col `}>
+                  } rounded-xl rounded-tl-none rounded-br-none absolute text-base -right-[0.06rem] top-0 flex flex-col `}>
                   <span className="text-base text-app-50">
                     +
                     {productWithBio?.price
@@ -351,7 +351,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                   </span>
                   {rebatePercentageDisplay > 0 && (
                     <div className="-mt-2">
-                      <small className="opacity-70">
+                      <small className="opacity-70 text-app-100">
                         {" "}
                         -{rebatePercentageDisplay.toFixed(2)}%
                       </small>
@@ -403,7 +403,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                     microChecked
                       ? "hover:bg-app-600  bg-app-600"
                       : "hover:bg-app-500  bg-app-500"
-                  } rounded-lg rounded-tl-none rounded-br-none absolute text-base right-0 top-0 flex flex-col `}>
+                  } rounded-xl rounded-tl-none rounded-br-none absolute text-base -right-[0.06rem] top-0 flex flex-col `}>
                   <span className=" text-app-50">
                     {" "}
                     +

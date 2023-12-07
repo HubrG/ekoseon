@@ -33,7 +33,7 @@ export default function Home() {
               <MotionShow
                 threshold={0}
                 animation="BottomToTop"
-                triggerOnce={false}
+                triggerOnce={true}
                 duration={0.3}>
                 <h2 className="max-md:-mt-8">
                   Immortalisez vos souvenirs dans un{" "}
@@ -65,7 +65,7 @@ export default function Home() {
                       <MotionShow
                         threshold={0.3}
                         animation="slideInFromBottom"
-                        triggerOnce={false}
+                        triggerOnce={true}
                         duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faVoicemail} />
@@ -88,7 +88,7 @@ export default function Home() {
                       <MotionShow
                         threshold={0.2}
                         animation="slideInFromBottom"
-                        triggerOnce={false}
+                        triggerOnce={true}
                         duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faPeople} />
@@ -110,7 +110,7 @@ export default function Home() {
                       <MotionShow
                         threshold={0.4}
                         animation="slideInFromBottom"
-                        triggerOnce={false}
+                        triggerOnce={true}
                         duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faVoicemail} />
@@ -129,7 +129,7 @@ export default function Home() {
                       <MotionShow
                         threshold={0.5}
                         animation="slideInFromBottom"
-                        triggerOnce={false}
+                        triggerOnce={true}
                         duration={0.3}>
                         <div>
                           <FontAwesomeIcon icon={faVoicemail} />
@@ -177,14 +177,14 @@ export default function Home() {
               <MotionShow
                 threshold={0}
                 animation="slideInFromLeft"
-                triggerOnce={false}
+                triggerOnce={true}
                 duration={0.3}>
                 <h2>Podcast biographique : donner voix à votre vie</h2>
               </MotionShow>
               <MotionShow
                 threshold={0}
                 animation="slideInFromLeft"
-                triggerOnce={false}
+                triggerOnce={true}
                 duration={0.3}>
                 <p>
                   Opter pour un podcast biographique, c&apos;est choisir de
@@ -203,7 +203,7 @@ export default function Home() {
               className="flex justify-center w-full md:w-1/2"
               threshold={0}
               animation="BottomToTop"
-              triggerOnce={false}
+              triggerOnce={true}
               duration={0.3}>
               <Suspense
                 fallback={
@@ -243,7 +243,7 @@ export default function Home() {
                 className="absolute -top-20 "
                 threshold={0}
                 animation="bounceIn"
-                triggerOnce={false}
+                triggerOnce={true}
                 duration={0.3}>
                 <MotionLevitation amp={10} duration={7}>
                   <Image
@@ -264,7 +264,7 @@ export default function Home() {
                   className="w-full"
                   threshold={0}
                   animation="scaleUp"
-                  triggerOnce={false}
+                  triggerOnce={true}
                   duration={0.3}>
                   <MotionLevitation amp={2} duration={7}>
                     <Image
@@ -286,7 +286,7 @@ export default function Home() {
                   className="w-full"
                   threshold={0}
                   animation="scaleUp"
-                  triggerOnce={false}
+                  triggerOnce={true}
                   duration={0.3}>
                   <MotionLevitation  amp={2} duration={5}>
                     <Image

@@ -75,7 +75,7 @@ export const ParticlesDiv = () => {
           number: {
             density: {
               enable: true,
-              area: 500,
+              area: 700,
             },
             value: 80,
           },
@@ -94,7 +94,7 @@ export const ParticlesDiv = () => {
             // },
           },
           size: {
-            value: { min: 1, max: 4 },
+            value: { min: 1, max: 3 },
           },
         },
         detectRetina: true,

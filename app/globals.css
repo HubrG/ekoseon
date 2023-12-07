@@ -220,21 +220,16 @@
   }
 }
 .animated-gradient-audio-paper {
-  background-image: linear-gradient(
-    to right,
-    theme("colors.app.950"),
-    theme("colors.app.800"),
-    theme("colors.app.950"),
-    theme("colors.app.900"),
-    theme("colors.app.800") /* légèrement plus clair */
-  );
-  z-index: 99999999;
-  background-size: 400% 100%;
+  position: relative;
+  color: transparent;
+  background: linear-gradient(to right, theme("colors.app.950"), theme("colors.app.800"));
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
-  animation: gradientChangeAudioPaper 10s infinite;
 }
+
+
+
+
 
 @keyframes gradientChangeAudioPaper {
   0% {
@@ -387,7 +382,7 @@ div product-alt:first-child {
 }
 /* SHADCN */
 .shadcnInput {
-  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm font-light placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-60 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
+  @apply flex h-9 w-full rounded-md border border-app-300 dark:border-slate-700 bg-transparent px-3 py-1 text-base shadow-sm transition file:border-0 file:bg-transparent file:text-sm font-light placeholder:font-medium placeholder:text-app-800  placeholder:text-opacity-60 dark:placeholder:text-slate-500 text-app-900 dark:text-app-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-500 disabled:cursor-not-allowed disabled:opacity-50;
 }
 .shadcnTextarea {
   @apply shadcnInput h-32 !important;
@@ -399,7 +394,7 @@ div product-alt:first-child {
   @apply h-4 w-4 shrink-0 rounded-sm border border-app shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-app data-[state=checked]:text-primary-foreground;
 }
 .shadcnButton {
-  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 !important;
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 !important;
 }
 .shadcnButton-default {
   @apply bg-app dark:bg-app-300 dark:text-app-800 dark:hover:bg-app-300/90 text-app-100 shadow hover:bg-app/90;
