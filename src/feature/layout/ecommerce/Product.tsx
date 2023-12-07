@@ -342,7 +342,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                       ? "hover:bg-app-600  bg-app-600"
                       : "hover:bg-app-500  bg-app-500"
                   } rounded-lg rounded-tl-none rounded-br-none absolute text-base right-0 top-0 flex flex-col `}>
-                  <span className="text-base">
+                  <span className="text-base text-app-50">
                     +
                     {productWithBio?.price
                       ? new DecimalJS(bioCostDisplay).toFixed(0)
@@ -404,7 +404,7 @@ export const Product: React.FC<ProductProps> = ({ product, products, key }) => {
                       ? "hover:bg-app-600  bg-app-600"
                       : "hover:bg-app-500  bg-app-500"
                   } rounded-lg rounded-tl-none rounded-br-none absolute text-base right-0 top-0 flex flex-col `}>
-                  <span>
+                  <span className=" text-app-50">
                     {" "}
                     +
                     {productWithMicro?.price

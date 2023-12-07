@@ -162,7 +162,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Podcast */}
-        <section className="podcast-section  home-section">
+        <section className="podcast-section  home-section  shadow-sm shadow-app-100">
           <div className="content  flex md:flex-row flex-col items-center">
             <div className="absolute md:opacity-40 opacity-60 box-border  bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
@@ -197,21 +197,18 @@ export default function Home() {
                   />
                 }>
                 <video autoPlay loop muted playsInline className="w-2/3">
-                   <source
+                  <source
                     src="/img/home/podcast-photo.webm"
                     type="video/webm"
                   />
-                  <source
-                    src="/img/home/podcast-photo.mp4"
-                    type="video/mp4"
-                  />
+                  <source src="/img/home/podcast-photo.mp4" type="video/mp4" />
                 </video>
               </Suspense>
             </div>
           </div>
         </section>
         {/* SECTION: Biographie */}
-        <section id="yourStory" className="story-section home-section">
+        <section id="yourStory" className="story-section home-section shadow">
           <div className="content flex md:flex-row flex-col items-center pb-10">
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
@@ -224,25 +221,13 @@ export default function Home() {
             </div>
             {/* Section optionnelle pour la biographie écrite */}
             <div className="md:w-1/2  w-full z-0  -mt-5 mb-14 relative flex justify-center ">
-              <MotionLevitation
-                className="absolute flex justify-center"
-                duration={10}
-                amp={5}>
-                <Image
-                  src={"/img/home/biographie-photo.webp"}
-                  alt="Biographie - Exemple de livre"
-                  className="max-md:w-1/2"
-                  width={250}
-                  height={300}
-                />
-              </MotionLevitation>
-              <MotionHover type="grow" shadow="none">
+              <MotionHover type="scale" shadow="none">
                 <MotionLevitation
                   duration={10}
                   amp={10}
-                  className=" flex justify-center ml-24 -mt-5">
+                  className=" flex justify-center ml-28 mt-10">
                   <Image
-                    className="max-md:w-1/2 grayscale contrast-125"
+                    className="max-md:w-2/3  contrast-90 brightness-110"
                     src={"/img/home/biographie-photo-2.webp"}
                     alt="Biographie - Deuxième exemple de livre"
                     width={200}
@@ -250,6 +235,20 @@ export default function Home() {
                   />
                 </MotionLevitation>
               </MotionHover>
+              <MotionLevitation
+                className="absolute flex justify-center max-md:-ml-10 -ml-24"
+                duration={10}
+                amp={5}>
+                <MotionHover type="grow" shadow="none">
+                  <Image
+                    src={"/img/home/biographie-photo.webp"}
+                    alt="Biographie - Exemple de livre"
+                    className="max-md:w-2/3   contrast-125 brightness-80"
+                    width={250}
+                    height={300}
+                  />
+                </MotionHover>
+              </MotionLevitation>
             </div>
             <div className="written-biography-option max-md:order-first max-md:mb-10 z-10 md:w-1/2 w-full">
               <h2>Laisser une trace écrite: un héritage indélébile</h2>
