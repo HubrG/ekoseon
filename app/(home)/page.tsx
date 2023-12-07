@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { faGift } from "@fortawesome/pro-solid-svg-icons";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Home() {
   useNavbarObserver();
@@ -153,9 +154,7 @@ export default function Home() {
                 <FontAwesomeIcon spin icon={faSolarSystem} />
                 En savoir plus sur notre méthode
               </Link>
-              <Link
-                href="/raconter-ses-memoires/tarifs"
-                className="btn ">
+              <Link href="/raconter-ses-memoires/tarifs" className="btn ">
                 <FontAwesomeIcon icon={faRocket} />
                 Je commence mes mémoires
               </Link>
@@ -188,15 +187,22 @@ export default function Home() {
               </p>
             </div>
             <div className="flex justify-center w-full md:w-1/2">
-              <video autoPlay loop muted playsInline className="w-2/3">
-                <source src="/img/home/podcast-photo.webm" type="video/webm" />
-                <Image
-                  src="/img/home/podcast-photo-no-video.webp"
-                  alt="Podcast - exemple"
-                  fill
-                  className="object-center object-cover brightness-150 select-none"
-                />
-              </video>
+              <Suspense
+                fallback={
+                  <Image
+                    src="/img/home/podcast-photo-no-video.webp"
+                    alt="Podcast - exemple"
+                    fill
+                    className="object-center object-cover brightness-150 select-none"
+                  />
+                }>
+                <video autoPlay loop muted playsInline className="w-2/3">
+                  <source
+                    src="/img/home/podcast-photo.webm"
+                    type="video/webm"
+                  />
+                </video>
+              </Suspense>
             </div>
           </div>
         </section>
