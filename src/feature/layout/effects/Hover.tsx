@@ -26,7 +26,9 @@ type AnimationType =
   | "bounce"
   | "pulse"
   | "swing"
-  | "grow";
+  | "grow"
+  | "shiftRight"
+  | "shiftLeft";
 
 interface AnimatedWrapperProps {
   children: React.ReactNode;
@@ -37,6 +39,7 @@ interface AnimatedWrapperProps {
   rotate?: number;
   shadow?: string;
   rounded?: string;
+  className?: string;
 }
 
 const MotionHover: React.FC<AnimatedWrapperProps> = ({
@@ -47,7 +50,8 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
   rotate = 5,
   duration = 0.3,
   shadow = "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-  rounded = "0.5rem"
+  rounded = "0.5rem",
+  className
 }) => {
   const hoverAnimations: Record<
     AnimationType,
@@ -127,9 +131,21 @@ const MotionHover: React.FC<AnimatedWrapperProps> = ({
       borderRadius: rounded
 
     },
+    shiftRight: {
+      x: scale, // décalage de 10px vers la droite
+      transition: { duration: duration },
+      boxShadow: shadow,
+      borderRadius: rounded
+    },
+    shiftLeft: {
+      x: -scale, // décalage de 10px vers la gauche
+      transition: { duration: duration },
+      boxShadow: shadow,
+      borderRadius: rounded
+    },
   };
 
-  return <motion.div whileHover={hoverAnimations[type]}>{children}</motion.div>;
+  return <motion.div className={className} whileHover={hoverAnimations[type]}>{children}</motion.div>;
 };
 
 export default MotionHover;

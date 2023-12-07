@@ -220,35 +220,32 @@ export default function Home() {
               />
             </div>
             {/* Section optionnelle pour la biographie écrite */}
-            <div className="md:w-1/2  w-full z-0  -mt-5 mb-14 relative flex justify-center ">
-              <MotionHover type="scale" shadow="none">
-                <MotionLevitation
-                  duration={10}
-                  amp={10}
-                  className=" flex justify-center ml-28 mt-10">
-                  <Image
-                    className="max-md:w-2/3  contrast-90 brightness-110"
-                    src={"/img/home/biographie-photo-2.webp"}
-                    alt="Biographie - Deuxième exemple de livre"
-                    width={200}
-                    height={300}
-                  />
-                </MotionLevitation>
+            <div className="md:w-1/2  w-full z-0  max-md:mt-20 md:pt-20 pt-10  relative flex justify-center items-center  ">
+            <Image 
+                src="/img/home/biographie-photo-3.webp"
+                alt="Biographie - décoration de plumes"
+                className="absolute -top-28 brightness-125"
+                width={600}
+                height={300}
+              />
+              <MotionHover type="shiftRight" scale={60} className="md:ml-24 ml-28 absolute" shadow="none">
+                <Image
+                  className="max-md:w-2/3 select-none"
+                  src={"/img/home/biographie-photo-2.webp"}
+                  alt="Biographie - Deuxième exemple de livre"
+                  width={200}
+                  height={300}
+                />
               </MotionHover>
-              <MotionLevitation
-                className="absolute flex justify-center max-md:-ml-10 -ml-24"
-                duration={10}
-                amp={5}>
-                <MotionHover type="grow" shadow="none">
-                  <Image
-                    src={"/img/home/biographie-photo.webp"}
-                    alt="Biographie - Exemple de livre"
-                    className="max-md:w-2/3   contrast-125 brightness-80"
-                    width={250}
-                    height={300}
-                  />
-                </MotionHover>
-              </MotionLevitation>
+              <MotionHover type="grow" scale={1.1} className="md:-ml-24 " shadow="none">
+                <Image
+                  src={"/img/home/biographie-photo.webp"}
+                  alt="Biographie - Exemple de livre"
+                  className="max-md:w-2/3  select-none"
+                  width={250}
+                  height={300}
+                />
+              </MotionHover>
             </div>
             <div className="written-biography-option max-md:order-first max-md:mb-10 z-10 md:w-1/2 w-full">
               <h2>Laisser une trace écrite: un héritage indélébile</h2>
