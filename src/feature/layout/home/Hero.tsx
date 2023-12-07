@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import MotionParallax from "../effects/Parallax";
 import MotionShow from "../effects/Show";
 import GetStartButton from "./GetStartButton";
@@ -13,47 +13,44 @@ export default function Hero() {
   return (
     <section className=" -z-20 pb-0 mb-0" id="hero-section">
       <MotionParallax speed={0.3} type={1}>
-        <div className="flex items-center box-border h-[97vh] bg-cover relative bg-center z-0">
-          <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen">
-            <Image
-              priority={true}
-              src="/img/home/hero.webp"
-              alt="Ekoseon - Raconter ses mémoires"
-              fill
-              className="object-center object-cover brightness-150"
-            />
-          </div>
+        <div className="absolute  z-10  h-screen w-full">
+          <Image
+            priority={true}
+            src="/img/home/hero.webp"
+            alt="Ekoseon - Raconter ses mémoires"
+            fill
+            className="object-center object-cover  brightness-150"
+          />
+        </div>
+        <div className="absolute  w-full background-hero  z-10 h-screen bg-app-900 bg-opacity-50"></div>
+        <div className="absolute w-full h-full z-20">
           <ParticlesDiv />
-          <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen bg-app-900 bg-opacity-50"></div>
+        </div>
+        <div className="flex items-center  h-[97vh]   relative bg-center z-20">
           <div className="z-10 text-center text-neutral-content w-full ">
-            {/* <MotionParallax speed={0.4} type={0} initial={false}> */}
+            <MotionParallax speed={0.4} type={0} initial={false}>
             <div className="max-w-3xl mx-auto">
               <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
                 <MotionShow
                   threshold={0.6}
                   animation="bounceIn"
-                  triggerOnce={true}
                   initial={false}>
-                  <small className="text-white flex flex-col gap-y-2">
-                    <span className="gap-y-2 text-white">
-                      Transformez vos récits personnels en{" "}
-                      <AnimatedGradientText>
-                        {" "}
-                        œuvres intemporelles
-                      </AnimatedGradientText>
-                    </span>
-                  </small>
+                <small className="text-white flex flex-col gap-y-2">
+                  <span className="gap-y-2 text-white">
+                    Transformez vos récits personnels en{" "}
+                    <AnimatedGradientText>
+                      {" "}
+                      œuvres intemporelles
+                    </AnimatedGradientText>
+                  </span>
+                </small>
                 </MotionShow>
               </h1>
-              <MotionShow
-                threshold={0.6}
-                triggerOnce={true}
-                animation="bounceIn"
-                initial={false}>
+              <MotionShow threshold={0.6} animation="bounceIn" initial={false}>
                 <GetStartButton />
               </MotionShow>
             </div>
-            {/* </MotionParallax> */}
+            </MotionParallax>
           </div>
           <div id="appFirstPage" className="bottom-[2.35rem] absolute"></div>
         </div>

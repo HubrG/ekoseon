@@ -24,7 +24,7 @@ export const ParticlesDiv = () => {
   return (
     <Particles
       id="tsparticles"
-      className="h-full"
+      className="h-full  w-full "
       init={particlesInit}
       loaded={particlesLoaded}
       options={{
