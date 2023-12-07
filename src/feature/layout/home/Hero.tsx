@@ -22,10 +22,10 @@ export default function Hero() {
             className="object-center object-cover  brightness-150"
           />
         </div>
-        <div className="absolute  w-full background-hero  z-10 h-screen bg-app-900 bg-opacity-50"></div>
-        <div className="absolute w-full h-full z-20">
+        <div className="absolute w-full h-full z-10">
           <ParticlesDiv />
         </div>
+        <div className="absolute  w-full background-hero  z-10 h-screen bg-app-900 bg-opacity-50"></div>
         <div className="flex items-center  h-[97vh]   relative bg-center z-20">
           <div className="z-10 text-center text-neutral-content w-full ">
             <MotionParallax speed={0.4} type={0} initial={false}>
