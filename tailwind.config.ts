@@ -501,6 +501,7 @@ const colorPalettesRGBA = {
 };
 
 module.exports = {
+  important: true,
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -510,11 +511,17 @@ module.exports = {
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     fontFamily: {
       sans: ["var(--font-sans)", "system-ui"],
       serif: ["var(--font-serif)", "Georgia"],
       display: ["var(--font-display)", "Comic Sans MS"],
-      // emoji: ["Noto Color Emoji", "system-ui"],
     },
     extend: {
       boxShadow: {
@@ -534,16 +541,87 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+        text: {
+          50: "hsl(var(--text-50))",
+          100: "hsl(var(--text-100))",
+          200: "hsl(var(--text-200))",
+          300: "hsl(var(--text-300))",
+          400: "hsl(var(--text-400))",
+          500: "hsl(var(--text-500))",
+          600: "hsl(var(--text-600))",
+          700: "hsl(var(--text-700))",
+          800: "hsl(var(--text-800))",
+          900: "hsl(var(--text-900))",
+          950: "hsl(var(--text-950))",
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+        theming: {
+          text: {
+            50: "hsl(var(--text-50))",
+            100: "hsl(var(--text-100))",
+            200: "hsl(var(--text-200))",
+            300: "hsl(var(--text-300))",
+            400: "hsl(var(--text-400))",
+            500: "hsl(var(--text-500))",
+            600: "hsl(var(--text-600))",
+            700: "hsl(var(--text-700))",
+            800: "hsl(var(--text-800))",
+            900: "hsl(var(--text-900))",
+            950: "hsl(var(--text-950))",
+          },
+          background: {
+            50: "hsl(var(--background-50))",
+            100: "hsl(var(--background-100))",
+            200: "hsl(var(--background-200))",
+            300: "hsl(var(--background-300))",
+            400: "hsl(var(--background-400))",
+            500: "hsl(var(--background-500))",
+            600: "hsl(var(--background-600))",
+            700: "hsl(var(--background-700))",
+            800: "hsl(var(--background-800))",
+            900: "hsl(var(--background-900))",
+            950: "hsl(var(--background-950))",
+          },
+          primary: {
+            50: "hsl(var(--primary-50))",
+            100: "hsl(var(--primary-100))",
+            200: "hsl(var(--primary-200))",
+            300: "hsl(var(--primary-300))",
+            400: "hsl(var(--primary-400))",
+            500: "hsl(var(--primary-500))",
+            600: "hsl(var(--primary-600))",
+            700: "hsl(var(--primary-700))",
+            800: "hsl(var(--primary-800))",
+            900: "hsl(var(--primary-900))",
+            950: "hsl(var(--primary-950))",
+          },
+          secondary: {
+            50: "hsl(var(--secondary-50))",
+            100: "hsl(var(--secondary-100))",
+            200: "hsl(var(--secondary-200))",
+            300: "hsl(var(--secondary-300))",
+            400: "hsl(var(--secondary-400))",
+            500: "hsl(var(--secondary-500))",
+            600: "hsl(var(--secondary-600))",
+            700: "hsl(var(--secondary-700))",
+            800: "hsl(var(--secondary-800))",
+            900: "hsl(var(--secondary-900))",
+            950: "hsl(var(--secondary-950))",
+          },
+          accent: {
+            50: "hsl(var(--accent-50))",
+            100: "hsl(var(--accent-100))",
+            200: "hsl(var(--accent-200))",
+            300: "hsl(var(--accent-300))",
+            400: "hsl(var(--accent-400))",
+            500: "hsl(var(--accent-500))",
+            600: "hsl(var(--accent-600))",
+            700: "hsl(var(--accent-700))",
+            800: "hsl(var(--accent-800))",
+            900: "hsl(var(--accent-900))",
+            950: "hsl(var(--accent-950))",
+          },
         },
         app: colorPalettes[appColor],
-        apprgba: colorPalettesRGBA[appColorRGBA],
 
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -556,6 +634,14 @@ module.exports = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -588,14 +674,37 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    themes: {
+      app: {
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        neutral: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        "base-100": {
+          DEFAULT: "hsl(var(--text-50))",
+          foreground: "hsl(var(--text-900))",
+        },
+      },
+    }, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "dark", // name of one of the included themes for dark mode
     base: false, // applies background color and foreground color for root element by default
-    styled: false, // include daisyUI colors and design decisions for all components
+    styled: true, // include daisyUI colors and design decisions for all components
     utils: false, // adds responsive and modifier utility classes
     prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
     logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
     themeRoot: ":root", // The element that receives theme color CSS variables
   },
-  plugins: [require("tailwindcss-animate"),require("daisyui")],
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
 };

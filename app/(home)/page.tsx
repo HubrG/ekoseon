@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import MotionHover from "@/src/feature/layout/effects/Hover";
 import MotionLevitation from "@/src/feature/layout/effects/Levitation";
@@ -6,9 +7,16 @@ import MotionParallax from "@/src/feature/layout/effects/Parallax";
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
-import { faPeople, faVoicemail } from "@fortawesome/pro-duotone-svg-icons";
+import {
+  faPeople,
+  faRocket,
+  faSolarSystem,
+  faVoicemail,
+} from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { faGift } from "@fortawesome/pro-solid-svg-icons";
+import Link from "next/link";
 
 export default function Home() {
   useNavbarObserver();
@@ -18,7 +26,7 @@ export default function Home() {
       <Hero />
       <div className="z-50 home-page">
         {/* SECTION : First sec. */}
-        <section className="story-section shadow-t-3xl first-section -mt-1 ">
+        <section className="story-section shadow-t-3xl first-section -mt-1 border-b border-dashed  border-app-300">
           <div>
             <div className="w-full">
               <MotionShow
@@ -28,11 +36,11 @@ export default function Home() {
                 duration={0.5}>
                 <h2 className="max-md:-mt-8">
                   Immortalisez vos souvenirs dans un{" "}
-                  <span className="rounded box-decoration-slice bg-gradient-to-r from-app-200 to-app-300  font-serif py-2 px-2">
+                  <span className="rounded box-decoration-slice bg-gradient-to-r from-app-700 to-app-800 text-app-50 font-serif py-2 px-2">
                     podcast
                   </span>
                   , et dans un{" "}
-                  <span className="rounded box-decoration-slice bg-gradient-to-r from-app-200 to-app-300  font-serif py-2 px-2">
+                  <span className="rounded box-decoration-slice bg-gradient-to-r from-app-700 to-app-800 text-app-50 font-serif py-2 px-2">
                     livre
                   </span>{" "}
                   !
@@ -54,8 +62,8 @@ export default function Home() {
                   <ul className="no-home">
                     <li>
                       <MotionShow
-                        threshold={0.8}
-                        animation="slideInFromLeft"
+                        threshold={0.3}
+                        animation="slideInFromBottom"
                         triggerOnce={true}
                         duration={0.5}>
                         <div>
@@ -78,7 +86,7 @@ export default function Home() {
                     <li>
                       <MotionShow
                         threshold={0.2}
-                        animation="slideInFromLeft"
+                        animation="slideInFromBottom"
                         triggerOnce={true}
                         duration={0.5}>
                         <div>
@@ -99,8 +107,8 @@ export default function Home() {
                   <ul className="no-home">
                     <li>
                       <MotionShow
-                        threshold={0.8}
-                        animation="slideInFromLeft"
+                        threshold={0.4}
+                        animation="slideInFromBottom"
                         triggerOnce={true}
                         duration={0.5}>
                         <div>
@@ -118,8 +126,8 @@ export default function Home() {
                     </li>
                     <li>
                       <MotionShow
-                        threshold={0.2}
-                        animation="slideInFromLeft"
+                        threshold={0.5}
+                        animation="slideInFromBottom"
                         triggerOnce={true}
                         duration={0.5}>
                         <div>
@@ -138,15 +146,29 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            <div className="flex justify-center mt-5 join">
+              <Link
+                href="/raconter-ses-memoires/fonctionnement"
+                className="btn btn-outline  join-item">
+                <FontAwesomeIcon spin icon={faSolarSystem} />
+                En savoir plus sur notre méthode
+              </Link>
+              <Link
+                href="/raconter-ses-memoires/tarifs"
+                className="btn  join-item">
+                <FontAwesomeIcon icon={faRocket} />
+                Je commence mes mémoires
+              </Link>
+            </div>
           </div>
         </section>
         {/* SECTION: Podcast */}
-        <section className="podcast-section -mt-10   shadow-inner">
-          <div className="content  flex md:flex-row flex-col ">
+        <section className="podcast-section  home-section">
+          <div className="content  flex md:flex-row flex-col items-center">
             <div className="absolute md:opacity-40 opacity-60 box-border  bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
                 priority={false}
-                src="/img/home/podcast.svg"
+                src="https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701942671/Ekoseon/Home/podcast_zpdsre.svg"
                 alt="Interview"
                 fill
                 className="object-center object-cover brightness-150"
@@ -165,42 +187,56 @@ export default function Home() {
                 transcende le temps et touche les cœurs de façon unique.
               </p>
             </div>
+            <div className="flex justify-center w-full md:w-1/2">
+              <video autoPlay loop muted playsInline className="w-2/3">
+                <source src="https://res.cloudinary.com/dxdwu31ry/video/upload/v1701942278/Ekoseon/Home/ezgif-3-844257ce98_iajzga.webm" type="video/webm" />
+                Désolé, votre navigateur ne supporte pas les vidéos intégrées.
+              </video>
+            </div>
           </div>
         </section>
         {/* SECTION: Biographie */}
-        <section id="yourStory" className="story-section  -mt-10 shadow-inner ">
+        <section id="yourStory" className="story-section home-section">
           <div className="content flex md:flex-row flex-col items-center pb-10">
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
                 priority={false}
-                src="/img/home/biographie.svg"
+                src="https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701944340/Ekoseon/Home/biographie_cloje6.svg"
                 alt="Interview"
                 fill
                 className="object-top object-cover brightness-150"
               />
             </div>
             {/* Section optionnelle pour la biographie écrite */}
-            <div className="md:w-1/2 w-full z-0  relative flex justify-center ">
-              <MotionLevitation className="absolute" duration={10} amp={5}>
+            <div className="md:w-1/2  w-full z-0  -mt-5 mb-14 relative flex justify-center ">
+              <MotionLevitation
+                className="absolute flex justify-center"
+                duration={10}
+                amp={5}>
                 <Image
-                  src={"/img/home/biographie-photo.svg"}
+                  src={"https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701943187/Ekoseon/Home/Design_sans_titre_1_iettaf.png"}
                   alt="Interview"
+                  className="max-md:w-1/2"
                   width={250}
                   height={300}
                 />
               </MotionLevitation>
               <MotionHover type="grow" shadow="none">
-                <MotionLevitation duration={10} amp={10}>
+                <MotionLevitation
+                  duration={10}
+                  amp={10}
+                  className=" flex justify-center ml-24 -mt-5">
                   <Image
-                    src={"/img/home/biographie-photo-2.svg"}
+                    className="max-md:w-1/2 grayscale contrast-125"
+                    src={"https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701943837/Ekoseon/Home/Design_sans_titre_4_o6uldz.png"}
                     alt="Interview"
-                    width={250}
+                    width={200}
                     height={300}
                   />
                 </MotionLevitation>
               </MotionHover>
             </div>
-            <div className="written-biography-option z-10 md:w-1/2 w-full">
+            <div className="written-biography-option max-md:order-first max-md:mb-10 z-10 md:w-1/2 w-full">
               <h2>Laisser une trace écrite: un héritage indélébile</h2>
               <p>
                 Si vous optez pour une biographie écrite, Ekoseon vous
@@ -214,7 +250,7 @@ export default function Home() {
         {/* SECTION: Coffret numérique et goodies */}
         <section
           id="digital-box"
-          className="digital-box-section  -mt-10 section-gradient-opposite  shadow-inner">
+          className="digital-box-section   home-section">
           <div className="content">
             <h2>
               Votre coffret numérique : Souvenirs préservés, accès facilité
@@ -226,7 +262,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Cadeau */}
-        <section className="perfect-gift-section  -mt-10 section-gradient  shadow-inner">
+        <section className="perfect-gift-section  home-section ">
           <div className="content">
             <h2>Un cadeau parfait, pour soi ou pour un proche</h2>
             <p>
@@ -237,7 +273,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Pourquoi consigner */}
-        <section className="memories-section  -mt-10 section-gradient-opposite  shadow-inner">
+        <section className="memories-section   home-section ">
           <div className="content">
             <h2>Pourquoi consigner ses mémoires ?</h2>
             <p>
@@ -247,7 +283,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Âge */}
-        <section className="timeless-memories-section  -mt-10 section-gradient  shadow-inner">
+        <section className="timeless-memories-section  -mt-10 section-gradient  ">
           <div className="content">
             <h2>
               Pourquoi partager ses mémoires n&apos;est pas une question

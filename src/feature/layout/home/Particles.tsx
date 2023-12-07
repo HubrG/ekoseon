@@ -83,18 +83,18 @@ export const ParticlesDiv = () => {
             value: 0.5,
           },
           shape: {
-            type: "char",
-            character: {
-              fill: true,
-              style: "",
-              font:"Times New Roman",
-              value: [ "!", "...", "?", "∞", "-", ".", ";", "…", "“ ”", "‘"],
-              weight: "400",
+            type: "circle",
+            // character: {
+            //   fill: true,
+            //   style: "",
+            //   font:"Times New Roman",
+            //   value: [ "!", "...", "?", "∞", "-", ".", ";", "…", "“ ”", "‘"],
+            //   weight: "400",
               
-            },
+            // },
           },
           size: {
-            value: { min: 8, max: 20 },
+            value: { min: 1, max: 4 },
           },
         },
         detectRetina: true,

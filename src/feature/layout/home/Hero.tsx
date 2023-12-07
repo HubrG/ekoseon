@@ -17,7 +17,7 @@ export default function Hero() {
           <div className="absolute box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-screen">
               <Image
                 priority={true}
-                src="/img/header-home.webp"
+                src="https://res.cloudinary.com/dxdwu31ry/image/upload/f_auto/v1701944384/Ekoseon/Home/header-home_ichsyf.webp"
                 alt="Interview"
                 fill
                 className="object-center object-cover brightness-150"

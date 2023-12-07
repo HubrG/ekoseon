@@ -1,63 +1,59 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"); */
+@import "../cssThemes/pink2.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   :root {
-    --color-app1: theme("colors.app.50");
-    --color-app2: theme("colors.app.100");
-    --color-app3: theme("colors.app.200");
-    --color-app4: theme("colors.app.300");
-    --color-app5: theme("colors.app.400");
-    --color-app6: theme("colors.app.500");
-    --color-app7: theme("colors.app.600");
-    --color-app8: theme("colors.app.700");
-    --color-app9: theme("colors.app.800");
-    --color-app10: theme("colors.app.900");
-    --color-app11: theme("colors.app.950");
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 289.4 85% 59%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
+    --background-25: 98%;
+    /*  */
+    --background: var(--background-50);
+    --foreground: var(--background-900);
+    --card: var(--background-100);
+    --card-foreground: var(--text-900);
+    --popover: var(--background-50);
+    --popover-foreground: var(--background-900);
+    --primary: var(--primary-100);
+    --primary-foreground: var(--text-900);
+    --secondary: var(--secondary-800);
+    --secondary-foreground: var(--secondary-200);
+    --muted: var(--secondary-50);
+    --muted-foreground: var(--text-900);
+    --accent: var(--accent-100);
+    --accent-foreground: var(--accent-900);
+    --destructive: var(--secondary-50);
+    --destructive-foreground: var(--text-900);
+    --border: var(--background-900);
+    --input: var(--background-200);
+    --ring: var(--background-200);
+    --radius: 0.28rem;
+    /*  */
+    --background-bg: var(--background-50);
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 289.4 85% 59%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 263.4 70% 50.4%;
+    /*  */
+    --background-25: 4%;
+    --background: var(--background-50);
+    --foreground: var(--background-900);
+    --card: var(--background-100);
+    --card-foreground: var(--text-900);
+    --popover: var(--background-50);
+    --popover-foreground: var(--background-900);
+    --primary: var(--primary-100);
+    --primary-foreground: var(--text-900);
+    --secondary: var(--secondary-800);
+    --secondary-foreground: var(--secondary-200);
+    --muted: var(--secondary-50);
+    --muted-foreground: var(--text-900);
+    --accent: var(--accent-100);
+    --accent-foreground: var(--accent-900);
+    --destructive: var(--secondary-50);
+    --destructive-foreground: var(--text-900);
+    --border: var(--background-200);
+    --input: var(--background-100);
+    --ring: var(--background-100);
+    --radius: 0.28rem;
   }
 }
 
@@ -149,6 +145,7 @@
   .content-centered {
     @apply mx-auto min-h-screen  flex items-center justify-center;
   }
+
 
   h1 svg,
   h2 svg,
@@ -738,7 +735,7 @@ div.home-page ul.no-home li div:first-child {
   @apply max-md:w-full;
 }
 div.home-page ul.no-home h2, div.home-page ul.no-home h3  {
-  @apply sm:text-4xl text-3xl text-app-900 my-0 py-0 font-display !important;
+  @apply sm:text-3xl text-3xl text-app-900 my-0 py-0 font-display !important;
 }
 div.home-page ul.no-home p  {
   @apply text-lg my-0 py-0 !important;
@@ -749,3 +746,16 @@ div.home-page ul.no-home p  {
 div.home-page ul.no-home svg {
   @apply sm:text-4xl text-2xl
  }
+ .btn {
+  @apply font-serif text-base;
+ }
+
+ a.btn.btn-outline {
+  @apply  text-app-700 hover:text-app-50  hover:bg-app-700 hover:no-underline  !important;
+}
+a.btn:not(.btn-outline) {
+  @apply  text-app-50 bg-app-900 hover:bg-app-700 hover:no-underline  !important;
+}
+.home-section {
+  @apply   -mt-10 pb-8  border-b border-dashed border-app-300 !important;
+}
