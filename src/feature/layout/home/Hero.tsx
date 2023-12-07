@@ -4,11 +4,9 @@ import MotionShow from "../effects/Show";
 import GetStartButton from "./GetStartButton";
 import Image from "next/image";
 import { ParticlesDiv } from "./Particles";
+import MotionGradient from "../effects/GradientBg";
 // import Particles from 'react-particles-js';
 
-const AnimatedGradientText = ({ children }: { children: any }) => (
-  <span className="animated-gradient-audio-paper">{children}</span>
-);
 export default function Hero() {
   return (
     <section className=" -z-20 pb-0 mb-0" id="hero-section">
@@ -29,27 +27,27 @@ export default function Hero() {
         <div className="flex items-center  h-[97vh]   relative bg-center z-20">
           <div className="z-10 text-center text-neutral-content w-full ">
             <MotionParallax speed={0.4} type={0} initial={false}>
-            <div className="max-w-3xl mx-auto">
-              <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
+              <div className="max-w-3xl mx-auto">
+                <h1 className="mb-5 px-5 md:text-7xl xs:text-6xl text-5xl  font-bold">
+                  <MotionShow
+                    threshold={0.6}
+                    animation="bounceIn"
+                    initial={false}>
+                    <small className="text-white flex flex-col gap-y-2">
+                      <span className="gap-y-2 text-white">
+                        Transformez vos récits personnels en{" "}
+                        <MotionGradient colors={["#701a75", "#4a044e", "#a21caf", "#86198f"]} className="inline">œuvres intemporelles</MotionGradient>
+                      </span>
+                    </small>
+                  </MotionShow>
+                </h1>
                 <MotionShow
                   threshold={0.6}
                   animation="bounceIn"
                   initial={false}>
-                <small className="text-white flex flex-col gap-y-2">
-                  <span className="gap-y-2 text-white">
-                    Transformez vos récits personnels en{" "}
-                    <AnimatedGradientText>
-                      {" "}
-                      œuvres intemporelles
-                    </AnimatedGradientText>
-                  </span>
-                </small>
+                  <GetStartButton />
                 </MotionShow>
-              </h1>
-              <MotionShow threshold={0.6} animation="bounceIn" initial={false}>
-                <GetStartButton />
-              </MotionShow>
-            </div>
+              </div>
             </MotionParallax>
           </div>
           <div id="appFirstPage" className="bottom-[2.35rem] absolute"></div>

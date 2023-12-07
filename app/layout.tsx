@@ -66,7 +66,7 @@ export default function RootLayout(props: {
             <ToastProvider>
               <NextTopLoader
                 template='<div class="bar" role="bar"><div class="peg"></div></div> 
-              <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+                  <div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
                 color="#3d3d3d"
                 initialPosition={0.08}
                 crawlSpeed={200}
@@ -82,7 +82,7 @@ export default function RootLayout(props: {
                 defaultTheme="light"
                 enableSystem>
                 <div>
-                <Header />
+                  <Header />
                   {children}
                   {/* <SpeedInsights /> */}
                 </div>

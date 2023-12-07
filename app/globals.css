@@ -72,7 +72,7 @@
     @apply bg-white dark:bg-slate-800 bg-opacity-50;
   }
   nav {
-    @apply bg-app-50  fixed w-full z-20 top-0 left-0;
+    @apply bg-app-50   fixed w-full  top-0 left-0 z-[9999];
   }
   nav.on-content {
     @apply bg-opacity-25 backdrop-blur-md border-b border-dashed border-app-400;
@@ -82,7 +82,7 @@
   }
   /* NOTE --> On hero */
   nav.on-hero {
-    @apply bg-transparent border-b border-dashed border-app-950 backdrop-blur-sm  !important;
+    @apply bg-transparent border-b border-dashed border-app-950 backdrop-blur-sm   !important;
   }
 
   .first-section {
@@ -753,5 +753,5 @@ a.btn:not(.btn-outline) {
   @apply text-app-50 bg-app-900 hover:bg-app-700 font-medium hover:border-app-800 hover:no-underline  !important;
 }
 .home-section {
-  @apply -mt-10 pb-8  border-b border-dashed border-app-300 !important;
+  @apply -mt-10 pb-8  border-dashed border-app-300 !important;
 }

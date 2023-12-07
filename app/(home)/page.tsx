@@ -1,9 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import MotionHover from "@/src/feature/layout/effects/Hover";
 import MotionLevitation from "@/src/feature/layout/effects/Levitation";
-import MotionParallax from "@/src/feature/layout/effects/Parallax";
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
@@ -15,7 +13,6 @@ import {
 } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { faGift } from "@fortawesome/pro-solid-svg-icons";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -27,7 +24,7 @@ export default function Home() {
       <Hero />
       <div className="z-50 home-page">
         {/* SECTION : First sec. */}
-        <section className="story-section shadow-t-3xl first-section -mt-1 border-b border-dashed  border-app-300">
+        <section className="story-section shadow-t-3xl first-section -mt-1 border-b border-dashed  border-app-200">
           <div>
             <div className="w-full">
               <MotionShow
@@ -36,7 +33,7 @@ export default function Home() {
                 triggerOnce={true}
                 duration={0.3}>
                 <h2 className="max-md:-mt-8">
-                  Immortalisez vos souvenirs dans un{" "}
+                  Immortalisez vos mémoires dans un{" "}
                   <span className="rounded box-decoration-slice bg-gradient-to-r from-app-700 to-app-800 text-app-50 font-serif py-2 px-2">
                     podcast
                   </span>
@@ -47,7 +44,7 @@ export default function Home() {
                   !
                 </h2>
                 <p className="pt-0">
-                  Ekoseon transforme votre histoire personnelle en{" "}
+                  Ekoseon transforme vos histoires personnelles en{" "}
                   <strong className="">expériences captivantes</strong> grâce à
                   nos services de création de podcasts et d’écriture de livres
                   biographiques. Imprégnez ces formats de votre essence pour
@@ -162,9 +159,9 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Podcast */}
-        <section className="podcast-section  home-section  shadow-sm shadow-app-100">
+        <section className="podcast-section  home-section  ">
           <div className="content  flex md:flex-row gap-x-5 flex-col items-center">
-            <div className="absolute md:opacity-40 opacity-60 box-border  bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
+            <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
               <Image
                 priority={false}
                 src="/img/home/podcast-bg.webp"
@@ -179,7 +176,12 @@ export default function Home() {
                 animation="slideInFromLeft"
                 triggerOnce={true}
                 duration={0.3}>
-                <h2>Podcast biographique : donner voix à votre vie</h2>
+                <h2>
+                  Podcast biographique{" "}
+                  <small className="block md:text-3xl text-2xl">
+                    Donner voix à votre vie.
+                  </small>
+                </h2>
               </MotionShow>
               <MotionShow
                 threshold={0}
@@ -226,7 +228,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Biographie */}
-        <section id="yourStory" className="story-section home-section shadow">
+        <section id="yourStory" className="story-section home-section border-b-2 shadow-lg">
           <div className="content flex md:flex-row flex-col items-center pb-10">
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
@@ -288,7 +290,7 @@ export default function Home() {
                   animation="scaleUp"
                   triggerOnce={true}
                   duration={0.3}>
-                  <MotionLevitation  amp={2} duration={5}>
+                  <MotionLevitation amp={2} duration={5}>
                     <Image
                       src={"/img/home/biographie-photo.webp"}
                       alt="Biographie - Exemple de livre"
@@ -301,7 +303,13 @@ export default function Home() {
               </MotionHover>
             </div>
             <div className="written-biography-option max-md:order-first max-md:mb-10 z-10 md:w-1/2 w-full">
-              <h2>Laisser une trace écrite: un héritage indélébile</h2>
+              <h2>
+                Livre biographique
+                <small className="block md:text-3xl text-2xl">
+                  Les souvenirs s&apos;envolent, les écrits demeurent
+                  éternellement.
+                </small>
+              </h2>
               <p>
                 Si vous optez pour une biographie écrite, Ekoseon vous
                 accompagne dans la création d&apos;un livre-mémoire qui
@@ -314,56 +322,117 @@ export default function Home() {
         {/* SECTION: Coffret numérique et goodies */}
         <section
           id="digital-box"
-          className="digital-box-section   home-section">
-          <div className="content">
-            <h2>
-              Votre coffret numérique : Souvenirs préservés, accès facilité
-            </h2>
-            <p>
-              Toutes vos créations - podcasts & livres - soigneusement
-              conservées dans votre espace privé sécurisé.
-            </p>
+          className="digital-box-section relative home-section">
+          <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
+            <Image
+              priority={false}
+              src="/img/home/coffre-fort-bg.webp"
+              alt="Coffre fort - image de fond"
+              fill
+              className="object-center object-contain brightness-150 opacity-20 select-none"
+            />
+          </div>
+          <div className="content flex md:flex-row flex-col items-center pb-10">
+            <div className="w-1/2">
+              <h2>
+                Coffret numérique
+                <small className="block md:text-3xl text-2xl">
+                  Vos mémoires bien au chaud, sécurisées et accessibles à tout
+                  moment.
+                </small>
+              </h2>
+              <p>
+                Toutes vos créations - podcasts & livres - soigneusement
+                conservées dans votre espace privé sécurisé. Ainsi, vous pouvez
+                y accéder à tout moment, les partager avec vos proches, les
+                éditer et en faire ce que vous voulez !
+              </p>
+            </div>
+            <div className="w-1/2">f</div>
           </div>
         </section>
         {/* SECTION: Cadeau */}
-        <section className="perfect-gift-section  home-section ">
-          <div className="content">
-            <h2>Un cadeau parfait, pour soi ou pour un proche</h2>
-            <p>
-              Marquez les esprits avec un présent personnalisé : immortalisez
-              les histoires qui vous tiennent à cœur dans un podcast unique et
-              une biographie illustrée.
-            </p>
+        <section className="perfect-gift-section  relative home-section">
+          <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
+            <Image
+              priority={false}
+              src="/img/home/cadeau-bg.webp"
+              alt="Coffre fort - image de fond"
+              fill
+              className="object-center object-cover brightness-150 opacity-20 select-none"
+            />
+          </div>
+          <div className="content flex md:flex-row flex-col items-center pb-10">
+            {" "}
+            <div className="w-1/2">f</div>
+            <div className="w-1/2">
+              <h2>
+                Un cadeau éternel
+                <small className="block md:text-3xl text-2xl">
+                  Pour soi, pour nous tous, ou pour un proche.
+                </small>
+              </h2>
+              <p>
+                Marquez les esprits avec un présent personnalisé : immortalisez
+                les histoires qui vous tiennent à cœur dans un podcast unique et
+                une biographie illustrée.
+              </p>
+            </div>
           </div>
         </section>
         {/* SECTION: Pourquoi consigner */}
-        <section className="memories-section   home-section ">
-          <div className="content">
-            <h2>Pourquoi consigner ses mémoires ?</h2>
-            <p>
-              La transmission de nos récits est un pont entre les générations,
-              un moyen d&apos;apprendre, de partager et de se souvenir.
-            </p>
+        <section className="memories-section   home-section relative">
+          <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
+            <Image
+              priority={false}
+              src="/img/home/pourquoi-bg.webp"
+              alt="Coffre fort - image de fond"
+              fill
+              className="object-center object-cover brightness-200 opacity-20 select-none"
+            />
+          </div>
+          <div className="content flex md:flex-row flex-col items-center pb-10">
+            <div className="w-1/2">
+              <h2>Pourquoi consigner ses mémoires ?</h2>
+              <p>
+                La transmission de nos récits est un pont entre les générations,
+                un moyen d&apos;apprendre, de partager et de se souvenir.
+              </p>
+            </div>
+            <div className="w-1/2">f</div>
           </div>
         </section>
         {/* SECTION: Âge */}
-        <section className="timeless-memories-section  -mt-10 section-gradient  ">
-          <div className="content">
-            <h2>
-              Pourquoi partager ses mémoires n&apos;est pas une question
-              d&apos;âge ?
-            </h2>
-            <p>
-              Que vous soyez dans la fleur de l&apos;âge ou que vous ayez
-              accumulé une sagesse plus mûre, chaque histoire a sa valeur. Des
-              premières expériences aux moments marquants, vos récits
-              enrichissent le tissu de notre mémoire collective.
-            </p>
-            <p>
-              Ces partages sont aussi une façon de se libérer, d&apos;offrir ses
-              leçons apprises à autrui et même parfois d&apos;alléger son cœur
-              en immortalisant des souvenirs qui nous tiennent à cœur.
-            </p>
+        <section className="memories-section   home-section relative">
+          <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
+            <Image
+              priority={false}
+              src="/img/home/age-bg.webp"
+              alt="Coffre fort - image de fond"
+              fill
+              className="object-center object-contain brightness-60 opacity-20 select-none"
+            />
+          </div>
+          <div className="content flex md:flex-row flex-col items-center pb-10">
+            <div className="w-1/2">f</div>
+            <div className="w-1/2">
+              <h2>
+                Peu importe l&apos;âge
+                <small className="block md:text-3xl text-2xl">
+                  Nous avons tous une histoire à raconter.
+                </small>
+              </h2>
+              <p>
+                Que vous soyez dans la fleur de l&apos;âge ou que vous ayez
+                accumulé une sagesse plus mûre, chaque histoire a sa valeur. Des
+                premières expériences aux moments marquants, vos récits
+                enrichissent le tissu de notre mémoire collective.
+                <br />
+                Ces partages sont aussi une façon de se libérer, d&apos;offrir
+                ses leçons apprises à autrui et même parfois d&apos;alléger son
+                cœur en immortalisant des souvenirs qui nous tiennent à cœur.
+              </p>
+            </div>
           </div>
         </section>
       </div>
