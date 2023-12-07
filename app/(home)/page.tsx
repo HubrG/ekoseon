@@ -198,8 +198,8 @@ export default function Home() {
                 }>
                 <video autoPlay loop muted playsInline className="w-2/3">
                   <source
-                    src="/img/home/podcast-photo.webm"
-                    type="video/webm"
+                    src="https://res.cloudinary.com/dxdwu31ry/video/upload/v1701942278/Ekoseon/Home/ezgif-3-844257ce98_iajzga.mp4"
+                    type="video/mp4"
                   />
                 </video>
               </Suspense>
