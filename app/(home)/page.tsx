@@ -179,7 +179,7 @@ export default function Home() {
                 <h2>
                   Podcast biographique{" "}
                   <small className="block md:text-3xl text-2xl">
-                    Donner voix à votre vie.
+                    Retracez votre vie en une voix.
                   </small>
                 </h2>
               </MotionShow>
@@ -228,7 +228,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Biographie */}
-        <section id="yourStory" className="story-section home-section border-b-2 shadow-lg">
+        <section id="yourStory" className="story-section home-section border-b shadow">
           <div className="content flex md:flex-row flex-col items-center pb-10">
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
@@ -306,8 +306,8 @@ export default function Home() {
               <h2>
                 Livre biographique
                 <small className="block md:text-3xl text-2xl">
-                  Les souvenirs s&apos;envolent, les écrits demeurent
-                  éternellement.
+                  Les souvenirs s&apos;envolent, les écrits demeurent.
+                  Éternellement.
                 </small>
               </h2>
               <p>
@@ -319,36 +319,28 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* SECTION: Coffret numérique et goodies */}
-        <section
-          id="digital-box"
-          className="digital-box-section relative home-section">
+       {/* SECTION: Pourquoi consigner */}
+       <section className="memories-section   home-section relative">
           <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
             <Image
               priority={false}
-              src="/img/home/coffre-fort-bg.webp"
+              src="/img/home/pourquoi-bg.webp"
               alt="Coffre fort - image de fond"
               fill
-              className="object-center object-contain brightness-150 opacity-20 select-none"
+              className="object-center object-cover brightness-200 opacity-20 select-none"
             />
           </div>
           <div className="content flex md:flex-row flex-col items-center pb-10">
-            <div className="w-1/2">
-              <h2>
-                Coffret numérique
-                <small className="block md:text-3xl text-2xl">
-                  Vos mémoires bien au chaud, sécurisées et accessibles à tout
-                  moment.
-                </small>
-              </h2>
+            <div className="md:w-1/2 w-full">
+              <h2>Pourquoi consigner ses mémoires ?</h2>
               <p>
-                Toutes vos créations - podcasts & livres - soigneusement
-                conservées dans votre espace privé sécurisé. Ainsi, vous pouvez
-                y accéder à tout moment, les partager avec vos proches, les
-                éditer et en faire ce que vous voulez !
+                La transmission de nos récits est un pont entre les générations,
+                un moyen d&apos;apprendre, de partager et de se souvenir.
               </p>
             </div>
-            <div className="w-1/2">f</div>
+            <div className="md:w-1/2 w-full">
+            f  
+            </div>
           </div>
         </section>
         {/* SECTION: Cadeau */}
@@ -364,12 +356,12 @@ export default function Home() {
           </div>
           <div className="content flex md:flex-row flex-col items-center pb-10">
             {" "}
-            <div className="w-1/2">f</div>
-            <div className="w-1/2">
+            <div className="md:w-1/2 w-full">f</div>
+            <div className="md:w-1/2 w-full">
               <h2>
-                Un cadeau éternel
+                Offrez des siècles
                 <small className="block md:text-3xl text-2xl">
-                  Pour soi, pour nous tous, ou pour un proche.
+                  À vous, à un proche, pour nous tous.
                 </small>
               </h2>
               <p>
@@ -380,28 +372,40 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* SECTION: Pourquoi consigner */}
-        <section className="memories-section   home-section relative">
+         {/* SECTION: Coffret numérique et goodies */}
+         <section
+          id="digital-box"
+          className="digital-box-section relative home-section">
+          
           <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
             <Image
               priority={false}
-              src="/img/home/pourquoi-bg.webp"
+              src="/img/home/coffre-fort-bg.webp"
               alt="Coffre fort - image de fond"
               fill
-              className="object-center object-cover brightness-200 opacity-20 select-none"
+              className="object-center object-contain brightness-150 opacity-20 select-none"
             />
           </div>
           <div className="content flex md:flex-row flex-col items-center pb-10">
-            <div className="w-1/2">
-              <h2>Pourquoi consigner ses mémoires ?</h2>
+            <div className="md:w-1/2 w-full">
+              <h2>
+                Coffre numérique
+                <small className="block md:text-3xl text-2xl">
+                  Vos mémoires bien au chaud, sécurisées et accessibles à tout
+                  moment.
+                </small>
+              </h2>
               <p>
-                La transmission de nos récits est un pont entre les générations,
-                un moyen d&apos;apprendre, de partager et de se souvenir.
+                Toutes vos créations - podcasts & livres - soigneusement
+                conservées dans votre espace privé sécurisé. Ainsi, vous pouvez
+                y accéder à tout moment, les partager avec vos proches, les
+                éditer et en faire ce que vous voulez !
               </p>
             </div>
-            <div className="w-1/2">f</div>
+            <div className="md:w-1/2 w-full">f</div>
           </div>
         </section>
+        
         {/* SECTION: Âge */}
         <section className="memories-section   home-section relative">
           <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
@@ -414,12 +418,12 @@ export default function Home() {
             />
           </div>
           <div className="content flex md:flex-row flex-col items-center pb-10">
-            <div className="w-1/2">f</div>
-            <div className="w-1/2">
+            <div className="md:w-1/2 w-full">f</div>
+            <div className="md:w-1/2 w-full">
               <h2>
                 Peu importe l&apos;âge
                 <small className="block md:text-3xl text-2xl">
-                  Nous avons tous une histoire à raconter.
+                  Nous avons tous une histoire à témoigner.
                 </small>
               </h2>
               <p>
