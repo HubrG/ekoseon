@@ -226,13 +226,29 @@ export default function Home() {
                     className="object-center object-cover brightness-150 select-none"
                   />
                 }>
-                <video autoPlay loop muted playsInline className="w-2/3">
-                  <source
-                    src="/img/home/podcast-photo.webm"
-                    type="video/webm"
+                <div className="w-2/3">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto"
+                    poster="https://res.cloudinary.com/dxdwu31ry/image/upload/v1701947246/Ekoseon/Home/Pink_Brown_Modern_Mockup_Podcast_Instagram_Story_vpxhx1.png">
+                    <source
+                      src="/img/home/podcast-photo.webm"
+                      type="video/webm"
+                    />
+                    {/* Ajoutez d'autres sources vidéo si nécessaire */}
+                    Votre navigateur ne prend pas en charge la lecture de
+                    vidéos.
+                  </video>
+                  {/* Image de secours si la vidéo ne peut pas être lue */}
+                  <Image
+                    src="https://res.cloudinary.com/dxdwu31ry/image/upload/v1701947246/Ekoseon/Home/Pink_Brown_Modern_Mockup_Podcast_Instagram_Story_vpxhx1.png"
+                    alt="Image alternative"
+                    className="w-full h-auto hidden"
                   />
-                  <source src="https://res.cloudinary.com/dxdwu31ry/image/upload/v1701947246/Ekoseon/Home/Pink_Brown_Modern_Mockup_Podcast_Instagram_Story_vpxhx1.png" type="image" />
-                </video>
+                </div>
               </Suspense>
             </MotionShow>
           </div>
@@ -411,7 +427,7 @@ export default function Home() {
             </ul>
             <div>
               <blockquote className="font-display md:text-4xl text-2xl text-center border p-5 rounded-lg">
-              “Parce qu&apos;un trésor de belles maximes est préférable à un
+                “Parce qu&apos;un trésor de belles maximes est préférable à un
                 amas de richesses.”
                 <cite className="text-center block text-sm mt-2">
                   Une maxime du philosophe Socrate, qui ne nous serait jamais
