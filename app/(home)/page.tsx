@@ -1,14 +1,20 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
+import MotionGradient from "@/src/feature/layout/effects/GradientBg";
 import MotionHover from "@/src/feature/layout/effects/Hover";
 import MotionLevitation from "@/src/feature/layout/effects/Levitation";
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
 import {
+  faAtom,
+  faGalaxy,
+  faHourglass,
   faPeople,
   faRocket,
   faSolarSystem,
+  faSun,
+  faTimeline,
   faVoicemail,
 } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,13 +40,17 @@ export default function Home() {
                 duration={0.3}>
                 <h2 className="max-md:-mt-8">
                   Immortalisez vos mémoires dans un{" "}
-                  <span className="rounded box-decoration-slice bg-gradient-to-r from-app-700 to-app-800 text-app-50 font-serif py-2 px-2">
+                  <MotionGradient
+                    colors={["#701a75", "#75067b", "#a21caf", "#86198f"]}
+                    className="inline font-serif underline">
                     podcast
-                  </span>
+                  </MotionGradient>
                   , et dans un{" "}
-                  <span className="rounded box-decoration-slice bg-gradient-to-r from-app-700 to-app-800 text-app-50 font-serif py-2 px-2">
+                  <MotionGradient
+                    colors={["#701a75", "#a00ea8", "#a21caf", "#86198f"]}
+                    className="inline font-serif underline">
                     livre
-                  </span>{" "}
+                  </MotionGradient>{" "}
                   !
                 </h2>
                 <p className="pt-0">
@@ -228,7 +238,9 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Biographie */}
-        <section id="yourStory" className="story-section home-section border-b shadow">
+        <section
+          id="yourStory"
+          className="story-section home-section border-b shadow">
           <div className="content flex md:flex-row flex-col items-center pb-10">
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
@@ -319,8 +331,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-       {/* SECTION: Pourquoi consigner */}
-       <section className="memories-section   home-section relative">
+        {/* SECTION: Pourquoi consigner */}
+        <section className="memories-section  home-section relative">
           <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
             <Image
               priority={false}
@@ -330,16 +342,83 @@ export default function Home() {
               className="object-center object-cover brightness-200 opacity-20 select-none"
             />
           </div>
-          <div className="content flex md:flex-row flex-col items-center pb-10">
-            <div className="md:w-1/2 w-full">
+          <div className="content flex  gap-y-10 flex-col pb-10">
+            <div className=" md:text-center text-left w-full">
               <h2>Pourquoi consigner ses mémoires ?</h2>
-              <p>
-                La transmission de nos récits est un pont entre les générations,
-                un moyen d&apos;apprendre, de partager et de se souvenir.
-              </p>
             </div>
-            <div className="md:w-1/2 w-full">
-            f  
+            <ul className="no-home home-pourquoi">
+              <li>
+                <div className=" bg-fuchsia-500">
+                  <FontAwesomeIcon icon={faAtom} spin className="m-auto" />
+                </div>
+                <div>
+                  <h3>Pour soi-même</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae eius praesentium quis sequi laudantium, quos excepturi
+                    tempore nesciunt doloribus quod itaque debi.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className=" bg-pink-500">
+                  <FontAwesomeIcon
+                    icon={faGalaxy}
+                    spin
+                    spinReverse
+                    className="m-auto"
+                  />
+                </div>
+                <div>
+                  <h3>Pour nos proches</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae eius praesentium quis sequi laudantium, quos excepturi
+                    tempore nesciunt doloribus quod itaque debi.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className=" bg-orange-500">
+                  <FontAwesomeIcon
+                    icon={faHourglass}
+                    spinPulse
+                    className="m-auto"
+                  />
+                </div>
+                <div>
+                  <h3>Pour l&apos;histoire</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae eius praesentium quis sequi laudantium, quos excepturi
+                    tempore nesciunt doloribus quod itaque debi.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div className=" bg-purple-500">
+                  <FontAwesomeIcon icon={faSun} beatFade className="m-auto" />
+                </div>
+                <div>
+                  <h3>Par devoir moral</h3>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quae eius praesentium quis sequi laudantium, quos excepturi
+                    tempore nesciunt doloribus quod itaque debi.
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <div>
+              <blockquote className="font-display md:text-4xl text-2xl text-center border p-5 rounded-lg">
+              “Parce qu&apos;un trésor de belles maximes est préférable à un
+                amas de richesses.”
+                <cite className="text-center block text-sm mt-2">
+                  Une maxime du philosophe Socrate, qui ne nous serait jamais
+                  parvenue si Platon ne l&apos;avait pas consignée par écrit il
+                  y a 2400 ans.
+                </cite>
+              </blockquote>
             </div>
           </div>
         </section>
@@ -359,7 +438,7 @@ export default function Home() {
             <div className="md:w-1/2 w-full">f</div>
             <div className="md:w-1/2 w-full">
               <h2>
-                Offrez des siècles
+                Offrez des siècles d&apos;existence
                 <small className="block md:text-3xl text-2xl">
                   À vous, à un proche, pour nous tous.
                 </small>
@@ -372,11 +451,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-         {/* SECTION: Coffret numérique et goodies */}
-         <section
+        {/* SECTION: Coffret numérique et goodies */}
+        <section
           id="digital-box"
           className="digital-box-section relative home-section">
-          
           <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
             <Image
               priority={false}
@@ -405,7 +483,7 @@ export default function Home() {
             <div className="md:w-1/2 w-full">f</div>
           </div>
         </section>
-        
+
         {/* SECTION: Âge */}
         <section className="memories-section   home-section relative">
           <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">

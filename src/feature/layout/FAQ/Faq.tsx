@@ -9,6 +9,7 @@ import {
 import { faCommentDots } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { v4 } from "uuid";
+// NOTE : Je n'ai rien à raconter d'interessant
 
 export default function FAQComponent() {
   const [activeTriggers, setActiveTriggers] = useState<Set<string>>(new Set());
@@ -25,7 +26,6 @@ export default function FAQComponent() {
     });
   };
   const faqSections = [
-    
     {
       title: "Informations Générales",
       items: [
@@ -207,32 +207,38 @@ export default function FAQComponent() {
   return (
     <>
       {faqSections.map((section, sectionIndex) => (
-        <section className="relative" key={"f"+sectionIndex}>
-          <h2 className="py-5 sticky top-[4.63rem] bg-white z-10">{section.title}</h2>
+        <section className="relative" key={"f" + sectionIndex}>
+          <h2 className="py-5 sticky top-[4.63rem] bg-white z-10">
+            {section.title}
+          </h2>
           <Accordion type="multiple" className="w-full">
             {section.items.map((item, itemIndex) => {
               const triggerId = `section-${sectionIndex}-item-${itemIndex}`;
               return (
                 <React.Fragment key={v4() + itemIndex}>
-                <AccordionItem
-                  value={triggerId} className="transition-all duration-200">
-                  <AccordionTrigger
-                    className={`w-full text-left text-lg flex items-center hover:bg-app-100 italic font-semibold  px-2 ${
-                      activeTriggers.has(triggerId) ? "bg-app-100 " : ""
-                    }`}
-                    onClick={() => handleTriggerClick(triggerId)}>
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="transition-all duration-200">
-                    <p className="py-2 pt-4 flex flex-row items-baseline pl-4 gap-x-2">
-                      <FontAwesomeIcon icon={faCommentDots} flip="horizontal" />
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: item.answer,
-                        }}></span>
-                    </p>
-                  </AccordionContent>
-                    </AccordionItem>
+                  <AccordionItem
+                    value={triggerId}
+                    className="transition-all duration-200">
+                    <AccordionTrigger
+                      className={`w-full text-left text-lg flex items-center hover:bg-app-100 italic font-semibold  px-2 ${
+                        activeTriggers.has(triggerId) ? "bg-app-100 " : ""
+                      }`}
+                      onClick={() => handleTriggerClick(triggerId)}>
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="transition-all duration-200">
+                      <p className="py-2 pt-4 flex flex-row items-baseline pl-4 gap-x-2">
+                        <FontAwesomeIcon
+                          icon={faCommentDots}
+                          flip="horizontal"
+                        />
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: item.answer,
+                          }}></span>
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
                 </React.Fragment>
               );
             })}

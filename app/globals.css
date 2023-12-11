@@ -755,3 +755,27 @@ a.btn:not(.btn-outline) {
 .home-section {
   @apply -mt-10 pb-8  border-dashed border-app-300 !important;
 }
+
+.paper-tear .text {
+  color: black;
+  font-size: 16px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+ul.no-home.home-pourquoi {
+  @apply  flex flex-col md:flex-row gap-y-2 gap-x-10 !important;
+}
+ul.home-pourquoi li {
+  @apply  flex md:flex-col flex-row gap-x-5 gap-y-10 md:justify-center justify-start md:items-center items-start !important;
+}
+ul.home-pourquoi li div:first-child {
+  @apply  rounded-full md:w-28 md:h-28 w-16 h-16 flex bg-opacity-20 self-start  !important;
+}
+ul.home-pourquoi li div:nth-child(2) {
+  @apply md:text-justify text-left md:w-full w-2/3 flex flex-col !important;
+}
+ul.home-pourquoi li div:nth-child(2) h3 {
+  @apply  md:-mt-20 mt-0 !important;
+}
