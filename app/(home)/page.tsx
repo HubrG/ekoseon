@@ -231,7 +231,7 @@ export default function Home() {
                     src="/img/home/podcast-photo.webm"
                     type="video/webm"
                   />
-                  <source src="/img/home/podcast-photo.mp4" type="video/mp4" />
+                  <source src="https://res.cloudinary.com/dxdwu31ry/image/upload/v1701947246/Ekoseon/Home/Pink_Brown_Modern_Mockup_Podcast_Instagram_Story_vpxhx1.png" type="image" />
                 </video>
               </Suspense>
             </MotionShow>
