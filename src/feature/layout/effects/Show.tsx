@@ -25,10 +25,13 @@ interface MotionShowProps {
     | "scaleUp"
     | "scaleDown"
     | "flipX"
-    | "flipY";
+    | "flipY"
+    | "infinityRotate"
+    | "beatFade";
   slowNtw?: boolean;
   initial?: boolean;
   className?: string;
+  repeat?: number | "Infinity";
 }
 
 const variants: { [key: string]: Variants } = {
@@ -100,6 +103,14 @@ const variants: { [key: string]: Variants } = {
     visible: { opacity: 1, rotateY: 0 },
     hidden: { opacity: 0, rotateY: 90 },
   },
+  infinityRotate: {
+    visible: { opacity: 1, rotate: [0, 360] },
+    hidden: { opacity: 0, rotate: 0 },
+  },
+  beatFade: {
+    visible: { opacity: 1, scale: [1, 1.8, 1] },
+    hidden: { opacity: 1, scale: 0 },
+  },
 };
 
 const MotionShow: React.FC<MotionShowProps> = ({
@@ -110,6 +121,7 @@ const MotionShow: React.FC<MotionShowProps> = ({
   animation = "BottomToTop",
   initial,
   className,
+  repeat = undefined,
 }) => {
   const controls = useAnimation();
   const { ref, inView } = useInView({
@@ -139,7 +151,12 @@ const MotionShow: React.FC<MotionShowProps> = ({
         className={className}
         animate={controls}
         initial={initial ? initial : "hidden"}
-        transition={{ duration: duration, type: "tween", stiffness: 50 }}
+        transition={{
+          repeat: repeat == "Infinity" ? Infinity : repeat,
+          duration: duration,
+          type: "tween",
+          stiffness: 50,
+        }}
         variants={variants[animation]}>
         {children}
       </motion.div>

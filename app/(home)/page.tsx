@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import MotionGradient from "@/src/feature/layout/effects/GradientBg";
 import MotionHover from "@/src/feature/layout/effects/Hover";
 import MotionLevitation from "@/src/feature/layout/effects/Levitation";
+import MotionParallax from "@/src/feature/layout/effects/Parallax";
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
@@ -246,6 +247,8 @@ export default function Home() {
                   <Image
                     src="https://res.cloudinary.com/dxdwu31ry/image/upload/v1701947246/Ekoseon/Home/Pink_Brown_Modern_Mockup_Podcast_Instagram_Story_vpxhx1.png"
                     alt="Image alternative"
+                    width={600}
+                    height={600}
                     className="w-full h-auto hidden"
                   />
                 </div>
@@ -349,7 +352,7 @@ export default function Home() {
         </section>
         {/* SECTION: Pourquoi consigner */}
         <section className="memories-section  home-section relative">
-          <div className="absolute md:opacity-40 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
+          <div className="absolute md:opacity-30 opacity-60 box-border inset-0 bottom-0 z-0  backdrop-brightness-80 h-full">
             <Image
               priority={false}
               src="/img/home/pourquoi-bg.webp"
@@ -364,7 +367,7 @@ export default function Home() {
             </div>
             <ul className="no-home home-pourquoi">
               <li>
-                <div className=" bg-fuchsia-500">
+                <div className=" bg-fuchsia-500 mask mask-decagon">
                   <FontAwesomeIcon icon={faAtom} spin className="m-auto" />
                 </div>
                 <div>
@@ -377,7 +380,7 @@ export default function Home() {
                 </div>
               </li>
               <li>
-                <div className=" bg-pink-500">
+                <div className=" bg-pink-500 mask mask-hexagon-2">
                   <FontAwesomeIcon
                     icon={faGalaxy}
                     spin
@@ -412,7 +415,7 @@ export default function Home() {
                 </div>
               </li>
               <li>
-                <div className=" bg-purple-500">
+                <div className=" bg-purple-500 mask mask-star-2">
                   <FontAwesomeIcon icon={faSun} beatFade className="m-auto" />
                 </div>
                 <div>
@@ -425,15 +428,47 @@ export default function Home() {
                 </div>
               </li>
             </ul>
-            <div>
-              <blockquote className="font-display md:text-4xl text-2xl text-center border p-5 rounded-lg">
-                “Parce qu&apos;un trésor de belles maximes est préférable à un
-                amas de richesses.”
-                <cite className="text-center block text-sm mt-2">
-                  Une maxime du philosophe Socrate, qui ne nous serait jamais
-                  parvenue si Platon ne l&apos;avait pas consignée par écrit il
-                  y a 2400 ans.
-                </cite>
+            <div className="flex flex-col justify-center h-[70vh]   mt-10">
+              <MotionShow
+                threshold={0}
+                className="relative flex justify-center"
+                animation="BottomToTop"
+                triggerOnce={true}>
+                <MotionShow
+                  threshold={0}
+                  className="absolute rounded-lg mx-auto z-10"
+                  animation="beatFade"
+                  duration={60}
+                  repeat={1}
+                  triggerOnce={false}>
+                  <Image
+                    id="Socrate"
+                    alt="Socrate"
+                    src="/img/home/socrate-circle.webp"
+                    width={350}
+                    height={100}
+                    className=""
+                  />
+                </MotionShow>
+                <Image
+                  id="Socrate"
+                  alt="Socrate"
+                  src="/img/home/socrate.webp"
+                  width={300}
+                  height={100}
+                  className="rounded-lg mx-auto z-20 brightness-150 "
+                />
+              </MotionShow>
+              <blockquote className=" rounded-lg flex flex-row z-50">
+                <div className="font-display  md:text-5xl flex items-center my-auto flex-col md:w-2/3 w-full mx-auto text-4xl mt-20 text-center ">
+                  “Parce qu&apos;un trésor de belles maximes est préférable à un
+                  amas de richesses.”
+                  <cite className="text-center block text-sm mt-2">
+                    Une maxime du philosophe Socrate, qui ne nous serait jamais
+                    parvenue si Platon ne l&apos;avait pas consignée par écrit
+                    il y a 2400 ans.
+                  </cite>
+                </div>
               </blockquote>
             </div>
           </div>
