@@ -373,9 +373,7 @@ export default function Home() {
                 <div>
                   <h3>Pour soi-même</h3>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quae eius praesentium quis sequi laudantium, quos excepturi
-                    tempore nesciunt doloribus quod itaque debi.
+                   Consigner une expérience; sa vie et ses moments forts, pour s&apos;en souvenir ou s&apos;en libérer est une expérience cathartique, une façon de se reconnecter à soi-même, de se recentrer sur ce qui compte vraiment.
                   </p>
                 </div>
               </li>
@@ -391,9 +389,7 @@ export default function Home() {
                 <div>
                   <h3>Pour nos proches</h3>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quae eius praesentium quis sequi laudantium, quos excepturi
-                    tempore nesciunt doloribus quod itaque debi.
+                    C&apos;est l&apos;assurance de laisser un <strong>héritage immatériel de poids</strong> qui permettra à vos proches comme à vos lointains de se souvenir de vous. Mieux ! C&apos;est leur offrir de prendre de la hauteur, de s&apos;identifier, <strong>de s&apos;inscrire dans une généalogie</strong>.
                   </p>
                 </div>
               </li>
@@ -408,9 +404,8 @@ export default function Home() {
                 <div>
                   <h3>Pour l&apos;histoire</h3>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quae eius praesentium quis sequi laudantium, quos excepturi
-                    tempore nesciunt doloribus quod itaque debi.
+                    Votre vie reflète une partie de l&apos;histoire collective. En la consignant, vous contribuez à la mémoire
+                    collective de votre région, de votre pays, et de proche en proche, de l&apos;humanité.
                   </p>
                 </div>
               </li>
@@ -421,9 +416,9 @@ export default function Home() {
                 <div>
                   <h3>Par devoir moral</h3>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quae eius praesentium quis sequi laudantium, quos excepturi
-                    tempore nesciunt doloribus quod itaque debi.
+                    Vos expériences. En consignant vos mémoires, vous
+                    accomplissez un devoir moral envers les générations
+                    futures.
                   </p>
                 </div>
               </li>
@@ -489,7 +484,7 @@ export default function Home() {
           </div>
           <div className="content flex md:flex-row flex-col items-center pb-10">
             {" "}
-            <div className="md:w-1/2 w-full">f</div>
+            <div className="md:w-1/2 w-full"></div>
             <div className="md:w-1/2 w-full">
               <h2>
                 Offrez des siècles d&apos;existence
@@ -534,7 +529,7 @@ export default function Home() {
                 éditer et en faire ce que vous voulez !
               </p>
             </div>
-            <div className="md:w-1/2 w-full">f</div>
+            <div className="md:w-1/2 w-full"></div>
           </div>
         </section>
 
@@ -550,7 +545,7 @@ export default function Home() {
             />
           </div>
           <div className="content flex md:flex-row flex-col items-center pb-10">
-            <div className="md:w-1/2 w-full">f</div>
+            <div className="md:w-1/2 w-full"></div>
             <div className="md:w-1/2 w-full">
               <h2>
                 Peu importe l&apos;âge
