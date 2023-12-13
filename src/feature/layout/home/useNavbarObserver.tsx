@@ -36,5 +36,9 @@ export const useNavbarObserver = () => {
     return () => {
       if (heroSection) observer.unobserve(heroSection);
     };
+
+
+
+    
   }, []);
 };

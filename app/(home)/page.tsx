@@ -3,10 +3,10 @@ import { Separator } from "@/components/ui/separator";
 import MotionGradient from "@/src/feature/layout/effects/GradientBg";
 import MotionHover from "@/src/feature/layout/effects/Hover";
 import MotionLevitation from "@/src/feature/layout/effects/Levitation";
-import MotionParallax from "@/src/feature/layout/effects/Parallax";
 import MotionShow from "@/src/feature/layout/effects/Show";
 import Hero from "@/src/feature/layout/home/Hero";
 import { useNavbarObserver } from "@/src/feature/layout/home/useNavbarObserver";
+import { useSocrateObserver } from "@/src/feature/layout/home/useSocrateObserver";
 import {
   faAtom,
   faGalaxy,
@@ -15,7 +15,6 @@ import {
   faRocket,
   faSolarSystem,
   faSun,
-  faTimeline,
   faVoicemail,
 } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +24,7 @@ import { Suspense } from "react";
 
 export default function Home() {
   useNavbarObserver();
+  useSocrateObserver();
 
   return (
     <>
@@ -428,49 +428,52 @@ export default function Home() {
                 </div>
               </li>
             </ul>
-            <div className="flex flex-col justify-center h-[70vh]   mt-10">
+          </div>
+        </section>
+        <section className=" home-section relative" 
+            id="socrate">
+          <div
+            className="flex flex-col justify-center h-[70vh]   mt-10">
+            <MotionShow
+              threshold={0}
+              className="relative flex justify-center"
+              animation="BottomToTop"
+              triggerOnce={true}>
               <MotionShow
                 threshold={0}
-                className="relative flex justify-center"
-                animation="BottomToTop"
-                triggerOnce={true}>
-                <MotionShow
-                  threshold={0}
-                  className="absolute rounded-lg mx-auto z-10"
-                  animation="beatFade"
-                  duration={60}
-                  repeat={1}
-                  triggerOnce={false}>
-                  <Image
-                    id="Socrate"
-                    alt="Socrate"
-                    src="/img/home/socrate-circle.webp"
-                    width={350}
-                    height={100}
-                    className=""
-                  />
-                </MotionShow>
+                className="absolute rounded-lg mx-auto z-10"
+                animation="beatFade"
+                duration={60}
+                repeat={1}
+                triggerOnce={false}>
                 <Image
-                  id="Socrate"
                   alt="Socrate"
-                  src="/img/home/socrate.webp"
-                  width={300}
+                  src="/img/home/socrate-circle.webp"
+                  width={350}
                   height={100}
-                  className="rounded-lg mx-auto z-20 brightness-150 "
+                  className=""
                 />
               </MotionShow>
-              <blockquote className=" rounded-lg flex flex-row z-50">
-                <div className="font-display  md:text-5xl flex items-center my-auto flex-col md:w-2/3 w-full mx-auto text-4xl mt-20 text-center ">
-                  “Parce qu&apos;un trésor de belles maximes est préférable à un
-                  amas de richesses.”
-                  <cite className="text-center block text-sm mt-2">
-                    Une maxime du philosophe Socrate, qui ne nous serait jamais
-                    parvenue si Platon ne l&apos;avait pas consignée par écrit
-                    il y a 2400 ans.
-                  </cite>
-                </div>
-              </blockquote>
-            </div>
+              <Image
+                id="Socrate"
+                alt="Socrate"
+                src="/img/home/socrate.webp"
+                width={300}
+                height={100}
+                className="rounded-lg mx-auto z-20 brightness-150 "
+              />
+            </MotionShow>
+            <blockquote className=" rounded-lg flex flex-row z-50">
+              <div className="font-display  md:text-5xl flex items-center my-auto flex-col md:w-2/3 w-full mx-auto text-4xl mt-20 text-center ">
+                “Parce qu&apos;un trésor de belles maximes est préférable à un
+                amas de richesses.”
+                <cite className="text-center block text-sm mt-2">
+                  Une maxime du philosophe Socrate, qui ne nous serait jamais
+                  parvenue si Platon ne l&apos;avait pas consignée par écrit il
+                  y a 2400 ans.
+                </cite>
+              </div>
+            </blockquote>
           </div>
         </section>
         {/* SECTION: Cadeau */}

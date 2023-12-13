@@ -779,3 +779,9 @@ ul.home-pourquoi li div:nth-child(2) {
 ul.home-pourquoi li div:nth-child(2) h3 {
   @apply  md:-mt-20 mt-0 !important;
 }
+.blur-all-for-socrate section:not(section#socrate), .blur-all-for-socrate section:not(section#socrate) * {
+  @apply transform duration-300 grayscale opacity-10 !important;
+}
+.home-page section {
+  @apply  transform duration-300;
+}
