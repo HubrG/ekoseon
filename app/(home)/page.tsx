@@ -11,7 +11,9 @@ import {
   faAtom,
   faGalaxy,
   faHourglass,
+  faMegaphone,
   faPeople,
+  faPuzzle,
   faRocket,
   faSolarSystem,
   faSun,
@@ -46,7 +48,7 @@ export default function Home() {
                     className="inline font-serif underline">
                     podcast
                   </MotionGradient>
-                  , et dans un{" "}
+                  , ou dans un{" "}
                   <MotionGradient
                     colors={["#701a75", "#a00ea8", "#a21caf", "#86198f"]}
                     className="inline font-serif underline">
@@ -55,12 +57,14 @@ export default function Home() {
                   !
                 </h2>
                 <p className="pt-0">
-                  Ekoseon transforme vos histoires personnelles en{" "}
-                  <strong className="">expériences captivantes</strong> grâce à
-                  nos services de création de podcasts et d’écriture de livres
-                  biographiques. Imprégnez ces formats de votre essence pour
-                  offrir à vos proches un morceau de votre vie, enrichi par une
-                  touche personnelle inoubliable.
+                  Nous sublimons vos histoires personnelles au travers d&apos;
+                  <strong>entretiens biographiques enregistrés</strong> de
+                  grande qualité, montés, facilement diffusables et
+                  soigneusement conservés. Et si ce n&apos;est pas suffisant,
+                  nous transposons le contenu de ces entretiens dans{" "}
+                  <strong>un véritable livre autobiographie</strong>{" "}
+                  soigneusement rédigé, imprimé et relié dans une somptueuse
+                  édition.
                 </p>
               </MotionShow>
             </div>
@@ -79,15 +83,15 @@ export default function Home() {
                           <FontAwesomeIcon icon={faVoicemail} />
                         </div>
                         <div>
-                          <h3>Authenticité de la voix</h3>
+                          <h3>Qualité sonore</h3>
                           <p>
-                            Vos passions, vos rires et vos réflexions entrent
-                            dans une nouvelle dimension en s&apos;encrant dans
-                            un enregistrement audio de grande qualité,{" "}
-                            <span className="font-semibold">
-                              même à distance
-                            </span>{" "}
-                            !
+                            Votre voix, vos rires, vos trémolos et intonnations
+                            entrent dans une nouvelle dimension en
+                            s&apos;encrant dans un{" "}
+                            <strong>
+                              enregistrement audio de qualité studio
+                            </strong>
+                            , même à distance !
                           </p>
                         </div>
                       </MotionShow>
@@ -102,10 +106,11 @@ export default function Home() {
                           <FontAwesomeIcon icon={faPeople} />
                         </div>
                         <div>
-                          <h3>Connexion émotionnelle</h3>
+                          <h3>Simplicité</h3>
                           <p>
-                            Provoquez une résonance émotionnelle chez vos
-                            auditeurs, qui se sentiront comme à vos côtés.
+                            Nous prenons les rênes et vous guidons à travers un
+                            processus de création simple, non contraignant et
+                            respectueux de votre rythme. Laissez-vous porter !
                           </p>
                         </div>
                       </MotionShow>
@@ -121,14 +126,15 @@ export default function Home() {
                         triggerOnce={true}
                         duration={0.3}>
                         <div>
-                          <FontAwesomeIcon icon={faVoicemail} />
+                          <FontAwesomeIcon icon={faPuzzle} />
                         </div>
                         <div>
-                          <h3>Expérience Personnalisée :</h3>
+                          <h3>Respect narratif</h3>
                           <p>
-                            Nous adaptons le récit en fonction de vos
-                            préférences, pour que chaque souvenir reflète
-                            fidèlement votre individualité.
+                            Dans le montage audio comme à l&apos;écrit, nous
+                            mettons un point d&apos;honneur à ne jamais
+                            travestir vos souhaits de narration, votre ton,
+                            votre personnalité.
                           </p>
                         </div>
                       </MotionShow>
@@ -140,13 +146,14 @@ export default function Home() {
                         triggerOnce={true}
                         duration={0.3}>
                         <div>
-                          <FontAwesomeIcon icon={faVoicemail} />
+                          <FontAwesomeIcon icon={faMegaphone} />
                         </div>
                         <div>
-                          <h3>Transmission des Valeurs :</h3>
+                          <h3>Liberté</h3>
                           <p>
-                            Partagez vos expériences de vie et votre sagesse,
-                            fixées dans l&apos;oralité ou dans les mots.
+                            Nous accordons une grande importance à la liberté
+                            d&apos;expression de chacun. Vous êtes libre de vous
+                            raconter comme vous le souhaitez.
                           </p>
                         </div>
                       </MotionShow>
@@ -257,9 +264,7 @@ export default function Home() {
           </div>
         </section>
         {/* SECTION: Biographie */}
-        <section
-          id="yourStory"
-          className="story-section home-section border-b shadow">
+        <section id="yourStory" className="story-section home-section ">
           <div className="content flex md:flex-row flex-col items-center pb-10">
             <div className="absolute opacity-10  box-border background-hero bottom-0 z-0 inset-0 backdrop-brightness-80 h-full">
               <Image
@@ -368,67 +373,74 @@ export default function Home() {
             <ul className="no-home home-pourquoi">
               <li>
                 <div className=" bg-fuchsia-500 mask mask-decagon">
-                  <FontAwesomeIcon icon={faAtom} spin className="m-auto" />
+                  <FontAwesomeIcon icon={faAtom} className="m-auto" />
                 </div>
                 <div>
                   <h3>Pour soi-même</h3>
                   <p>
-                   Consigner une expérience; sa vie et ses moments forts, pour s&apos;en souvenir ou s&apos;en libérer est une expérience cathartique, une façon de se reconnecter à soi-même, de se recentrer sur ce qui compte vraiment.
+                    Consigner <strong>un évènement</strong> singulier de son
+                    existence, sinon <strong>sa vie entière</strong>, tant pour
+                    ne rien oublier que pour s&apos;en libérer, est une
+                    expérience grisante et salutaire. C&apos;est{" "}
+                    <strong>
+                      une noble manière de se reconnecter à soi-même
+                    </strong>{" "}
+                    et de se recentrer sur ce qui compte vraiment.
                   </p>
                 </div>
               </li>
               <li>
                 <div className=" bg-pink-500 mask mask-hexagon-2">
-                  <FontAwesomeIcon
-                    icon={faGalaxy}
-                    spin
-                    spinReverse
-                    className="m-auto"
-                  />
+                  <FontAwesomeIcon icon={faGalaxy} className="m-auto" />
                 </div>
                 <div>
                   <h3>Pour nos proches</h3>
                   <p>
-                    C&apos;est l&apos;assurance de laisser un <strong>héritage immatériel de poids</strong> qui permettra à vos proches comme à vos lointains de se souvenir de vous. Mieux ! C&apos;est leur offrir de prendre de la hauteur, de s&apos;identifier, <strong>de s&apos;inscrire dans une généalogie</strong>.
+                    C&apos;est l&apos;assurance de laisser un{" "}
+                    <strong>héritage immatériel de poids</strong> qui permettra
+                    à vos proches comme à vos lointains de se souvenir de vous.
+                    Mieux ! C&apos;est leur offrir de prendre de la hauteur, de
+                    s&apos;identifier,{" "}
+                    <strong>de s&apos;inscrire dans une généalogie</strong>.
                   </p>
                 </div>
               </li>
               <li>
                 <div className=" bg-orange-500">
-                  <FontAwesomeIcon
-                    icon={faHourglass}
-                    spinPulse
-                    className="m-auto"
-                  />
+                  <FontAwesomeIcon icon={faHourglass} className="m-auto" />
                 </div>
                 <div>
                   <h3>Pour l&apos;histoire</h3>
                   <p>
-                    Votre vie reflète une partie de l&apos;histoire collective. En la consignant, vous contribuez à la mémoire
-                    collective de votre région, de votre pays, et de proche en proche, de l&apos;humanité.
+                    Notre vie reflète une partie de l&apos;histoire collective.
+                    La consigner contribue à l&apos;édification de la mémoire de
+                    votre commune, de votre région, de votre pays, et de proche
+                    en proche, de l&apos;humanité. Les historiens saisissent
+                    l&apos;esprit du temps à travers les récits de vie.
                   </p>
                 </div>
               </li>
               <li>
                 <div className=" bg-purple-500 mask mask-star-2">
-                  <FontAwesomeIcon icon={faSun} beatFade className="m-auto" />
+                  <FontAwesomeIcon icon={faSun} className="m-auto" />
                 </div>
                 <div>
                   <h3>Par devoir moral</h3>
                   <p>
-                    Vos expériences. En consignant vos mémoires, vous
-                    accomplissez un devoir moral envers les générations
-                    futures.
+                    En consignant vos mémoires, vous enrichissez le patrimoine
+                    commun de l&apos;humanité de vos expériences. C&apos;est un
+                    acte altruiste qui offre à tous une fenêtre supplémentaire
+                    pour mieux comprendre ce qui s&apos;articule en chacun de
+                    nous, aidant les autres à apprendre de vos réussites,
+                    échecs, difficultés et défis.
                   </p>
                 </div>
               </li>
             </ul>
           </div>
         </section>
-        <section className=" home-section relative" 
-            id="socrate">
-          <div
-            className="flex flex-col justify-center h-[70vh]   mt-10">
+        <section className=" home-section relative" id="socrate">
+          <div className="flex flex-col justify-center h-[60vh]   mt-10">
             <MotionShow
               threshold={0}
               className="relative flex justify-center"

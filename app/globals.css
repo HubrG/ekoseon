@@ -721,7 +721,7 @@ div.home-page section > div div p:not(ul) {
   @apply lg:text-xl md:text-xl text-lg pt-5  text-app-900 dark:text-app-50;
 }
 div.home-page ul.no-home {
-  @apply flex flex-col md:flex-row gap-5;
+  @apply flex flex-col md:flex-row gap-14;
 }
 div.home-page ul.no-home li {
   @apply mb-5 flex md:flex-row flex-col md:text-left text-center md:justify-start justify-center w-full items-start;
@@ -737,10 +737,7 @@ div.home-page ul.no-home h3 {
   @apply sm:text-3xl text-3xl text-app-900 my-0 py-0 font-display !important;
 }
 div.home-page ul.no-home p {
-  @apply text-lg my-0 py-0 !important;
-}
-div.home-page ul.no-home p {
-  @apply text-lg my-0 py-0 !important;
+  @apply text-base my-0 py-0 !important;
 }
 div.home-page ul.no-home svg {
   @apply sm:text-4xl text-2xl;
