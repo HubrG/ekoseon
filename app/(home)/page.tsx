@@ -92,7 +92,7 @@ export default function Home() {
                             <strong>
                               enregistrement audio de qualité studio
                             </strong>
-                            , même à distance !
+                            , même à distance et peu importe votre équipement !
                           </p>
                         </div>
                       </MotionShow>
