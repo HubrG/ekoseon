@@ -15,6 +15,7 @@ import {
   faPeople,
   faPuzzle,
   faRocket,
+  faRocketLaunch,
   faSolarSystem,
   faSun,
   faVoicemail,
@@ -217,6 +218,14 @@ export default function Home() {
                   tableau sonore qui transcende le temps et touche les cœurs de
                   façon unique.
                 </p>
+                <div className="flex max-md:flex-col justify-center  gap-5 mt-12 ">
+                  <Link
+                    href="/raconter-ses-memoires/tarifs"
+                    className="btn btn-outline">
+                    <FontAwesomeIcon icon={faRocketLaunch} />
+                    Je commence mon podcast
+                  </Link>
+                </div>
               </MotionShow>
             </div>
             <MotionShow
@@ -352,6 +361,14 @@ export default function Home() {
                 traversera les âges, tout comme les mythes et légendes ont
                 survécu grâce à leur transcription.
               </p>
+              <div className="flex max-md:flex-col justify-center  gap-5 mt-12 ">
+                <Link
+                  href="/raconter-ses-memoires/tarifs"
+                  className="btn btn-outline">
+                  <FontAwesomeIcon icon={faRocketLaunch} />
+                  Je commence ma biographie
+                </Link>
+              </div>
             </div>
           </div>
         </section>
