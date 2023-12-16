@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "prisma migrate deploy && prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "commit": "cz"
   },
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^6.5.1",

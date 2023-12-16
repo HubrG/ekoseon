@@ -63,7 +63,7 @@ export default function Home() {
                   grande qualité, montés, facilement diffusables et
                   soigneusement conservés. Et si ce n&apos;est pas suffisant,
                   nous transposons le contenu de ces entretiens dans{" "}
-                  <strong>un véritable livre autobiographie</strong>{" "}
+                  <strong>un véritable livre autobiographique</strong>{" "}
                   soigneusement rédigé, imprimé et relié dans une somptueuse
                   édition.
                 </p>
@@ -234,6 +234,7 @@ export default function Home() {
               animation="BottomToTop"
               triggerOnce={true}
               duration={0.3}>
+              {/* Coucou */}
               <Suspense
                 fallback={
                   <Image
