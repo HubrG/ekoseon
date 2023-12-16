@@ -256,7 +256,6 @@ export default function Home() {
                       src="/img/home/podcast-photo.webm"
                       type="video/webm"
                     />
-                    {/* Ajoutez d'autres sources vidéo si nécessaire */}
                     Votre navigateur ne prend pas en charge la lecture de
                     vidéos.
                   </video>
