@@ -260,7 +260,6 @@ export default function Home() {
                     Votre navigateur ne prend pas en charge la lecture de
                     vidéos.
                   </video>
-                  {/* Image de secours si la vidéo ne peut pas être lue */}
                   <Image
                     src="https://res.cloudinary.com/dxdwu31ry/image/upload/v1701947246/Ekoseon/Home/Pink_Brown_Modern_Mockup_Podcast_Instagram_Story_vpxhx1.png"
                     alt="Image alternative"
