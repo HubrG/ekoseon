@@ -35,8 +35,8 @@ export default function contact() {
               Si vous préférez une prise de contact plus personnelle ou une
               réponse immédiate, n’hésitez pas à nous appeler au numéro suivant
               :
-              <a href="tel:+33612758261" className="phone-link">
-                +33.6.12.75.82.61
+              <a href="tel:+33780947330" className="phone-link">
+                0780947330
               </a>
               . Nous sommes disponibles pour échanger avec vous, comprendre vos
               attentes et vous guider à travers nos services.
